@@ -110,7 +110,7 @@ Source of truth: `docs/integrations/tms-to-broker.md` in `atetz/integration-sand
 
 | Target | Source | Rule |
 |---|---|---|
-| `meta.senderId` | _constant_ | `{{broker.sender.id}}` |
+| `meta.senderId` | _constant_ | `{{broker.sender.id}}` — fixed organisation id (`KITT`), not per customer |
 | `meta.messageDate` | _generated_ | Transmission timestamp, ISO-8601 UTC with millis |
 | `meta.messageReference` | `id` | Shipment id |
 | `meta.messageFunction` | _constant_ | `9` (NEW) |
@@ -156,7 +156,7 @@ Verified against the documented example: 3 line items with `total_packages` 4/1/
 # tms-shipment-to-broker-order
 tms.poll.period=60000
 tms.poll.limit=50
-broker.sender.id=CHANGEME
+broker.sender.id=KITT
 broker.message.function.new=9
 ```
 
@@ -289,7 +289,7 @@ Route YAML references every property as `{{property-name}}`, including the three
 
 Required at runtime: `SANDBOX_CLIENT_ID`, `SANDBOX_CLIENT_SECRET`, `SANDBOX_INBOUND_API_KEY`.
 
-`broker.sender.id` is deliberately *not* environment-bound — it is an organisation identifier, not a credential, and belongs in configuration where it can be reviewed. Its value is still pending (OQ-2).
+`broker.sender.id` is deliberately *not* environment-bound — it is an organisation identifier, not a credential, and belongs in configuration where it can be reviewed. Its value is `KITT`, the sending organisation's id.
 
 ---
 
@@ -413,9 +413,9 @@ Citrus 5.0.1 (pinned in `.camel-kit/config.properties`) driving the live sandbox
 | # | Question | Impact | Resolution path |
 |---|---|---|---|
 | OQ-1 | Does `/api/v1/trigger/events` push a JSON **array** of `BrokerEventMessage`, or one object per request? | Determines whether Flow 2's `split` is load-bearing | Design tolerates both: split an array, treat a lone object as a single-element batch. Confirm by observing a real push during execution. |
-| OQ-2 | `meta.senderId` is documented as a fixed organisation id, but the documented example's value equals `customer.id`. | Broker may reject a constant that it expects to vary per customer | Externalised as `{{broker.sender.id}}`. If the broker rejects it, switch to `customer.id` — a one-line mapper change. |
-| OQ-3 | `shipment.transportMode`: the mapping table's Source column says `mode`, the Notes say fixed `"road"`, the example emits `"ROAD"`. | `mode` (FTL/LTL) is otherwise unmapped | Following the example: constant `"ROAD"`. Confirm with the sandbox owner. |
 | OQ-4 | `goodsDescription` in the documented example concatenates line items in **reverse** order. | Cosmetic unless the broker relies on ordering | Using document order. Flag if a payload comparison fails on this alone. |
 | OQ-5 | The expected `X-API-KEY` value and the OAuth2 client id/secret are not yet supplied. | Blocks any live run | Exported as `SANDBOX_INBOUND_API_KEY`, `SANDBOX_CLIENT_ID` and `SANDBOX_CLIENT_SECRET` before startup. Values are never pasted into this repository, including into this spec. |
+
+Resolved by amendment (2026-10-15): `meta.senderId` is the fixed organisation id `KITT` (formerly OQ-2); `shipment.transportMode` is the constant `"ROAD"`, confirmed (formerly OQ-3).
 
 `external_order_refere` in the broker-to-tms example document is a truncated typo for `external_order_reference`; the schema name is authoritative and no question arises.

@@ -20,7 +20,7 @@ variables:
   - name: "mock.url"
     value: "http://localhost:18000"
   - name: "broker.sender.id"
-    value: "CHANGEME"
+    value: "KITT"
   - name: "input.file"
     value: "src/test/resources/test-data/tms-shipment-to-broker-order-input.json"
   - name: "expected.file"
@@ -71,7 +71,6 @@ actions:
             - "--prop=sandbox.base.url=${mock.url}"
             - "--prop=sandbox.token.endpoint=${mock.url}/token"
             - "--prop=dlq.directory=target/it/mock-dlq"
-            - "--prop=broker.sender.id=${broker.sender.id}"
             # Keep 8080 free for the live scenario that follows
             - "--prop=inbound.http.port=18089"
 

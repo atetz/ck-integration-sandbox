@@ -4,7 +4,7 @@ staleness:
   since: null
   reason: null
 generated:
-  at: "2026-09-26T14:28:24.669126Z"
+  at: "2026-10-15T14:45:00Z"
   by: "camel-execute"
   from: "implementation-plan.md"
 ---
@@ -13,69 +13,82 @@ IMPLEMENTATION COMPLETE
 ===============================================================
 
 Pipeline: 001-tms-shipments-broker-orders
-Plan: docs/camel-kit/001-tms-shipments-broker-orders/implementation-plan.md
-Design Spec: docs/camel-kit/001-tms-shipments-broker-orders/design-spec.md
+Plan: docs/camel-kit/001-tms-shipments-broker-orders/implementation-plan.md (amendment delta, 2026-10-15)
+Design Spec: docs/camel-kit/001-tms-shipments-broker-orders/design-spec.md (amended 2026-10-15: OQ-2/OQ-3 resolved)
 
-Tasks Completed: 10/10
+Tasks Completed: 2/2
 
-Generated Files:
-  schemas/, src/test/resources/test-data/                     (Task 1)
-  ShipmentToBrokerOrderMapper.groovy                          (Task 2)
-  RejectedShipments.groovy                                    (Task 3)
-  tms-shipment-to-broker-order.camel.yaml                     (Task 4)
-  BrokerEventToTmsEventMapper.groovy                          (Task 5)
-  broker-event-to-tms-event.camel.yaml                        (Task 6)
-  application.properties                                      (Task 7)
-  run.sh                                                      (Task 8)
-  src/test/resources/tms-shipment-to-broker-order.citrus.it.yaml   (Task 9)
-  src/test/resources/test-data/tms-shipment-to-broker-order-{input,expected}.json
-  src/test/resources/broker-event-to-tms-event.citrus.it.yaml      (Task 10)
-  src/test/resources/test-data/broker-event-to-tms-event-{input,expected}.json
-  src/test/resources/jbang.properties, src/test/resources/application-test.properties
+Modified Files:
+  application.properties                                          (Task 1)
+    broker.sender.id CHANGEME -> KITT; comment no longer references OQ-2
+  src/test/resources/tms-shipment-to-broker-order.citrus.it.yaml  (Task 2)
+    Citrus variable broker.sender.id CHANGEME -> KITT; removed the
+    --prop=broker.sender.id override from the flow1-mock run, so the AC 2
+    payload assertion checks the value from application.properties
+
+Unchanged by design (impact analysis in plan): routes, Groovy beans
+(mapper already resolves {{broker.sender.id}} and emits transportMode "ROAD"),
+expected fixture, Flow 2 artifacts, run.sh, application-test.properties.
 
 Review Results:
-  Adversarial (ACR): 10/10 passed (Task 2 needed 2 cycles: handling-unit range bug fixed)
-  Spec Compliance: 10/10 tasks passed
-  Code Quality: 10/10 tasks passed (Critical findings on Task 7 fixed: maxBodySize, logMask)
-  Isolation: implementer role ran inline; ACR/spec/quality reviewers ran in fresh subagents,
-  one per wave, stages in strict order.
+  Adversarial (ACR): 2/2 passed, 1 cycle each
+  Spec Compliance: 2/2 tasks passed
+  Code Quality: 2/2 tasks passed (0 non-critical issues)
+  Isolation: all roles (catalog research, implementer, ACR critics, spec and
+  quality reviewers, cross-cutting review) ran inline in the orchestrator
+  session — no fresh-context isolation for this run.
 
-Cross-Cutting Review: PASS (0 Critical, 2 Important, 5 Suggestions)
-  Fixed: Flow 2 transient DLQ lost Map bodies (now marshalled, allowNullBody); test pinned
-  broker.sender.id; misleading config comment.
-  Open (not fixed, need a decision):
-    - Flow 2 retries non-transient failures (4xx, parse errors) 3x before DLQ; under a burst
-      the 1000-slot seda queue can fill and pushes get 500 (sandbox never re-sends).
-    - Flow 2 toD creates one http endpoint per shipment, so OAuth tokens are fetched per
-      shipment (cache is per endpoint). Static `to` + CamelHttpPath would fix it.
-    - Flow 1 logs the broker's full 422 response body (may echo PII).
-    - Flow 1: mapper IllegalArgumentException / non-422 4xx match no handler; the shipment
-      stays `new` and fails every poll without a DLQ entry.
-    - camel.jbang.dependencies omits camel-direct/camel-bean (resolved at runtime).
+Evidence:
+  Task 1: grep -x 'broker.sender.id=KITT' + no CHANGEME/OQ-2 -> OK;
+          git diff --stat: 2 insertions, 2 deletions;
+          camel_configuration_validate (runtime=main,
+          platformBom=org.apache.camel:camel-catalog:4.22.1, camelVersion=4.22.1):
+          23/23 valid, 0 errors, 0 warnings
+  Task 2: suite parses (Ruby YAML); variable broker.sender.id=KITT;
+          flow1-mock and flow1-live args contain no sender-id override;
+          application-test.properties has no broker.sender.id override;
+          citrus_catalog_actions (5.0.1) confirms camel-cli-run `args` is an array
 
-Deviations from the plan / spec:
-  - Mapper follows the sandbox OpenAPI schema where the spec's shorthand differed:
-    orders nested under shipment; dates {qualifier, dateTime}; handlingUnits packagingQualifier.
-  - Test files named *.citrus.it.yaml: `camel test run` ignores *.camel.it.yaml.
-  - `camel test run` uses its bundled Citrus 5.0.0; jbang.properties pins 5.0.1 for export.
-  - `camel-kit validate route` does not exist in this CLI; routes were validated by booting
-    with `camel run` plus MCP endpoint validation.
-  - application.properties adds camel.server.maxBodySize, camel.main.logMask and
-    camel.main.autoConfigurationLogSummary=false (the latter stopped sandbox.client.id being
-    logged at startup - found in a live run).
-  - The sandbox runs in Docker; tests pass target_url http://host.docker.internal:8080/events
-    (override -Dsandbox.callback.host).
+Cross-Cutting Review: PASS (0 Critical, 0 Important, 0 Suggestions)
+  broker.sender.id is consistent across property, mapper, test variable and
+  expected fixture. The five open items from the 2026-09-26 run's cross-cutting
+  review remain open and are out of scope for this delta.
 
-Design questions resolved during execution:
-  OQ-1: /trigger/events delivers one push per call carrying a JSON array; both shapes tested.
-  OQ-2: still open (broker.sender.id=CHANGEME); broker accepted it in live runs.
-  OQ-5: credentials supplied via ../.env (outside the project, never printed or copied).
+Environment Probe: ESCALATE
+  Dependency Resolution: SKIPPED (main runtime)
+  Docker Services:       PASS (no services required)
+  Runtime Startup:       FAIL — Camel JBang cannot start inside the Claude Code
+                         sandbox: toRealPath(~/.camel/quarkus-extension-registries)
+                         -> "/Users: Operation not permitted". ~/.jbang,
+                         ~/.m2/repository and ~/.camel are allowed; /Users itself
+                         is not, and opening it was declined as too broad.
+  User decision: implement inline, run Camel CLI checks outside the sandbox.
 
-Verification: PASS
-  Phase 1 - Startup Smoke:  PASS (./run.sh, 4/4 routes started, process live)
-  Phase 2 - Test:           PASS: 2/2 Citrus suites passed (live sandbox + mocked sandbox)
-    AC 1-7, 9 asserted in tests; AC 8 verified by log scan: 0 credential/token occurrences
-    across test and integration logs.
+Verification: PARTIAL (Camel CLI checks run by the user outside the sandbox)
+  Phase 1 - Startup Smoke:  NOT_RUN  ./run.sh (both flows together) not executed.
+                            Flow 1 routes shipment-ingestion and shipment-tender
+                            started cleanly in both test integrations (Routes
+                            startup total:2, Camel 4.22.1).
+  Phase 2 - Test:           PASS  camel test run src/test/resources/tms-shipment-to-broker-order.citrus.it.yaml
+                            2026-10-15 16:14-16:15, 1 run, 1 passed, 0 failed (59 s)
+                            Scenario A (mock): AC 2 payload match with senderId
+                              resolved from application.properties (KITT);
+                              empty and null polls; 422 suppression, no re-tender (AC 7)
+                            Scenario B (live sandbox): shipment tendered, status 202
+                              (AC 1); cleared from /new (AC 3)
+                            AC 8: Citrus logs message sizes only; no token or
+                              secret in integration logs
+                            Observation: one non-fatal WARN during teardown —
+                              "Failed to receive synchronous reply message on
+                              endpoint: 'sandboxMock.inbound'" (in-flight request to
+                              the mock as it stopped); no assertion affected
+                            Flow 2 suite not re-run (Flow 2 untouched by this delta)
   Phase 3 - Report:         this document
+
+Design questions:
+  OQ-1: resolved in the 2026-09-26 run (one push per call, JSON array).
+  OQ-2: resolved by amendment — broker.sender.id=KITT (implemented).
+  OQ-3: resolved by amendment — transportMode "ROAD" confirmed (already implemented).
+  OQ-4, OQ-5: unchanged.
 
 ===============================================================
