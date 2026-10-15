@@ -16,7 +16,7 @@ variables:
   - name: "sandbox.url"
     value: "http://localhost:8000"
   - name: "credentials.file"
-    value: "citrus:systemProperty('sandbox.env.file', 'file:../.env')"
+    value: "citrus:systemProperty('sandbox.env.file', 'file:.env')"
   - name: "mock.url"
     value: "http://localhost:18000"
   - name: "broker.sender.id"
