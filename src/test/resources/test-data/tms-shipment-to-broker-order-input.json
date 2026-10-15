@@ -1,0 +1,89 @@
+{
+  "id": "5b0c2f9e-7d41-4c8a-9e3b-2a6f1d8c4e70",
+  "external_reference": null,
+  "mode": "FTL",
+  "equipment_type": "TRUCK_AND_TRAILER",
+  "loading_meters": 13.6,
+  "customer": {
+    "id": "c7a1e4b2-3f58-4d9c-8b21-6e0f9a2d5c13",
+    "name": "Van der Berg Logistics",
+    "carrier": "Rijnmond Transport BV"
+  },
+  "line_items": [
+    {
+      "package_type": "PLT",
+      "stackable": false,
+      "height": 180.0,
+      "length": 120.0,
+      "width": 80.0,
+      "length_unit": "CM",
+      "package_weight": 7069.62,
+      "weight_unit": "KG",
+      "description": "Steel coil stock",
+      "total_packages": 4
+    },
+    {
+      "package_type": "CRATE",
+      "stackable": true,
+      "height": 95.0,
+      "length": 110.0,
+      "width": 75.0,
+      "length_unit": "CM",
+      "package_weight": 2336.24,
+      "weight_unit": "KG",
+      "description": "Gearbox assemblies",
+      "total_packages": 1
+    },
+    {
+      "package_type": "DRUM",
+      "stackable": false,
+      "height": 88.0,
+      "length": 58.0,
+      "width": 58.0,
+      "length_unit": "CM",
+      "package_weight": 890.43,
+      "weight_unit": "KG",
+      "description": "Hydraulic oil",
+      "total_packages": 3
+    }
+  ],
+  "stops": [
+    {
+      "type": "PICKUP",
+      "location": {
+        "code": "LOC-1001",
+        "name": "Rotterdam Distribution Centre",
+        "address": {
+          "address": "Waalhaven Zuidzijde 21",
+          "city": "Rotterdam",
+          "postal_code": "3089 JH",
+          "country": "NL"
+        },
+        "latitude": 51.8886,
+        "longitude": 4.4337
+      },
+      "planned_date": "2026-10-05",
+      "planned_time_window_start": "08:00:00",
+      "planned_time_window_end": "12:00:00"
+    },
+    {
+      "type": "DELIVERY",
+      "location": {
+        "code": "LOC-2002",
+        "name": "Duisburg Hafen Lager",
+        "address": {
+          "address": "Hafenstrasse 12",
+          "city": "Duisburg",
+          "postal_code": "47119",
+          "country": "DE"
+        },
+        "latitude": 51.4556,
+        "longitude": 6.7372
+      },
+      "planned_date": "2026-10-06",
+      "planned_time_window_start": "09:00:00",
+      "planned_time_window_end": "15:00:00"
+    }
+  ],
+  "timeline_events": null
+}

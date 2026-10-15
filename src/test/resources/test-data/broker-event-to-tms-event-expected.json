@@ -1,0 +1,12 @@
+{
+  "created_at": "2026-10-05T07:14:30.000Z",
+  "occured_at": "2026-10-05T07:10:00.000Z",
+  "event_type": "DISPATCHED",
+  "external_order_reference": "5b0c2f9e-7d41-4c8a-9e3b-2a6f1d8c4e70",
+  "source": "broker",
+  "location": {
+    "code": "LOC-1001",
+    "latitude": 51.8886,
+    "longitude": 4.4337
+  }
+}

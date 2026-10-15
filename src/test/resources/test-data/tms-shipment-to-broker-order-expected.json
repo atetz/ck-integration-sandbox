@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "senderId": "${broker.sender.id}",
+    "messageDate": "@matches('[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[.][0-9]{3}Z')@",
+    "messageReference": "5b0c2f9e-7d41-4c8a-9e3b-2a6f1d8c4e70",
+    "messageFunction": 9
+  },
+  "shipment": {
+    "reference": "5b0c2f9e-7d41-4c8a-9e3b-2a6f1d8c4e70",
+    "carrier": "Rijnmond Transport BV",
+    "transportMode": "ROAD",
+    "orders": [
+      {
+        "reference": "5b0c2f9e-7d41-4c8a-9e3b-2a6f1d8c4e70",
+        "goodsDescription": "Steel coil stock|Gearbox assemblies|Hydraulic oil",
+        "quantity": {
+          "grossWeight": 33286.01,
+          "loadingMeters": 13.6
+        },
+        "pickUp": {
+          "identification": "LOC-1001",
+          "name": "Rotterdam Distribution Centre",
+          "address1": "Waalhaven Zuidzijde 21",
+          "address2": null,
+          "city": "Rotterdam",
+          "postalCode": "3089 JH",
+          "country": "NL",
+          "latitude": 51.8886,
+          "longitude": 4.4337,
+          "instructions": null,
+          "dates": [
+            {
+              "qualifier": "PERIOD_EARLIEST",
+              "dateTime": "2026-10-05T08:00:00Z"
+            },
+            {
+              "qualifier": "PERIOD_LATEST",
+              "dateTime": "2026-10-05T12:00:00Z"
+            }
+          ]
+        },
+        "consignee": {
+          "identification": "LOC-2002",
+          "name": "Duisburg Hafen Lager",
+          "address1": "Hafenstrasse 12",
+          "address2": null,
+          "city": "Duisburg",
+          "postalCode": "47119",
+          "country": "DE",
+          "latitude": 51.4556,
+          "longitude": 6.7372,
+          "instructions": null,
+          "dates": [
+            {
+              "qualifier": "PERIOD_EARLIEST",
+              "dateTime": "2026-10-06T09:00:00Z"
+            },
+            {
+              "qualifier": "PERIOD_LATEST",
+              "dateTime": "2026-10-06T15:00:00Z"
+            }
+          ]
+        },
+        "handlingUnits": [
+          {
+            "packagingQualifier": "PL",
+            "grossWeight": 7069.62,
+            "width": 80.0,
+            "length": 120.0,
+            "height": 180.0
+          },
+          {
+            "packagingQualifier": "PL",
+            "grossWeight": 7069.62,
+            "width": 80.0,
+            "length": 120.0,
+            "height": 180.0
+          },
+          {
+            "packagingQualifier": "PL",
+            "grossWeight": 7069.62,
+            "width": 80.0,
+            "length": 120.0,
+            "height": 180.0
+          },
+          {
+            "packagingQualifier": "PL",
+            "grossWeight": 7069.62,
+            "width": 80.0,
+            "length": 120.0,
+            "height": 180.0
+          },
+          {
+            "packagingQualifier": "CR",
+            "grossWeight": 2336.24,
+            "width": 75.0,
+            "length": 110.0,
+            "height": 95.0
+          },
+          {
+            "packagingQualifier": "DR",
+            "grossWeight": 890.43,
+            "width": 58.0,
+            "length": 58.0,
+            "height": 88.0
+          },
+          {
+            "packagingQualifier": "DR",
+            "grossWeight": 890.43,
+            "width": 58.0,
+            "length": 58.0,
+            "height": 88.0
+          },
+          {
+            "packagingQualifier": "DR",
+            "grossWeight": 890.43,
+            "width": 58.0,
+            "length": 58.0,
+            "height": 88.0
+          }
+        ]
+      }
+    ]
+  }
+}

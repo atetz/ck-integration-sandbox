@@ -1,0 +1,7012 @@
+{
+  "description" : "Citrus YAML Quick Reference - Use this for generating valid Citrus tests",
+  "actions" : [ {
+    "name" : "action",
+    "kind" : "testAction",
+    "title" : "Action",
+    "description" : "Generic test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "ref",
+      "type" : "string",
+      "title" : "Ref",
+      "description" : "The reference to the test action in the bean registry."
+    }, {
+      "name" : "reference",
+      "type" : "string",
+      "title" : "Reference",
+      "description" : "The reference to the test action in the bean registry."
+    } ]
+  }, {
+    "name" : "agent",
+    "kind" : "testActionGroup",
+    "title" : "Agent",
+    "description" : "Agent service test actions.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "agent-connect",
+    "kind" : "testAction",
+    "title" : "Connect",
+    "description" : "",
+    "group" : "agent",
+    "properties" : [ {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port",
+      "description" : ""
+    }, {
+      "name" : "url",
+      "type" : "string",
+      "title" : "Url",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "agent-run",
+    "kind" : "testAction",
+    "title" : "Run",
+    "description" : "",
+    "group" : "agent",
+    "properties" : [ {
+      "name" : "actions",
+      "type" : "array",
+      "title" : "Actions",
+      "description" : "Sequence of test actions to execute."
+    }, {
+      "name" : "source",
+      "type" : "object",
+      "title" : "Source",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "ant",
+    "kind" : "testAction",
+    "title" : "Ant",
+    "description" : "Ant run test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "buildFile",
+      "type" : "string",
+      "title" : "BuildFile",
+      "description" : "Path to the Ant build file."
+    }, {
+      "name" : "buildListener",
+      "type" : "string",
+      "title" : "BuildListener",
+      "description" : "Optional reference to a build listener."
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "execute",
+      "type" : "object",
+      "title" : "Execute",
+      "description" : "The build target to call."
+    }, {
+      "name" : "properties",
+      "type" : "array",
+      "title" : "Properties",
+      "description" : "Ant build properties."
+    }, {
+      "name" : "propertyFile",
+      "type" : "string",
+      "title" : "PropertyFile",
+      "description" : "Adds a build property file."
+    } ]
+  }, {
+    "name" : "applyTemplate",
+    "kind" : "testAction",
+    "title" : "ApplyTemplate",
+    "description" : "Apply template test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "file",
+      "type" : "string",
+      "title" : "File",
+      "description" : "Load the template from given file resource."
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : "The name of the template."
+    }, {
+      "name" : "parameters",
+      "type" : "array",
+      "title" : "Parameters",
+      "description" : "Template parameters, passed to the template as test variables."
+    } ]
+  }, {
+    "name" : "camel",
+    "kind" : "testActionGroup",
+    "title" : "Camel",
+    "description" : "Test actions related to Apache Camel.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "actor",
+      "type" : "string",
+      "title" : "Actor",
+      "description" : ""
+    }, {
+      "name" : "camelContext",
+      "type" : "string",
+      "title" : "CamelContext",
+      "description" : "Name of the Camel context."
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    } ]
+  }, {
+    "name" : "camel-cli",
+    "kind" : "testActionGroup",
+    "title" : "Cli",
+    "description" : "Connect with Camel CLI to run commands.",
+    "group" : "camel",
+    "properties" : [ {
+      "name" : "camelVersion",
+      "type" : "string",
+      "title" : "CamelVersion",
+      "description" : "The Apache Camel version."
+    }, {
+      "name" : "kameletsVersion",
+      "type" : "string",
+      "title" : "KameletsVersion",
+      "description" : "The Kamelets version."
+    } ]
+  }, {
+    "name" : "camel-cli-cmd",
+    "kind" : "testActionGroup",
+    "title" : "Cmd",
+    "description" : "Camel CLI cmd operations.",
+    "group" : "camel-cli"
+  }, {
+    "name" : "camel-cli-cmd-receive",
+    "kind" : "testAction",
+    "title" : "Receive",
+    "description" : "Receives a message from a Camel CLI integration.",
+    "group" : "camel-cli-cmd",
+    "properties" : [ {
+      "name" : "args",
+      "type" : "array",
+      "title" : "Args",
+      "description" : "Command arguments."
+    }, {
+      "name" : "delayBetweenAttempts",
+      "type" : "integer",
+      "title" : "DelayBetweenAttempts",
+      "description" : "The delay in milliseconds to wait between validation attempts."
+    }, {
+      "name" : "endpoint",
+      "type" : "string",
+      "title" : "Endpoint",
+      "description" : "Optional endpoint in the Camel integration."
+    }, {
+      "name" : "grep",
+      "type" : "string",
+      "title" : "Grep",
+      "description" : "Filter messages based on this expression."
+    }, {
+      "name" : "integration",
+      "type" : "string",
+      "title" : "Integration",
+      "description" : "The Camel integration to send the message to."
+    }, {
+      "name" : "jsonOutput",
+      "type" : "boolean",
+      "title" : "JsonOutput",
+      "description" : "When enabled action stores messages from json output."
+    }, {
+      "name" : "loggingColor",
+      "type" : "boolean",
+      "title" : "LoggingColor",
+      "description" : "When enabled the output uses logging color."
+    }, {
+      "name" : "maxAttempts",
+      "type" : "integer",
+      "title" : "MaxAttempts",
+      "description" : "Maximum number of validation attempts."
+    }, {
+      "name" : "printLogs",
+      "type" : "boolean",
+      "title" : "PrintLogs",
+      "description" : "When enabled the Camel integration log output is added to the test log output."
+    }, {
+      "name" : "since",
+      "type" : "string",
+      "title" : "Since",
+      "description" : "Return messages newer than a relative duration."
+    }, {
+      "name" : "stopOnErrorStatus",
+      "type" : "boolean",
+      "title" : "StopOnErrorStatus",
+      "description" : "When enabled the validation attempts stop when error state is reported."
+    }, {
+      "name" : "tail",
+      "type" : "integer",
+      "title" : "Tail",
+      "description" : "The number of messages from the end to show."
+    }, {
+      "name" : "uri",
+      "type" : "string",
+      "title" : "Uri",
+      "description" : "Camel endpoint URI to send message to."
+    } ]
+  }, {
+    "name" : "camel-cli-cmd-send",
+    "kind" : "testAction",
+    "title" : "Send",
+    "description" : "Sends a message to Camel CLI integration.",
+    "group" : "camel-cli-cmd",
+    "properties" : [ {
+      "name" : "args",
+      "type" : "array",
+      "title" : "Args",
+      "description" : "Command arguments."
+    }, {
+      "name" : "body",
+      "type" : "object",
+      "title" : "Body",
+      "description" : "The message body."
+    }, {
+      "name" : "endpoint",
+      "type" : "string",
+      "title" : "Endpoint",
+      "description" : "Optional endpoint in the Camel integration."
+    }, {
+      "name" : "headers",
+      "type" : "object",
+      "title" : "Headers",
+      "description" : "The message headers."
+    }, {
+      "name" : "infra",
+      "type" : "string",
+      "title" : "Infra",
+      "description" : "Optional Camel infrastructure service to connect to."
+    }, {
+      "name" : "integration",
+      "type" : "string",
+      "title" : "Integration",
+      "description" : "The Camel integration to send the message to."
+    }, {
+      "name" : "reply",
+      "type" : "boolean",
+      "title" : "Reply",
+      "description" : "When enabled the operation waits for a reply message from the integration."
+    }, {
+      "name" : "timeout",
+      "type" : "string",
+      "title" : "Timeout",
+      "description" : "The send timeout."
+    }, {
+      "name" : "uri",
+      "type" : "string",
+      "title" : "Uri",
+      "description" : "Camel endpoint URI to send message to."
+    } ]
+  }, {
+    "name" : "camel-cli-custom",
+    "kind" : "testAction",
+    "title" : "Custom",
+    "description" : "Runs a Camel integration with customized parameters.",
+    "group" : "camel-cli",
+    "properties" : [ {
+      "name" : "args",
+      "type" : "array",
+      "title" : "Args",
+      "description" : "Optional command arguments."
+    }, {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : "When enabled the Camel integration is automatically stopped after the test."
+    }, {
+      "name" : "commands",
+      "type" : "array",
+      "title" : "Commands",
+      "description" : "Customized Camel CLI commands."
+    }, {
+      "name" : "dumpIntegrationOutput",
+      "type" : "boolean",
+      "title" : "DumpIntegrationOutput",
+      "description" : "When enabled the integration output is saved to a log file."
+    }, {
+      "name" : "integration",
+      "type" : "object",
+      "title" : "Integration",
+      "description" : "The Camel integration."
+    }, {
+      "name" : "processName",
+      "type" : "string",
+      "title" : "ProcessName",
+      "description" : "Custom Camel CLI process name."
+    }, {
+      "name" : "resources",
+      "type" : "array",
+      "title" : "Resources",
+      "description" : "Optional list of resources added to the Camel CLI process."
+    }, {
+      "name" : "waitForRunningState",
+      "type" : "boolean",
+      "title" : "WaitForRunningState",
+      "description" : "Wait for the integration to report running state."
+    }, {
+      "name" : "workDir",
+      "type" : "string",
+      "title" : "WorkDir",
+      "description" : "Custom working directory for the Camel CLI process."
+    } ]
+  }, {
+    "name" : "camel-cli-kubernetes",
+    "kind" : "testActionGroup",
+    "title" : "Kubernetes",
+    "description" : "Camel Kubernetes plugin related operations.",
+    "group" : "camel-cli"
+  }, {
+    "name" : "camel-cli-kubernetes-delete",
+    "kind" : "testAction",
+    "title" : "Delete",
+    "description" : "Deletes a Camel integration from Kubernetes.",
+    "group" : "camel-cli-kubernetes",
+    "properties" : [ {
+      "name" : "clusterType",
+      "type" : "string",
+      "title" : "ClusterType",
+      "description" : "The Kubernetes cluster type."
+    }, {
+      "name" : "integration",
+      "type" : "object",
+      "title" : "Integration",
+      "description" : "The Camel integration to delete."
+    }, {
+      "name" : "namespace",
+      "type" : "string",
+      "title" : "Namespace",
+      "description" : "The Kubernetes namespace."
+    }, {
+      "name" : "workingDir",
+      "type" : "string",
+      "title" : "WorkingDir",
+      "description" : "The working directory that contains the Kubernetes manifest."
+    } ]
+  }, {
+    "name" : "camel-cli-kubernetes-run",
+    "kind" : "testAction",
+    "title" : "Run",
+    "description" : "Runs a Camel integration on Kubernetes.",
+    "group" : "camel-cli-kubernetes",
+    "properties" : [ {
+      "name" : "argLine",
+      "type" : "string",
+      "title" : "ArgLine",
+      "description" : "Camel CLI command arguments."
+    }, {
+      "name" : "args",
+      "type" : "array",
+      "title" : "Args",
+      "description" : "Camel CLI command arguments."
+    }, {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : "When enabled the Camel integration is automatically removed from Kubernetes after the test."
+    }, {
+      "name" : "buildProperties",
+      "type" : "array",
+      "title" : "BuildProperties",
+      "description" : "List of build properties passed to the Camel CLI project build."
+    }, {
+      "name" : "clusterType",
+      "type" : "string",
+      "title" : "ClusterType",
+      "description" : "The Kubernetes cluster type."
+    }, {
+      "name" : "imageBuilder",
+      "type" : "string",
+      "title" : "ImageBuilder",
+      "description" : "The Docker image builder."
+    }, {
+      "name" : "imageRegistry",
+      "type" : "string",
+      "title" : "ImageRegistry",
+      "description" : "The Docker image registry."
+    }, {
+      "name" : "integration",
+      "type" : "object",
+      "title" : "Integration",
+      "description" : "The Camel integration name."
+    }, {
+      "name" : "properties",
+      "type" : "array",
+      "title" : "Properties",
+      "description" : "Properties set on the Camel CLI project export."
+    }, {
+      "name" : "runtime",
+      "type" : "string",
+      "title" : "Runtime",
+      "description" : "The runtime to use."
+    }, {
+      "name" : "traits",
+      "type" : "array",
+      "title" : "Traits",
+      "description" : "List of traits to set for the project export."
+    }, {
+      "name" : "verbose",
+      "type" : "boolean",
+      "title" : "Verbose",
+      "description" : "When enabled the Camel CLI command print verbose log messages."
+    }, {
+      "name" : "waitForRunningState",
+      "type" : "boolean",
+      "title" : "WaitForRunningState",
+      "description" : "When enabled the test waits for the Camel integration Kubernetes deployment to report proper running state."
+    } ]
+  }, {
+    "name" : "camel-cli-kubernetes-verify",
+    "kind" : "testAction",
+    "title" : "Verify",
+    "description" : "Verify the status and log messages for a Camel integration run on Kubernetes.",
+    "group" : "camel-cli-kubernetes",
+    "properties" : [ {
+      "name" : "args",
+      "type" : "array",
+      "title" : "Args",
+      "description" : "Camel CLI command arguments."
+    }, {
+      "name" : "delayBetweenAttempts",
+      "type" : "integer",
+      "title" : "DelayBetweenAttempts",
+      "description" : "The delay in milliseconds to wait between validation attempts."
+    }, {
+      "name" : "integration",
+      "type" : "string",
+      "title" : "Integration",
+      "description" : "The Camel integration name."
+    }, {
+      "name" : "label",
+      "type" : "string",
+      "title" : "Label",
+      "description" : "Identify the Camel integration via a Kubernetes label."
+    }, {
+      "name" : "logMessage",
+      "type" : "string",
+      "title" : "LogMessage",
+      "description" : "The expected log message to verify."
+    }, {
+      "name" : "maxAttempts",
+      "type" : "integer",
+      "title" : "MaxAttempts",
+      "description" : "Maximum number of validation attempts."
+    }, {
+      "name" : "namespace",
+      "type" : "string",
+      "title" : "Namespace",
+      "description" : "The Kubernetes namespace."
+    }, {
+      "name" : "printLogs",
+      "type" : "boolean",
+      "title" : "PrintLogs",
+      "description" : "When enabled the Camel integration log output is added to the test log output."
+    } ]
+  }, {
+    "name" : "camel-cli-plugin",
+    "kind" : "testActionGroup",
+    "title" : "Plugin",
+    "description" : "Manage Camel CLI plugins.",
+    "group" : "camel-cli"
+  }, {
+    "name" : "camel-cli-plugin-add",
+    "kind" : "testAction",
+    "title" : "Add",
+    "description" : "Adds a plugin to the Camel CLI installation.",
+    "group" : "camel-cli-plugin",
+    "properties" : [ {
+      "name" : "args",
+      "type" : "array",
+      "title" : "Args",
+      "description" : "Plugin arguments."
+    }, {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : "When enabled the Camel plugin is automatically removed after the test."
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : "The plugin name."
+    } ]
+  }, {
+    "name" : "camel-cli-plugin-delete",
+    "kind" : "testAction",
+    "title" : "Delete",
+    "description" : "Deletes a plugin from the Camel CLI installation.",
+    "group" : "camel-cli-plugin",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : "The plugin name."
+    } ]
+  }, {
+    "name" : "camel-cli-run",
+    "kind" : "testAction",
+    "title" : "Run",
+    "description" : "Runs a Camel integration.",
+    "group" : "camel-cli",
+    "properties" : [ {
+      "name" : "args",
+      "type" : "array",
+      "title" : "Args",
+      "description" : "Optional command arguments."
+    }, {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : "When enabled the Camel integration is automatically stopped after the test."
+    }, {
+      "name" : "dumpIntegrationOutput",
+      "type" : "boolean",
+      "title" : "DumpIntegrationOutput",
+      "description" : "When enabled the integration output is saved to a log file."
+    }, {
+      "name" : "integration",
+      "type" : "object",
+      "title" : "Integration",
+      "description" : "The Camel integration."
+    }, {
+      "name" : "resources",
+      "type" : "array",
+      "title" : "Resources",
+      "description" : "Optional list of resources added to the Camel CLI process."
+    }, {
+      "name" : "stub",
+      "type" : "array",
+      "title" : "Stub",
+      "description" : "Optional stubbed components."
+    }, {
+      "name" : "waitForRunningState",
+      "type" : "boolean",
+      "title" : "WaitForRunningState",
+      "description" : "Wait for the integration to report running state."
+    } ]
+  }, {
+    "name" : "camel-cli-stop",
+    "kind" : "testAction",
+    "title" : "Stop",
+    "description" : "Stops a Camel integration.",
+    "group" : "camel-cli",
+    "properties" : [ {
+      "name" : "integration",
+      "type" : "string",
+      "title" : "Integration",
+      "description" : "Camel integration name"
+    } ]
+  }, {
+    "name" : "camel-cli-verify",
+    "kind" : "testAction",
+    "title" : "Verify",
+    "description" : "Verify the Camel integration status and log messages.",
+    "group" : "camel-cli",
+    "properties" : [ {
+      "name" : "delayBetweenAttempts",
+      "type" : "integer",
+      "title" : "DelayBetweenAttempts",
+      "description" : "The delay in milliseconds to wait between validation attempts."
+    }, {
+      "name" : "integration",
+      "type" : "string",
+      "title" : "Integration",
+      "description" : "The Camel integration name."
+    }, {
+      "name" : "logMessage",
+      "type" : "string",
+      "title" : "LogMessage",
+      "description" : "The expected log message to verify."
+    }, {
+      "name" : "maxAttempts",
+      "type" : "integer",
+      "title" : "MaxAttempts",
+      "description" : "Maximum attempts to validate the integration."
+    }, {
+      "name" : "phase",
+      "type" : "string",
+      "title" : "Phase",
+      "description" : "The expected integration status"
+    }, {
+      "name" : "printLogs",
+      "type" : "boolean",
+      "title" : "PrintLogs",
+      "description" : "When enabled the Camel integration log output is added to the test log output."
+    }, {
+      "name" : "stopOnErrorStatus",
+      "type" : "boolean",
+      "title" : "StopOnErrorStatus",
+      "description" : "When enabled the validation attempts stop when error state is reported."
+    } ]
+  }, {
+    "name" : "camel-controlBus",
+    "kind" : "testAction",
+    "title" : "ControlBus",
+    "description" : "Connects with the Camel control bus to run operations.",
+    "group" : "camel",
+    "properties" : [ {
+      "name" : "action",
+      "type" : "string",
+      "title" : "Action",
+      "description" : "The control bus action to execute."
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "language",
+      "type" : "object",
+      "title" : "Language",
+      "description" : "Runs another Camel language expression."
+    }, {
+      "name" : "result",
+      "type" : "string",
+      "title" : "Result",
+      "description" : "The expected action result."
+    }, {
+      "name" : "route",
+      "type" : "string",
+      "title" : "Route",
+      "description" : "The route id"
+    }, {
+      "name" : "simple",
+      "type" : "string",
+      "title" : "Simple",
+      "description" : "Runs a simple expression"
+    } ]
+  }, {
+    "name" : "camel-createComponent",
+    "kind" : "testAction",
+    "title" : "CreateComponent",
+    "description" : "Create components in the Camel registry.",
+    "group" : "camel",
+    "properties" : [ {
+      "name" : "file",
+      "type" : "string",
+      "title" : "File",
+      "description" : "The Camel component script loaded from a file resource."
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : "The Camel component name."
+    }, {
+      "name" : "script",
+      "type" : "string",
+      "title" : "Script",
+      "description" : "The script that defines the Camel component."
+    } ]
+  }, {
+    "name" : "camel-createContext",
+    "kind" : "testAction",
+    "title" : "CreateContext",
+    "description" : "Create a new Camel context.",
+    "group" : "camel",
+    "properties" : [ {
+      "name" : "autoStart",
+      "type" : "boolean",
+      "title" : "AutoStart",
+      "description" : "When enabled the context is automatically started after creation."
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : "The name of the Camel context."
+    } ]
+  }, {
+    "name" : "camel-createRoutes",
+    "kind" : "testAction",
+    "title" : "CreateRoutes",
+    "description" : "Create a new Camel route in the context.",
+    "group" : "camel",
+    "properties" : [ {
+      "name" : "file",
+      "type" : "string",
+      "title" : "File",
+      "description" : "Route definitions loaded from a file resource"
+    }, {
+      "name" : "id",
+      "type" : "string",
+      "title" : "Id",
+      "description" : "The route id."
+    }, {
+      "name" : "route",
+      "type" : "string",
+      "title" : "Route",
+      "description" : "Inline route definition."
+    }, {
+      "name" : "routeContext",
+      "type" : "string",
+      "title" : "RouteContext",
+      "description" : "Camel route context to load multiple routes."
+    } ]
+  }, {
+    "name" : "camel-infra",
+    "kind" : "testActionGroup",
+    "title" : "Infra",
+    "description" : "Manage Camel infra services.",
+    "group" : "camel"
+  }, {
+    "name" : "camel-infra-run",
+    "kind" : "testAction",
+    "title" : "Run",
+    "description" : "Runs a Camel infra service.",
+    "group" : "camel-infra",
+    "properties" : [ {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : "When enabled the infra service is automatically stopped after the test."
+    }, {
+      "name" : "catalog",
+      "type" : "string",
+      "title" : "Catalog",
+      "description" : "The Camel catalog that holds the infra service definitions."
+    }, {
+      "name" : "dumpServiceOutput",
+      "type" : "boolean",
+      "title" : "DumpServiceOutput",
+      "description" : "When enabled the service output is saved into a log file."
+    }, {
+      "name" : "fixedPort",
+      "type" : "boolean",
+      "title" : "FixedPort",
+      "description" : "When enabled the infra service uses fixed ports."
+    }, {
+      "name" : "implementation",
+      "type" : "string",
+      "title" : "Implementation",
+      "description" : "Optional service implementation detail."
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port",
+      "description" : "When set the infra service uses this port as a fixed port."
+    }, {
+      "name" : "service",
+      "type" : "string",
+      "title" : "Service",
+      "description" : "The Camel infra service name."
+    } ]
+  }, {
+    "name" : "camel-infra-stop",
+    "kind" : "testAction",
+    "title" : "Stop",
+    "description" : "Stops a Camel infra service.",
+    "group" : "camel-infra",
+    "properties" : [ {
+      "name" : "implementation",
+      "type" : "string",
+      "title" : "Implementation",
+      "description" : "Optional service implementation detail."
+    }, {
+      "name" : "service",
+      "type" : "string",
+      "title" : "Service",
+      "description" : "The Camel infra service name."
+    } ]
+  }, {
+    "name" : "camel-jbang",
+    "kind" : "testActionGroup",
+    "title" : "Jbang",
+    "description" : "Connect with Camel JBang to run commands. Deprecated, please use Camel CLI instead.",
+    "group" : "camel",
+    "properties" : [ {
+      "name" : "camelVersion",
+      "type" : "string",
+      "title" : "CamelVersion",
+      "description" : "The Apache Camel version."
+    }, {
+      "name" : "kameletsVersion",
+      "type" : "string",
+      "title" : "KameletsVersion",
+      "description" : "The Kamelets version."
+    } ]
+  }, {
+    "name" : "camel-removeRoutes",
+    "kind" : "testAction",
+    "title" : "RemoveRoutes",
+    "description" : "Remove given Camel routes.",
+    "group" : "camel",
+    "properties" : [ {
+      "name" : "routes",
+      "type" : "array",
+      "title" : "Routes",
+      "description" : "The Camel route ids to remove."
+    } ]
+  }, {
+    "name" : "camel-startContext",
+    "kind" : "testAction",
+    "title" : "StartContext",
+    "description" : "Starts the given Camel context.",
+    "group" : "camel",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : "The Camel context name."
+    } ]
+  }, {
+    "name" : "camel-startRoutes",
+    "kind" : "testAction",
+    "title" : "StartRoutes",
+    "description" : "Start existing Camel routes in the context.",
+    "group" : "camel",
+    "properties" : [ {
+      "name" : "routes",
+      "type" : "array",
+      "title" : "Routes",
+      "description" : "The Camel route ids to start."
+    } ]
+  }, {
+    "name" : "camel-stopContext",
+    "kind" : "testAction",
+    "title" : "StopContext",
+    "description" : "Stops the given Camel context.",
+    "group" : "camel",
+    "properties" : [ {
+      "name" : "immediate",
+      "type" : "boolean",
+      "title" : "Immediate",
+      "description" : "Enable immediate shutdown without waiting for in-flight exchanges."
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : "The Camel context name."
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout",
+      "description" : "The shutdown timeout in seconds."
+    } ]
+  }, {
+    "name" : "camel-stopRoutes",
+    "kind" : "testAction",
+    "title" : "StopRoutes",
+    "description" : "Stop given Camel routes.",
+    "group" : "camel",
+    "properties" : [ {
+      "name" : "routes",
+      "type" : "array",
+      "title" : "Routes",
+      "description" : "The Camel route ids to stop."
+    } ]
+  }, {
+    "name" : "camel-verifyRoute",
+    "kind" : "testAction",
+    "title" : "VerifyRoute",
+    "description" : "Verify a Camel route existence and status.",
+    "group" : "camel",
+    "properties" : [ {
+      "name" : "route",
+      "type" : "string",
+      "title" : "Route",
+      "description" : "The Camel route id to verify."
+    }, {
+      "name" : "status",
+      "type" : "string",
+      "title" : "Status",
+      "description" : "The expected route status (e.g. Started, Stopped)."
+    } ]
+  }, {
+    "name" : "camel-verifyRouteStats",
+    "kind" : "testAction",
+    "title" : "VerifyRouteStats",
+    "description" : "Verify Camel route statistics such as completed or failed exchanges.",
+    "group" : "camel",
+    "properties" : [ {
+      "name" : "completed",
+      "type" : "integer",
+      "title" : "Completed",
+      "description" : "The expected number of completed exchanges."
+    }, {
+      "name" : "failed",
+      "type" : "integer",
+      "title" : "Failed",
+      "description" : "The expected number of failed exchanges."
+    }, {
+      "name" : "route",
+      "type" : "string",
+      "title" : "Route",
+      "description" : "The Camel route id to verify statistics for."
+    }, {
+      "name" : "stats",
+      "type" : "string",
+      "title" : "Stats",
+      "description" : "Expected route statistics as JSON for comparison with the actual stats dump."
+    } ]
+  }, {
+    "name" : "createEndpoint",
+    "kind" : "testAction",
+    "title" : "CreateEndpoint",
+    "description" : "Create endpoints test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "autoClose",
+      "type" : "boolean",
+      "title" : "AutoClose",
+      "description" : "When enabled the dynamic endpoint is closed automatically after the test."
+    }, {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : "When enabled the dynamic endpoint is removed automatically after the test."
+    }, {
+      "name" : "camel",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "channel",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "context",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "direct",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "docker",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "ftp",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "http",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "jms",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "kafka",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "kubernetes",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "mail",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : "The endpoint name. When set this endpoint is retrievable via this name in the bean registry."
+    }, {
+      "name" : "properties",
+      "type" : "object",
+      "title" : "Properties",
+      "description" : "List of properties for this endpoint."
+    }, {
+      "name" : "scp",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "selenium",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "sftp",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "soap",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "type",
+      "type" : "string",
+      "title" : "Type",
+      "description" : "The endpoint type."
+    }, {
+      "name" : "uri",
+      "type" : "string",
+      "title" : "Uri",
+      "description" : "The URI with properties defining the endpoint."
+    }, {
+      "name" : "vertx",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "webSocket",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "createVariables",
+    "kind" : "testAction",
+    "title" : "CreateVariables",
+    "description" : "Create variables test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "variables",
+      "type" : "array",
+      "title" : "Variables",
+      "description" : "List of test variables."
+    } ]
+  }, {
+    "name" : "delay",
+    "kind" : "testAction",
+    "title" : "Delay",
+    "description" : "Delay test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "milliseconds",
+      "type" : "string",
+      "title" : "Milliseconds",
+      "description" : "Time to sleep in milliseconds."
+    }, {
+      "name" : "seconds",
+      "type" : "string",
+      "title" : "Seconds",
+      "description" : "Time to sleep in seconds."
+    } ]
+  }, {
+    "name" : "echo",
+    "kind" : "testAction",
+    "title" : "Echo",
+    "description" : "Echo test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "message",
+      "type" : "string",
+      "title" : "Message",
+      "description" : "The message to print."
+    } ]
+  }, {
+    "name" : "expectTimeout",
+    "kind" : "testAction",
+    "title" : "ExpectTimeout",
+    "description" : "Expect timeout test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "endpoint",
+      "type" : "string",
+      "title" : "Endpoint",
+      "description" : "The message endpoint to consume messages from. Uses an endpoint URI or references an endpoint name."
+    }, {
+      "name" : "select",
+      "type" : "string",
+      "title" : "Select",
+      "description" : "Optional message selector expression to selectively consume messages."
+    }, {
+      "name" : "selector",
+      "type" : "object",
+      "title" : "Selector",
+      "description" : "Message selector to selectively consume messages."
+    }, {
+      "name" : "wait",
+      "type" : "integer",
+      "title" : "Wait",
+      "description" : "Time in milliseconds to wait for messages."
+    } ]
+  }, {
+    "name" : "fail",
+    "kind" : "testAction",
+    "title" : "Fail",
+    "description" : "Fail test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "message",
+      "type" : "string",
+      "title" : "Message",
+      "description" : "Error message describing the failure."
+    } ]
+  }, {
+    "name" : "groovy",
+    "kind" : "testAction",
+    "title" : "Groovy",
+    "description" : "Groovy test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "actor",
+      "type" : "string",
+      "title" : "Actor",
+      "description" : ""
+    }, {
+      "name" : "beans",
+      "type" : "object",
+      "title" : "Beans",
+      "description" : "Script that creates beans in the bean registry."
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "endpoints",
+      "type" : "object",
+      "title" : "Endpoints",
+      "description" : "Script that creates endpoints."
+    }, {
+      "name" : "script",
+      "type" : "object",
+      "title" : "Script",
+      "description" : "The Groovy script to execute."
+    } ]
+  }, {
+    "name" : "http",
+    "kind" : "testActionGroup",
+    "title" : "Http",
+    "description" : "Http related test actions.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "actor",
+      "type" : "string",
+      "title" : "Actor",
+      "description" : ""
+    }, {
+      "name" : "client",
+      "type" : "string",
+      "title" : "Client",
+      "description" : "The Http client. Uses an endpoint URI or references an endpoint name."
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "server",
+      "type" : "string",
+      "title" : "Server",
+      "description" : "The Http server. Uses an endpoint URI or references an endpoint name."
+    } ]
+  }, {
+    "name" : "http-receiveRequest",
+    "kind" : "testAction",
+    "title" : "ReceiveRequest",
+    "description" : "Receive an Http request as a server.",
+    "group" : "http",
+    "properties" : [ {
+      "name" : "DELETE",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "GET",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "HEAD",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "OPTIONS",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "PATCH",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "POST",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "PUT",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "TRACE",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables."
+    }, {
+      "name" : "headerValidator",
+      "type" : "string",
+      "title" : "HeaderValidator",
+      "description" : "Explicit message header validator."
+    }, {
+      "name" : "headerValidators",
+      "type" : "string",
+      "title" : "HeaderValidators",
+      "description" : "List of message header validators used to validate the message."
+    }, {
+      "name" : "select",
+      "type" : "string",
+      "title" : "Select",
+      "description" : "Message select expression to selectively consume messages."
+    }, {
+      "name" : "selector",
+      "type" : "object",
+      "title" : "Selector",
+      "description" : "Message selector expression to selectively consume messages."
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout",
+      "description" : "Http request timeout."
+    }, {
+      "name" : "validate",
+      "type" : "array",
+      "title" : "Validate",
+      "description" : "Validate expressions."
+    }, {
+      "name" : "validator",
+      "type" : "string",
+      "title" : "Validator",
+      "description" : "Explicit message validator."
+    }, {
+      "name" : "validators",
+      "type" : "string",
+      "title" : "Validators",
+      "description" : "List of message validators used to validate the message."
+    } ]
+  }, {
+    "name" : "http-receiveResponse",
+    "kind" : "testAction",
+    "title" : "ReceiveResponse",
+    "description" : "Receive an Http response as a client.",
+    "group" : "http",
+    "properties" : [ {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables."
+    }, {
+      "name" : "headerValidator",
+      "type" : "string",
+      "title" : "HeaderValidator",
+      "description" : "Explicit message header validator."
+    }, {
+      "name" : "headerValidators",
+      "type" : "string",
+      "title" : "HeaderValidators",
+      "description" : "List of message header validators used to validate the message."
+    }, {
+      "name" : "response",
+      "type" : "object",
+      "title" : "Response",
+      "description" : "The expected Http response."
+    }, {
+      "name" : "select",
+      "type" : "string",
+      "title" : "Select",
+      "description" : "Message selector expression to selectively consume the Http response."
+    }, {
+      "name" : "selector",
+      "type" : "object",
+      "title" : "Selector",
+      "description" : "Message selector to selectively consume the Http response."
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout",
+      "description" : "Timeout while waiting for the Http response."
+    }, {
+      "name" : "validate",
+      "type" : "array",
+      "title" : "Validate",
+      "description" : "Validate expressions."
+    }, {
+      "name" : "validator",
+      "type" : "string",
+      "title" : "Validator",
+      "description" : "Explicit message validator."
+    }, {
+      "name" : "validators",
+      "type" : "string",
+      "title" : "Validators",
+      "description" : "List of message validators used to validate the message."
+    } ]
+  }, {
+    "name" : "http-sendRequest",
+    "kind" : "testAction",
+    "title" : "SendRequest",
+    "description" : "Send a Http request as a client.",
+    "group" : "http",
+    "properties" : [ {
+      "name" : "DELETE",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "GET",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "HEAD",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "OPTIONS",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "PATCH",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "POST",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "PUT",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "TRACE",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables."
+    }, {
+      "name" : "fork",
+      "type" : "boolean",
+      "title" : "Fork",
+      "description" : "When enabled the send operation does not block while waiting for the response."
+    }, {
+      "name" : "uri",
+      "type" : "string",
+      "title" : "Uri",
+      "description" : "Http request URI."
+    } ]
+  }, {
+    "name" : "http-sendResponse",
+    "kind" : "testAction",
+    "title" : "SendResponse",
+    "description" : "Send an Http response as a server.",
+    "group" : "http",
+    "properties" : [ {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables."
+    }, {
+      "name" : "response",
+      "type" : "object",
+      "title" : "Response",
+      "description" : "Http response message."
+    } ]
+  }, {
+    "name" : "jbang",
+    "kind" : "testAction",
+    "title" : "Jbang",
+    "description" : "JBang test actions.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "app",
+      "type" : "string",
+      "title" : "App",
+      "description" : ""
+    }, {
+      "name" : "args",
+      "type" : "array",
+      "title" : "Args",
+      "description" : ""
+    }, {
+      "name" : "command",
+      "type" : "string",
+      "title" : "Command",
+      "description" : ""
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "exitCode",
+      "type" : "string",
+      "title" : "ExitCode",
+      "description" : ""
+    }, {
+      "name" : "file",
+      "type" : "string",
+      "title" : "File",
+      "description" : ""
+    }, {
+      "name" : "output",
+      "type" : "string",
+      "title" : "Output",
+      "description" : ""
+    }, {
+      "name" : "printOutput",
+      "type" : "boolean",
+      "title" : "PrintOutput",
+      "description" : ""
+    }, {
+      "name" : "saveOutput",
+      "type" : "string",
+      "title" : "SaveOutput",
+      "description" : ""
+    }, {
+      "name" : "savePid",
+      "type" : "string",
+      "title" : "SavePid",
+      "description" : ""
+    }, {
+      "name" : "systemProperties",
+      "type" : "array",
+      "title" : "SystemProperties",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "knative",
+    "kind" : "testActionGroup",
+    "title" : "Knative",
+    "description" : "Knative test actions.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "actor",
+      "type" : "string",
+      "title" : "Actor",
+      "description" : ""
+    }, {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : ""
+    }, {
+      "name" : "client",
+      "type" : "string",
+      "title" : "Client",
+      "description" : ""
+    }, {
+      "name" : "clusterType",
+      "type" : "string",
+      "title" : "ClusterType",
+      "description" : ""
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "kubernetesClient",
+      "type" : "string",
+      "title" : "KubernetesClient",
+      "description" : ""
+    }, {
+      "name" : "namespace",
+      "type" : "string",
+      "title" : "Namespace",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "knative-createBroker",
+    "kind" : "testAction",
+    "title" : "CreateBroker",
+    "description" : "",
+    "group" : "knative",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "knative-createChannel",
+    "kind" : "testAction",
+    "title" : "CreateChannel",
+    "description" : "",
+    "group" : "knative",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "knative-createSubscription",
+    "kind" : "testAction",
+    "title" : "CreateSubscription",
+    "description" : "",
+    "group" : "knative",
+    "properties" : [ {
+      "name" : "channel",
+      "type" : "string",
+      "title" : "Channel",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "service",
+      "type" : "string",
+      "title" : "Service",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "knative-createTrigger",
+    "kind" : "testAction",
+    "title" : "CreateTrigger",
+    "description" : "",
+    "group" : "knative",
+    "properties" : [ {
+      "name" : "broker",
+      "type" : "string",
+      "title" : "Broker",
+      "description" : ""
+    }, {
+      "name" : "channel",
+      "type" : "string",
+      "title" : "Channel",
+      "description" : ""
+    }, {
+      "name" : "filter",
+      "type" : "object",
+      "title" : "Filter",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "service",
+      "type" : "string",
+      "title" : "Service",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "knative-deleteBroker",
+    "kind" : "testAction",
+    "title" : "DeleteBroker",
+    "description" : "",
+    "group" : "knative",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "knative-deleteChannel",
+    "kind" : "testAction",
+    "title" : "DeleteChannel",
+    "description" : "",
+    "group" : "knative",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "knative-deleteResource",
+    "kind" : "testAction",
+    "title" : "DeleteResource",
+    "description" : "",
+    "group" : "knative",
+    "properties" : [ {
+      "name" : "component",
+      "type" : "string",
+      "title" : "Component",
+      "description" : ""
+    }, {
+      "name" : "kind",
+      "type" : "string",
+      "title" : "Kind",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "knative-deleteSubscription",
+    "kind" : "testAction",
+    "title" : "DeleteSubscription",
+    "description" : "",
+    "group" : "knative",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "knative-deleteTrigger",
+    "kind" : "testAction",
+    "title" : "DeleteTrigger",
+    "description" : "",
+    "group" : "knative",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "knative-receiveEvent",
+    "kind" : "testAction",
+    "title" : "ReceiveEvent",
+    "description" : "",
+    "group" : "knative",
+    "properties" : [ {
+      "name" : "event",
+      "type" : "object",
+      "title" : "Event",
+      "description" : ""
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port",
+      "description" : ""
+    }, {
+      "name" : "service",
+      "type" : "string",
+      "title" : "Service",
+      "description" : ""
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "knative-sendEvent",
+    "kind" : "testAction",
+    "title" : "SendEvent",
+    "description" : "",
+    "group" : "knative",
+    "properties" : [ {
+      "name" : "broker",
+      "type" : "string",
+      "title" : "Broker",
+      "description" : ""
+    }, {
+      "name" : "event",
+      "type" : "object",
+      "title" : "Event",
+      "description" : ""
+    }, {
+      "name" : "fork",
+      "type" : "boolean",
+      "title" : "Fork",
+      "description" : ""
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "knative-verifyBroker",
+    "kind" : "testAction",
+    "title" : "VerifyBroker",
+    "description" : "",
+    "group" : "knative",
+    "properties" : [ {
+      "name" : "condition",
+      "type" : "string",
+      "title" : "Condition",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "status",
+      "type" : "string",
+      "title" : "Status",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes",
+    "kind" : "testActionGroup",
+    "title" : "Kubernetes",
+    "description" : "Kubernetes test actions.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "actor",
+      "type" : "string",
+      "title" : "Actor",
+      "description" : ""
+    }, {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : ""
+    }, {
+      "name" : "client",
+      "type" : "string",
+      "title" : "Client",
+      "description" : ""
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "namespace",
+      "type" : "string",
+      "title" : "Namespace",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-agent",
+    "kind" : "testAction",
+    "title" : "Agent",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "connect",
+      "type" : "object",
+      "title" : "Connect",
+      "description" : ""
+    }, {
+      "name" : "disconnect",
+      "type" : "object",
+      "title" : "Disconnect",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-connect",
+    "kind" : "testAction",
+    "title" : "Connect",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "service",
+      "type" : "object",
+      "title" : "Service",
+      "description" : "Connects to this Kubernetes service."
+    } ]
+  }, {
+    "name" : "kubernetes-connectService",
+    "kind" : "testAction",
+    "title" : "ConnectService",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "client",
+      "type" : "string",
+      "title" : "Client",
+      "description" : "Creates and exposes a client that connects to this service. The client can be referenced by this name."
+    }, {
+      "name" : "localPort",
+      "type" : "string",
+      "title" : "LocalPort",
+      "description" : "Local port on the host machine. Creates a local port forward to the Kubernetes service."
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "ServiceName",
+      "description" : "The Kubernetes service name to connect to"
+    }, {
+      "name" : "port",
+      "type" : "string",
+      "title" : "Port",
+      "description" : "The exposed service port used to connect to."
+    } ]
+  }, {
+    "name" : "kubernetes-createAnnotations",
+    "kind" : "testAction",
+    "title" : "CreateAnnotations",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "annotations",
+      "type" : "array",
+      "title" : "Annotations",
+      "description" : ""
+    }, {
+      "name" : "resource",
+      "type" : "string",
+      "title" : "Resource",
+      "description" : ""
+    }, {
+      "name" : "type",
+      "type" : "string",
+      "title" : "Type",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-createConfigMap",
+    "kind" : "testAction",
+    "title" : "CreateConfigMap",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "file",
+      "type" : "string",
+      "title" : "File",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "properties",
+      "type" : "array",
+      "title" : "Properties",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-createCustomResource",
+    "kind" : "testAction",
+    "title" : "CreateCustomResource",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "apiVersion",
+      "type" : "string",
+      "title" : "ApiVersion",
+      "description" : ""
+    }, {
+      "name" : "data",
+      "type" : "string",
+      "title" : "Data",
+      "description" : "The custom resource specification as inline data."
+    }, {
+      "name" : "file",
+      "type" : "string",
+      "title" : "File",
+      "description" : "The custom resource specification loaded from a file resource."
+    }, {
+      "name" : "group",
+      "type" : "string",
+      "title" : "Group",
+      "description" : ""
+    }, {
+      "name" : "kind",
+      "type" : "string",
+      "title" : "Kind",
+      "description" : ""
+    }, {
+      "name" : "type",
+      "type" : "string",
+      "title" : "Type",
+      "description" : ""
+    }, {
+      "name" : "version",
+      "type" : "string",
+      "title" : "Version",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-createLabels",
+    "kind" : "testAction",
+    "title" : "CreateLabels",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "labels",
+      "type" : "array",
+      "title" : "Labels",
+      "description" : ""
+    }, {
+      "name" : "resource",
+      "type" : "string",
+      "title" : "Resource",
+      "description" : ""
+    }, {
+      "name" : "type",
+      "type" : "string",
+      "title" : "Type",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-createResource",
+    "kind" : "testAction",
+    "title" : "CreateResource",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "data",
+      "type" : "string",
+      "title" : "Data",
+      "description" : "The custom resource specification as inline data."
+    }, {
+      "name" : "file",
+      "type" : "string",
+      "title" : "File",
+      "description" : "The custom resource specification loaded from a file resource."
+    } ]
+  }, {
+    "name" : "kubernetes-createSecret",
+    "kind" : "testAction",
+    "title" : "CreateSecret",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "file",
+      "type" : "string",
+      "title" : "File",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "properties",
+      "type" : "array",
+      "title" : "Properties",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-createService",
+    "kind" : "testAction",
+    "title" : "CreateService",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "autoCreateServerBinding",
+      "type" : "boolean",
+      "title" : "AutoCreateServerBinding",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "ports",
+      "type" : "array",
+      "title" : "Ports",
+      "description" : ""
+    }, {
+      "name" : "protocol",
+      "type" : "string",
+      "title" : "Protocol",
+      "description" : ""
+    }, {
+      "name" : "selector",
+      "type" : "object",
+      "title" : "Selector",
+      "description" : ""
+    }, {
+      "name" : "server",
+      "type" : "string",
+      "title" : "Server",
+      "description" : "Uses an endpoint URI or references an endpoint name."
+    } ]
+  }, {
+    "name" : "kubernetes-deleteConfigMap",
+    "kind" : "testAction",
+    "title" : "DeleteConfigMap",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-deleteCustomResource",
+    "kind" : "testAction",
+    "title" : "DeleteCustomResource",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "apiVersion",
+      "type" : "string",
+      "title" : "ApiVersion",
+      "description" : ""
+    }, {
+      "name" : "group",
+      "type" : "string",
+      "title" : "Group",
+      "description" : ""
+    }, {
+      "name" : "kind",
+      "type" : "string",
+      "title" : "Kind",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "type",
+      "type" : "string",
+      "title" : "Type",
+      "description" : ""
+    }, {
+      "name" : "version",
+      "type" : "string",
+      "title" : "Version",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-deleteResource",
+    "kind" : "testAction",
+    "title" : "DeleteResource",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "data",
+      "type" : "string",
+      "title" : "Data",
+      "description" : "The custom resource specification as inline data."
+    }, {
+      "name" : "file",
+      "type" : "string",
+      "title" : "File",
+      "description" : "The custom resource specification loaded from a file resource."
+    } ]
+  }, {
+    "name" : "kubernetes-deleteSecret",
+    "kind" : "testAction",
+    "title" : "DeleteSecret",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-deleteService",
+    "kind" : "testAction",
+    "title" : "DeleteService",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-disconnect",
+    "kind" : "testAction",
+    "title" : "Disconnect",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "service",
+      "type" : "object",
+      "title" : "Service",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-disconnectService",
+    "kind" : "testAction",
+    "title" : "DisconnectService",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "client",
+      "type" : "string",
+      "title" : "Client",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-verifyCustomResource",
+    "kind" : "testAction",
+    "title" : "VerifyCustomResource",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "apiVersion",
+      "type" : "string",
+      "title" : "ApiVersion",
+      "description" : ""
+    }, {
+      "name" : "condition",
+      "type" : "string",
+      "title" : "Condition",
+      "description" : ""
+    }, {
+      "name" : "delayBetweenAttempts",
+      "type" : "integer",
+      "title" : "DelayBetweenAttempts",
+      "description" : ""
+    }, {
+      "name" : "group",
+      "type" : "string",
+      "title" : "Group",
+      "description" : ""
+    }, {
+      "name" : "kind",
+      "type" : "string",
+      "title" : "Kind",
+      "description" : ""
+    }, {
+      "name" : "label",
+      "type" : "string",
+      "title" : "Label",
+      "description" : ""
+    }, {
+      "name" : "maxAttempts",
+      "type" : "integer",
+      "title" : "MaxAttempts",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "type",
+      "type" : "string",
+      "title" : "Type",
+      "description" : ""
+    }, {
+      "name" : "version",
+      "type" : "string",
+      "title" : "Version",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-verifyPod",
+    "kind" : "testAction",
+    "title" : "VerifyPod",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "delayBetweenAttempts",
+      "type" : "integer",
+      "title" : "DelayBetweenAttempts",
+      "description" : ""
+    }, {
+      "name" : "label",
+      "type" : "string",
+      "title" : "Label",
+      "description" : ""
+    }, {
+      "name" : "labels",
+      "type" : "array",
+      "title" : "Labels",
+      "description" : ""
+    }, {
+      "name" : "logMessage",
+      "type" : "string",
+      "title" : "LogMessage",
+      "description" : ""
+    }, {
+      "name" : "maxAttempts",
+      "type" : "integer",
+      "title" : "MaxAttempts",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "phase",
+      "type" : "string",
+      "title" : "Phase",
+      "description" : ""
+    }, {
+      "name" : "printLogs",
+      "type" : "boolean",
+      "title" : "PrintLogs",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "kubernetes-watchPodLogs",
+    "kind" : "testAction",
+    "title" : "WatchPodLogs",
+    "description" : "",
+    "group" : "kubernetes",
+    "properties" : [ {
+      "name" : "label",
+      "type" : "string",
+      "title" : "Label",
+      "description" : ""
+    }, {
+      "name" : "labels",
+      "type" : "array",
+      "title" : "Labels",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "timeout",
+      "type" : "string",
+      "title" : "Timeout",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "load",
+    "kind" : "testAction",
+    "title" : "Load",
+    "description" : "Load properties test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "properties",
+      "type" : "object",
+      "title" : "Properties",
+      "description" : "The properties source."
+    } ]
+  }, {
+    "name" : "openapi",
+    "kind" : "testActionGroup",
+    "title" : "Openapi",
+    "description" : "OpenAPI related test actions.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "actor",
+      "type" : "string",
+      "title" : "Actor",
+      "description" : ""
+    }, {
+      "name" : "client",
+      "type" : "string",
+      "title" : "Client",
+      "description" : "Sets the Http client used to send requests. Uses an endpoint URI or references an endpoint name."
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "server",
+      "type" : "string",
+      "title" : "Server",
+      "description" : "Sets the Http server that provides the Http API. Uses an endpoint URI or references an endpoint name."
+    }, {
+      "name" : "specification",
+      "type" : "string",
+      "title" : "Specification",
+      "description" : "The OpenAPI specification source. Can be a local file resource or an Http endpoint URI."
+    } ]
+  }, {
+    "name" : "openapi-receiveRequest",
+    "kind" : "testAction",
+    "title" : "ReceiveRequest",
+    "description" : "Receives a client request as a server.",
+    "group" : "openapi",
+    "properties" : [ {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables."
+    }, {
+      "name" : "headerValidator",
+      "type" : "string",
+      "title" : "HeaderValidator",
+      "description" : "Explicit message header validator."
+    }, {
+      "name" : "headerValidators",
+      "type" : "string",
+      "title" : "HeaderValidators",
+      "description" : "List of message header validators used to validate the message."
+    }, {
+      "name" : "operation",
+      "type" : "string",
+      "title" : "Operation",
+      "description" : "The expected API operation."
+    }, {
+      "name" : "schemaValidation",
+      "type" : "boolean",
+      "title" : "SchemaValidation",
+      "description" : "Enables the schema validation."
+    }, {
+      "name" : "select",
+      "type" : "string",
+      "title" : "Select",
+      "description" : "Message selector expression to selectively consume messages."
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout",
+      "description" : "The timeout while waiting for incoming Http requests."
+    }, {
+      "name" : "validates",
+      "type" : "array",
+      "title" : "Validates",
+      "description" : "Additional message validation expressions."
+    }, {
+      "name" : "validator",
+      "type" : "string",
+      "title" : "Validator",
+      "description" : "Explicit message validator."
+    }, {
+      "name" : "validators",
+      "type" : "string",
+      "title" : "Validators",
+      "description" : "List of message validators used to validate the message."
+    } ]
+  }, {
+    "name" : "openapi-receiveResponse",
+    "kind" : "testAction",
+    "title" : "ReceiveResponse",
+    "description" : "Receives a response as a client.",
+    "group" : "openapi",
+    "properties" : [ {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables."
+    }, {
+      "name" : "headerValidator",
+      "type" : "string",
+      "title" : "HeaderValidator",
+      "description" : "Explicit message header validator."
+    }, {
+      "name" : "headerValidators",
+      "type" : "string",
+      "title" : "HeaderValidators",
+      "description" : "List of message header validators used to validate the message."
+    }, {
+      "name" : "operation",
+      "type" : "string",
+      "title" : "Operation",
+      "description" : "The OpenAPI operation that defines the expected response."
+    }, {
+      "name" : "schemaValidation",
+      "type" : "boolean",
+      "title" : "SchemaValidation",
+      "description" : "Enables the schema validation."
+    }, {
+      "name" : "select",
+      "type" : "string",
+      "title" : "Select",
+      "description" : "Message selector expression to selectively consume messages."
+    }, {
+      "name" : "selector",
+      "type" : "object",
+      "title" : "Selector",
+      "description" : "Message selector to selectively consume messages."
+    }, {
+      "name" : "status",
+      "type" : "string",
+      "title" : "Status",
+      "description" : "Expected response status."
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout",
+      "description" : "Timeout in milliseconds while waiting for the server response."
+    }, {
+      "name" : "validator",
+      "type" : "string",
+      "title" : "Validator",
+      "description" : "Explicit message validator."
+    }, {
+      "name" : "validators",
+      "type" : "string",
+      "title" : "Validators",
+      "description" : "List of message validators used to validate the message."
+    } ]
+  }, {
+    "name" : "openapi-sendRequest",
+    "kind" : "testAction",
+    "title" : "SendRequest",
+    "description" : "Send a request as a client.",
+    "group" : "openapi",
+    "properties" : [ {
+      "name" : "autoFill",
+      "type" : "string",
+      "title" : "AutoFill",
+      "description" : "Define which of the request fields are automatically filled with generated test data."
+    }, {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables before the request is sent."
+    }, {
+      "name" : "fork",
+      "type" : "boolean",
+      "title" : "Fork",
+      "description" : "When enabled send operation does not block while waiting for the response."
+    }, {
+      "name" : "operation",
+      "type" : "string",
+      "title" : "Operation",
+      "description" : "The API operation to call."
+    }, {
+      "name" : "schemaValidation",
+      "type" : "boolean",
+      "title" : "SchemaValidation",
+      "description" : "Enables the schema validation."
+    }, {
+      "name" : "uri",
+      "type" : "string",
+      "title" : "Uri",
+      "description" : "Http endpoint URI overwrite."
+    } ]
+  }, {
+    "name" : "openapi-sendResponse",
+    "kind" : "testAction",
+    "title" : "SendResponse",
+    "description" : "Sends a response as a server.",
+    "group" : "openapi",
+    "properties" : [ {
+      "name" : "autoFill",
+      "type" : "string",
+      "title" : "AutoFill",
+      "description" : "Define which response fields are set with generated values."
+    }, {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables."
+    }, {
+      "name" : "operation",
+      "type" : "string",
+      "title" : "Operation",
+      "description" : "The OpenAPI operation that generates the response."
+    }, {
+      "name" : "schemaValidation",
+      "type" : "boolean",
+      "title" : "SchemaValidation",
+      "description" : "Enables the schema validation."
+    }, {
+      "name" : "status",
+      "type" : "string",
+      "title" : "Status",
+      "description" : "The response to generate."
+    } ]
+  }, {
+    "name" : "plsql",
+    "kind" : "testAction",
+    "title" : "Plsql",
+    "description" : "PLSQL test actions.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "dataSource",
+      "type" : "string",
+      "title" : "DataSource",
+      "description" : ""
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "ignoreErrors",
+      "type" : "boolean",
+      "title" : "IgnoreErrors",
+      "description" : ""
+    }, {
+      "name" : "statements",
+      "type" : "array",
+      "title" : "Statements",
+      "description" : ""
+    }, {
+      "name" : "transaction",
+      "type" : "object",
+      "title" : "Transaction",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "print",
+    "kind" : "testAction",
+    "title" : "Print",
+    "description" : "Print test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "message",
+      "type" : "string",
+      "title" : "Message",
+      "description" : "The message to print."
+    } ]
+  }, {
+    "name" : "purge",
+    "kind" : "testAction",
+    "title" : "Purge",
+    "description" : "Purge test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "endpoint",
+      "type" : "string",
+      "title" : "Endpoint",
+      "description" : "The name of the endpoint to purge. Uses an endpoint URI or references an endpoint name."
+    }, {
+      "name" : "endpoints",
+      "type" : "array",
+      "title" : "Endpoints",
+      "description" : "List of endpoints to purge."
+    }, {
+      "name" : "select",
+      "type" : "string",
+      "title" : "Select",
+      "description" : "Message selector to purge only matching messages."
+    }, {
+      "name" : "selector",
+      "type" : "object",
+      "title" : "Selector",
+      "description" : "Message selector to find matching messages that should be purged."
+    }, {
+      "name" : "sleep",
+      "type" : "integer",
+      "title" : "Sleep",
+      "description" : "Wait this time between reading attempts."
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout",
+      "description" : "Timeout when reading messages from the endpoint."
+    } ]
+  }, {
+    "name" : "purgeQueues",
+    "kind" : "testAction",
+    "title" : "PurgeQueues",
+    "description" : "Purge JMS queue test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "actor",
+      "type" : "string",
+      "title" : "Actor",
+      "description" : ""
+    }, {
+      "name" : "connectionFactory",
+      "type" : "string",
+      "title" : "ConnectionFactory",
+      "description" : "The JMS connection factory."
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "queue",
+      "type" : "string",
+      "title" : "Queue",
+      "description" : "The JMS queue to purge."
+    }, {
+      "name" : "queues",
+      "type" : "array",
+      "title" : "Queues",
+      "description" : "List of JMS queues to purge."
+    }, {
+      "name" : "sleep",
+      "type" : "integer",
+      "title" : "Sleep",
+      "description" : "Time to wait between message consume attempts."
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout",
+      "description" : "Request timeout while consuming messages from the queue."
+    } ]
+  }, {
+    "name" : "receive",
+    "kind" : "testAction",
+    "title" : "Receive",
+    "description" : "Receive message test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "actor",
+      "type" : "string",
+      "title" : "Actor",
+      "description" : ""
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "endpoint",
+      "type" : "string",
+      "title" : "Endpoint",
+      "description" : "The message endpoint name or URI used to receive the message. Uses an endpoint URI or references an endpoint name."
+    }, {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables after the message validation."
+    }, {
+      "name" : "headerValidator",
+      "type" : "string",
+      "title" : "HeaderValidator",
+      "description" : "Explicit message header validator."
+    }, {
+      "name" : "headerValidators",
+      "type" : "string",
+      "title" : "HeaderValidators",
+      "description" : "List of message header validators used to validate the message."
+    }, {
+      "name" : "ignore",
+      "type" : "array",
+      "title" : "Ignore",
+      "description" : "List of expressions to identify message elements that should be ignored during validation."
+    }, {
+      "name" : "message",
+      "type" : "object",
+      "title" : "Message",
+      "description" : "The expected message used to validate."
+    }, {
+      "name" : "namespace",
+      "type" : "array",
+      "title" : "Namespace",
+      "description" : "Optional XML namespace to validate."
+    }, {
+      "name" : "process",
+      "type" : "array",
+      "title" : "Process",
+      "description" : "Process the message content when received."
+    }, {
+      "name" : "select",
+      "type" : "string",
+      "title" : "Select",
+      "description" : "Message select expression to selectively receive a message."
+    }, {
+      "name" : "selector",
+      "type" : "object",
+      "title" : "Selector",
+      "description" : "Message selector used to selectively receive a message."
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout",
+      "description" : "Receive timeout."
+    }, {
+      "name" : "transform",
+      "type" : "array",
+      "title" : "Transform",
+      "description" : "Transforms the message content before the message is validated."
+    }, {
+      "name" : "validate",
+      "type" : "array",
+      "title" : "Validate",
+      "description" : "Validation expressions evaluated on the message."
+    }, {
+      "name" : "validator",
+      "type" : "string",
+      "title" : "Validator",
+      "description" : "Explicit message validator."
+    }, {
+      "name" : "validators",
+      "type" : "string",
+      "title" : "Validators",
+      "description" : "List of message validators used to validate the message."
+    } ]
+  }, {
+    "name" : "selenium",
+    "kind" : "testActionGroup",
+    "title" : "Selenium",
+    "description" : "Selenium test actions.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "actor",
+      "type" : "string",
+      "title" : "Actor",
+      "description" : ""
+    }, {
+      "name" : "browser",
+      "type" : "string",
+      "title" : "Browser",
+      "description" : "Sets the Selenium browser.Uses an endpoint URI or references an endpoint name."
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    } ]
+  }, {
+    "name" : "selenium-alert",
+    "kind" : "testAction",
+    "title" : "Alert",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "accept",
+      "type" : "boolean",
+      "title" : "Accept",
+      "description" : ""
+    }, {
+      "name" : "dismiss",
+      "type" : "boolean",
+      "title" : "Dismiss",
+      "description" : ""
+    }, {
+      "name" : "text",
+      "type" : "string",
+      "title" : "Text",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-checkInput",
+    "kind" : "testAction",
+    "title" : "CheckInput",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "checked",
+      "type" : "boolean",
+      "title" : "Checked",
+      "description" : ""
+    }, {
+      "name" : "element",
+      "type" : "object",
+      "title" : "Element",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-clearCache",
+    "kind" : "testAction",
+    "title" : "ClearCache",
+    "description" : "",
+    "group" : "selenium"
+  }, {
+    "name" : "selenium-click",
+    "kind" : "testAction",
+    "title" : "Click",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "element",
+      "type" : "object",
+      "title" : "Element",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-closeWindow",
+    "kind" : "testAction",
+    "title" : "CloseWindow",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "window",
+      "type" : "string",
+      "title" : "Window",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-dropdownSelect",
+    "kind" : "testAction",
+    "title" : "DropdownSelect",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "element",
+      "type" : "object",
+      "title" : "Element",
+      "description" : ""
+    }, {
+      "name" : "option",
+      "type" : "string",
+      "title" : "Option",
+      "description" : ""
+    }, {
+      "name" : "options",
+      "type" : "array",
+      "title" : "Options",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-fillForm",
+    "kind" : "testAction",
+    "title" : "FillForm",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "fields",
+      "type" : "array",
+      "title" : "Fields",
+      "description" : ""
+    }, {
+      "name" : "json",
+      "type" : "string",
+      "title" : "Json",
+      "description" : ""
+    }, {
+      "name" : "submit",
+      "type" : "string",
+      "title" : "Submit",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-find",
+    "kind" : "testAction",
+    "title" : "Find",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "element",
+      "type" : "object",
+      "title" : "Element",
+      "description" : ""
+    }, {
+      "name" : "validate",
+      "type" : "object",
+      "title" : "Validate",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-focusWindow",
+    "kind" : "testAction",
+    "title" : "FocusWindow",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "window",
+      "type" : "string",
+      "title" : "Window",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-getStoredFile",
+    "kind" : "testAction",
+    "title" : "GetStoredFile",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "fileName",
+      "type" : "string",
+      "title" : "FileName",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-hover",
+    "kind" : "testAction",
+    "title" : "Hover",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "element",
+      "type" : "object",
+      "title" : "Element",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-javaScript",
+    "kind" : "testAction",
+    "title" : "JavaScript",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "argument",
+      "type" : "string",
+      "title" : "Argument",
+      "description" : ""
+    }, {
+      "name" : "arguments",
+      "type" : "array",
+      "title" : "Arguments",
+      "description" : ""
+    }, {
+      "name" : "error",
+      "type" : "string",
+      "title" : "Error",
+      "description" : ""
+    }, {
+      "name" : "errors",
+      "type" : "array",
+      "title" : "Errors",
+      "description" : ""
+    }, {
+      "name" : "script",
+      "type" : "string",
+      "title" : "Script",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-navigate",
+    "kind" : "testAction",
+    "title" : "Navigate",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "page",
+      "type" : "string",
+      "title" : "Page",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-openWindow",
+    "kind" : "testAction",
+    "title" : "OpenWindow",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "window",
+      "type" : "string",
+      "title" : "Window",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-page",
+    "kind" : "testAction",
+    "title" : "Page",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "action",
+      "type" : "string",
+      "title" : "Action",
+      "description" : ""
+    }, {
+      "name" : "argument",
+      "type" : "string",
+      "title" : "Argument",
+      "description" : ""
+    }, {
+      "name" : "arguments",
+      "type" : "array",
+      "title" : "Arguments",
+      "description" : ""
+    }, {
+      "name" : "execute",
+      "type" : "string",
+      "title" : "Execute",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "type",
+      "type" : "string",
+      "title" : "Type",
+      "description" : ""
+    }, {
+      "name" : "validator",
+      "type" : "string",
+      "title" : "Validator",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-screenshot",
+    "kind" : "testAction",
+    "title" : "Screenshot",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "outputDir",
+      "type" : "string",
+      "title" : "OutputDir",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-setInput",
+    "kind" : "testAction",
+    "title" : "SetInput",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "element",
+      "type" : "object",
+      "title" : "Element",
+      "description" : ""
+    }, {
+      "name" : "value",
+      "type" : "string",
+      "title" : "Value",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-start",
+    "kind" : "testAction",
+    "title" : "Start",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "allowAlreadyStarted",
+      "type" : "boolean",
+      "title" : "AllowAlreadyStarted",
+      "description" : ""
+    }, {
+      "name" : "browser",
+      "type" : "string",
+      "title" : "Browser",
+      "description" : "Sets the Selenium browser.Uses an endpoint URI or references an endpoint name."
+    } ]
+  }, {
+    "name" : "selenium-stop",
+    "kind" : "testAction",
+    "title" : "Stop",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "browser",
+      "type" : "string",
+      "title" : "Browser",
+      "description" : "Sets the Selenium browser.Uses an endpoint URI or references an endpoint name."
+    } ]
+  }, {
+    "name" : "selenium-storeFile",
+    "kind" : "testAction",
+    "title" : "StoreFile",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "filePath",
+      "type" : "string",
+      "title" : "FilePath",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-switchWindow",
+    "kind" : "testAction",
+    "title" : "SwitchWindow",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "window",
+      "type" : "string",
+      "title" : "Window",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "selenium-waitUntil",
+    "kind" : "testAction",
+    "title" : "WaitUntil",
+    "description" : "",
+    "group" : "selenium",
+    "properties" : [ {
+      "name" : "condition",
+      "type" : "string",
+      "title" : "Condition",
+      "description" : ""
+    }, {
+      "name" : "element",
+      "type" : "object",
+      "title" : "Element",
+      "description" : ""
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout",
+      "description" : ""
+    }, {
+      "name" : "until",
+      "type" : "string",
+      "title" : "Until",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "send",
+    "kind" : "testAction",
+    "title" : "Send",
+    "description" : "Send message test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "actor",
+      "type" : "string",
+      "title" : "Actor",
+      "description" : ""
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "endpoint",
+      "type" : "string",
+      "title" : "Endpoint",
+      "description" : "The message endpoint name or URI. Uses an endpoint URI or references an endpoint name."
+    }, {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables before the message is sent."
+    }, {
+      "name" : "fork",
+      "type" : "boolean",
+      "title" : "Fork",
+      "description" : "When set the send operation does not block while waiting for the response."
+    }, {
+      "name" : "message",
+      "type" : "object",
+      "title" : "Message",
+      "description" : "The message to send."
+    }, {
+      "name" : "process",
+      "type" : "array",
+      "title" : "Process",
+      "description" : "Process the message content when received."
+    }, {
+      "name" : "transform",
+      "type" : "array",
+      "title" : "Transform",
+      "description" : "Transforms the message content before the message is validated."
+    } ]
+  }, {
+    "name" : "sleep",
+    "kind" : "testAction",
+    "title" : "Sleep",
+    "description" : "Sleep test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "milliseconds",
+      "type" : "string",
+      "title" : "Milliseconds",
+      "description" : "Time to sleep in milliseconds."
+    }, {
+      "name" : "seconds",
+      "type" : "string",
+      "title" : "Seconds",
+      "description" : "Time to sleep in seconds."
+    } ]
+  }, {
+    "name" : "soap",
+    "kind" : "testActionGroup",
+    "title" : "Soap",
+    "description" : "SOAP Web Services related test actions.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "actor",
+      "type" : "string",
+      "title" : "Actor",
+      "description" : ""
+    }, {
+      "name" : "client",
+      "type" : "string",
+      "title" : "Client",
+      "description" : "Sets the SOAP Http client. Uses an endpoint URI or references an endpoint name."
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "server",
+      "type" : "string",
+      "title" : "Server",
+      "description" : "Sets the SOAP Http server."
+    } ]
+  }, {
+    "name" : "soap-receiveRequest",
+    "kind" : "testAction",
+    "title" : "ReceiveRequest",
+    "description" : "Receives a SOAP request as a server.",
+    "group" : "soap",
+    "properties" : [ {
+      "name" : "attachmentValidator",
+      "type" : "string",
+      "title" : "AttachmentValidator",
+      "description" : "Explicit SOAP attachment validator."
+    }, {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables."
+    }, {
+      "name" : "headerValidator",
+      "type" : "string",
+      "title" : "HeaderValidator",
+      "description" : "Explicit message header validator."
+    }, {
+      "name" : "headerValidators",
+      "type" : "string",
+      "title" : "HeaderValidators",
+      "description" : "List of message header validators used to validate the message."
+    }, {
+      "name" : "message",
+      "type" : "object",
+      "title" : "Message",
+      "description" : "The expected SOAP request message."
+    }, {
+      "name" : "select",
+      "type" : "string",
+      "title" : "Select",
+      "description" : "Message selector expression to selectively consume messages."
+    }, {
+      "name" : "selector",
+      "type" : "object",
+      "title" : "Selector",
+      "description" : "Message selector to selectively consume messages."
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout",
+      "description" : "Timeout while waiting for the incoming SOAP request."
+    }, {
+      "name" : "validator",
+      "type" : "string",
+      "title" : "Validator",
+      "description" : "Explicit message validator."
+    }, {
+      "name" : "validators",
+      "type" : "string",
+      "title" : "Validators",
+      "description" : "List of message validators used to validate the message."
+    } ]
+  }, {
+    "name" : "soap-receiveResponse",
+    "kind" : "testAction",
+    "title" : "ReceiveResponse",
+    "description" : "Receives a SOAP response as a client.",
+    "group" : "soap",
+    "properties" : [ {
+      "name" : "attachmentValidator",
+      "type" : "string",
+      "title" : "AttachmentValidator",
+      "description" : "Explicit SOAP attachment validator."
+    }, {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables."
+    }, {
+      "name" : "headerValidator",
+      "type" : "string",
+      "title" : "HeaderValidator",
+      "description" : "Explicit message header validator."
+    }, {
+      "name" : "headerValidators",
+      "type" : "string",
+      "title" : "HeaderValidators",
+      "description" : "List of message header validators used to validate the message."
+    }, {
+      "name" : "message",
+      "type" : "object",
+      "title" : "Message",
+      "description" : "The expected SOAP response message."
+    }, {
+      "name" : "select",
+      "type" : "string",
+      "title" : "Select",
+      "description" : "Message selector to selectively consume messages."
+    }, {
+      "name" : "selector",
+      "type" : "object",
+      "title" : "Selector",
+      "description" : "Message selector to selectively consume messages."
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout",
+      "description" : "Timeout while waiting for the SOAP response message."
+    }, {
+      "name" : "validate",
+      "type" : "array",
+      "title" : "Validate",
+      "description" : "Message validation expressions."
+    }, {
+      "name" : "validator",
+      "type" : "string",
+      "title" : "Validator",
+      "description" : "Explicit message validator."
+    }, {
+      "name" : "validators",
+      "type" : "string",
+      "title" : "Validators",
+      "description" : "List of message validators used to validate the message."
+    } ]
+  }, {
+    "name" : "soap-sendFault",
+    "kind" : "testAction",
+    "title" : "SendFault",
+    "description" : "Sends a SOAP fault response as a server",
+    "group" : "soap",
+    "properties" : [ {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables."
+    }, {
+      "name" : "message",
+      "type" : "object",
+      "title" : "Message",
+      "description" : "The SOAP fault response message to send."
+    } ]
+  }, {
+    "name" : "soap-sendRequest",
+    "kind" : "testAction",
+    "title" : "SendRequest",
+    "description" : "Sends a SOAP request as a client.",
+    "group" : "soap",
+    "properties" : [ {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables."
+    }, {
+      "name" : "fork",
+      "type" : "boolean",
+      "title" : "Fork",
+      "description" : "When enabled the send operation does not block while waiting for the response."
+    }, {
+      "name" : "message",
+      "type" : "object",
+      "title" : "Message",
+      "description" : "The SOAP request message."
+    }, {
+      "name" : "uri",
+      "type" : "string",
+      "title" : "Uri",
+      "description" : "Http endpoint URI overwrite."
+    } ]
+  }, {
+    "name" : "soap-sendResponse",
+    "kind" : "testAction",
+    "title" : "SendResponse",
+    "description" : "Sends a SOAP response as a server.",
+    "group" : "soap",
+    "properties" : [ {
+      "name" : "extract",
+      "type" : "object",
+      "title" : "Extract",
+      "description" : "Extract message content to test variables."
+    }, {
+      "name" : "message",
+      "type" : "object",
+      "title" : "Message",
+      "description" : "The SOAP response message to send."
+    } ]
+  }, {
+    "name" : "sql",
+    "kind" : "testAction",
+    "title" : "Sql",
+    "description" : "SQL test actions.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "dataSource",
+      "type" : "string",
+      "title" : "DataSource",
+      "description" : ""
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "extract",
+      "type" : "array",
+      "title" : "Extract",
+      "description" : ""
+    }, {
+      "name" : "ignoreErrors",
+      "type" : "boolean",
+      "title" : "IgnoreErrors",
+      "description" : ""
+    }, {
+      "name" : "statements",
+      "type" : "array",
+      "title" : "Statements",
+      "description" : ""
+    }, {
+      "name" : "transaction",
+      "type" : "object",
+      "title" : "Transaction",
+      "description" : ""
+    }, {
+      "name" : "validate",
+      "type" : "array",
+      "title" : "Validate",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "start",
+    "kind" : "testAction",
+    "title" : "Start",
+    "description" : "Start server test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "server",
+      "type" : "string",
+      "title" : "Server",
+      "description" : "Uses an endpoint URI or references an endpoint name."
+    }, {
+      "name" : "servers",
+      "type" : "array",
+      "title" : "Servers",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "stop",
+    "kind" : "testAction",
+    "title" : "Stop",
+    "description" : "Stop server test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "server",
+      "type" : "string",
+      "title" : "Server",
+      "description" : "Uses an endpoint URI or references an endpoint name."
+    }, {
+      "name" : "servers",
+      "type" : "array",
+      "title" : "Servers",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "stopTime",
+    "kind" : "testAction",
+    "title" : "StopTime",
+    "description" : "Stop time test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "id",
+      "type" : "string",
+      "title" : "Id",
+      "description" : "The time line identifier."
+    }, {
+      "name" : "suffix",
+      "type" : "string",
+      "title" : "Suffix",
+      "description" : "Suffix added to the value test variable."
+    } ]
+  }, {
+    "name" : "stopTimer",
+    "kind" : "testAction",
+    "title" : "StopTimer",
+    "description" : "Stop timer test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "id",
+      "type" : "string",
+      "title" : "Id",
+      "description" : "Name identifying the timer."
+    } ]
+  }, {
+    "name" : "testcontainers",
+    "kind" : "testActionGroup",
+    "title" : "Testcontainers",
+    "description" : "Testcontainers test actions.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "actor",
+      "type" : "string",
+      "title" : "Actor",
+      "description" : ""
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    } ]
+  }, {
+    "name" : "testcontainers-compose",
+    "kind" : "testActionGroup",
+    "title" : "Compose",
+    "description" : "",
+    "group" : "testcontainers"
+  }, {
+    "name" : "testcontainers-compose-down",
+    "kind" : "testAction",
+    "title" : "Down",
+    "description" : "",
+    "group" : "testcontainers-compose",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "testcontainers-compose-up",
+    "kind" : "testAction",
+    "title" : "Up",
+    "description" : "",
+    "group" : "testcontainers-compose",
+    "properties" : [ {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : ""
+    }, {
+      "name" : "exposedServices",
+      "type" : "array",
+      "title" : "ExposedServices",
+      "description" : ""
+    }, {
+      "name" : "file",
+      "type" : "string",
+      "title" : "File",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "startUpTimeout",
+      "type" : "integer",
+      "title" : "StartUpTimeout",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "testcontainers-start",
+    "kind" : "testActionGroup",
+    "title" : "Start",
+    "description" : "",
+    "group" : "testcontainers"
+  }, {
+    "name" : "testcontainers-start-container",
+    "kind" : "testAction",
+    "title" : "Container",
+    "description" : "",
+    "group" : "testcontainers-start",
+    "properties" : [ {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : ""
+    }, {
+      "name" : "command",
+      "type" : "string",
+      "title" : "Command",
+      "description" : ""
+    }, {
+      "name" : "env",
+      "type" : "array",
+      "title" : "Env",
+      "description" : ""
+    }, {
+      "name" : "exposedPorts",
+      "type" : "array",
+      "title" : "ExposedPorts",
+      "description" : ""
+    }, {
+      "name" : "image",
+      "type" : "string",
+      "title" : "Image",
+      "description" : ""
+    }, {
+      "name" : "labels",
+      "type" : "array",
+      "title" : "Labels",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "portBindings",
+      "type" : "array",
+      "title" : "PortBindings",
+      "description" : ""
+    }, {
+      "name" : "serviceName",
+      "type" : "string",
+      "title" : "ServiceName",
+      "description" : ""
+    }, {
+      "name" : "startUpTimeout",
+      "type" : "integer",
+      "title" : "StartUpTimeout",
+      "description" : ""
+    }, {
+      "name" : "volumeMounts",
+      "type" : "array",
+      "title" : "VolumeMounts",
+      "description" : ""
+    }, {
+      "name" : "waitFor",
+      "type" : "object",
+      "title" : "WaitFor",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "testcontainers-start-floci",
+    "kind" : "testAction",
+    "title" : "Floci",
+    "description" : "",
+    "group" : "testcontainers-start",
+    "properties" : [ {
+      "name" : "accountId",
+      "type" : "string",
+      "title" : "AccountId",
+      "description" : "AWS account id"
+    }, {
+      "name" : "autoCreateClients",
+      "type" : "boolean",
+      "title" : "AutoCreateClients",
+      "description" : ""
+    }, {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : ""
+    }, {
+      "name" : "availabilityZone",
+      "type" : "string",
+      "title" : "AvailabilityZone",
+      "description" : "AWS availability zone"
+    }, {
+      "name" : "command",
+      "type" : "string",
+      "title" : "Command",
+      "description" : ""
+    }, {
+      "name" : "env",
+      "type" : "array",
+      "title" : "Env",
+      "description" : ""
+    }, {
+      "name" : "exposedPorts",
+      "type" : "array",
+      "title" : "ExposedPorts",
+      "description" : ""
+    }, {
+      "name" : "image",
+      "type" : "string",
+      "title" : "Image",
+      "description" : ""
+    }, {
+      "name" : "labels",
+      "type" : "array",
+      "title" : "Labels",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "options",
+      "type" : "object",
+      "title" : "Options",
+      "description" : ""
+    }, {
+      "name" : "portBindings",
+      "type" : "array",
+      "title" : "PortBindings",
+      "description" : ""
+    }, {
+      "name" : "region",
+      "type" : "string",
+      "title" : "Region",
+      "description" : "AWS region"
+    }, {
+      "name" : "serviceName",
+      "type" : "string",
+      "title" : "ServiceName",
+      "description" : ""
+    }, {
+      "name" : "services",
+      "type" : "array",
+      "title" : "Services",
+      "description" : ""
+    }, {
+      "name" : "startUpTimeout",
+      "type" : "integer",
+      "title" : "StartUpTimeout",
+      "description" : ""
+    }, {
+      "name" : "version",
+      "type" : "string",
+      "title" : "Version",
+      "description" : ""
+    }, {
+      "name" : "volumeMounts",
+      "type" : "array",
+      "title" : "VolumeMounts",
+      "description" : ""
+    }, {
+      "name" : "waitFor",
+      "type" : "object",
+      "title" : "WaitFor",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "testcontainers-start-kafka",
+    "kind" : "testAction",
+    "title" : "Kafka",
+    "description" : "",
+    "group" : "testcontainers-start",
+    "properties" : [ {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : ""
+    }, {
+      "name" : "command",
+      "type" : "string",
+      "title" : "Command",
+      "description" : ""
+    }, {
+      "name" : "env",
+      "type" : "array",
+      "title" : "Env",
+      "description" : ""
+    }, {
+      "name" : "exposedPorts",
+      "type" : "array",
+      "title" : "ExposedPorts",
+      "description" : ""
+    }, {
+      "name" : "image",
+      "type" : "string",
+      "title" : "Image",
+      "description" : ""
+    }, {
+      "name" : "implementation",
+      "type" : "string",
+      "title" : "Implementation",
+      "description" : ""
+    }, {
+      "name" : "labels",
+      "type" : "array",
+      "title" : "Labels",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port",
+      "description" : ""
+    }, {
+      "name" : "portBindings",
+      "type" : "array",
+      "title" : "PortBindings",
+      "description" : ""
+    }, {
+      "name" : "serviceName",
+      "type" : "string",
+      "title" : "ServiceName",
+      "description" : ""
+    }, {
+      "name" : "startUpTimeout",
+      "type" : "integer",
+      "title" : "StartUpTimeout",
+      "description" : ""
+    }, {
+      "name" : "topics",
+      "type" : "array",
+      "title" : "Topics",
+      "description" : ""
+    }, {
+      "name" : "version",
+      "type" : "string",
+      "title" : "Version",
+      "description" : ""
+    }, {
+      "name" : "volumeMounts",
+      "type" : "array",
+      "title" : "VolumeMounts",
+      "description" : ""
+    }, {
+      "name" : "waitFor",
+      "type" : "object",
+      "title" : "WaitFor",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "testcontainers-start-localstack",
+    "kind" : "testAction",
+    "title" : "Localstack",
+    "description" : "",
+    "group" : "testcontainers-start",
+    "properties" : [ {
+      "name" : "accessKey",
+      "type" : "string",
+      "title" : "AccessKey",
+      "description" : "AWS access key"
+    }, {
+      "name" : "authToken",
+      "type" : "string",
+      "title" : "AuthToken",
+      "description" : "Newer versions of Localstack container require an auth token."
+    }, {
+      "name" : "autoCreateClients",
+      "type" : "boolean",
+      "title" : "AutoCreateClients",
+      "description" : ""
+    }, {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : ""
+    }, {
+      "name" : "command",
+      "type" : "string",
+      "title" : "Command",
+      "description" : ""
+    }, {
+      "name" : "env",
+      "type" : "array",
+      "title" : "Env",
+      "description" : ""
+    }, {
+      "name" : "exposedPorts",
+      "type" : "array",
+      "title" : "ExposedPorts",
+      "description" : ""
+    }, {
+      "name" : "image",
+      "type" : "string",
+      "title" : "Image",
+      "description" : ""
+    }, {
+      "name" : "labels",
+      "type" : "array",
+      "title" : "Labels",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "options",
+      "type" : "object",
+      "title" : "Options",
+      "description" : ""
+    }, {
+      "name" : "portBindings",
+      "type" : "array",
+      "title" : "PortBindings",
+      "description" : ""
+    }, {
+      "name" : "region",
+      "type" : "string",
+      "title" : "Region",
+      "description" : "AWS region"
+    }, {
+      "name" : "secretKey",
+      "type" : "string",
+      "title" : "SecretKey",
+      "description" : "AWS secret key"
+    }, {
+      "name" : "serviceName",
+      "type" : "string",
+      "title" : "ServiceName",
+      "description" : ""
+    }, {
+      "name" : "services",
+      "type" : "array",
+      "title" : "Services",
+      "description" : ""
+    }, {
+      "name" : "startUpTimeout",
+      "type" : "integer",
+      "title" : "StartUpTimeout",
+      "description" : ""
+    }, {
+      "name" : "version",
+      "type" : "string",
+      "title" : "Version",
+      "description" : ""
+    }, {
+      "name" : "volumeMounts",
+      "type" : "array",
+      "title" : "VolumeMounts",
+      "description" : ""
+    }, {
+      "name" : "waitFor",
+      "type" : "object",
+      "title" : "WaitFor",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "testcontainers-start-mongodb",
+    "kind" : "testAction",
+    "title" : "Mongodb",
+    "description" : "",
+    "group" : "testcontainers-start",
+    "properties" : [ {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : ""
+    }, {
+      "name" : "command",
+      "type" : "string",
+      "title" : "Command",
+      "description" : ""
+    }, {
+      "name" : "env",
+      "type" : "array",
+      "title" : "Env",
+      "description" : ""
+    }, {
+      "name" : "exposedPorts",
+      "type" : "array",
+      "title" : "ExposedPorts",
+      "description" : ""
+    }, {
+      "name" : "image",
+      "type" : "string",
+      "title" : "Image",
+      "description" : ""
+    }, {
+      "name" : "labels",
+      "type" : "array",
+      "title" : "Labels",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "portBindings",
+      "type" : "array",
+      "title" : "PortBindings",
+      "description" : ""
+    }, {
+      "name" : "serviceName",
+      "type" : "string",
+      "title" : "ServiceName",
+      "description" : ""
+    }, {
+      "name" : "startUpTimeout",
+      "type" : "integer",
+      "title" : "StartUpTimeout",
+      "description" : ""
+    }, {
+      "name" : "version",
+      "type" : "string",
+      "title" : "Version",
+      "description" : ""
+    }, {
+      "name" : "volumeMounts",
+      "type" : "array",
+      "title" : "VolumeMounts",
+      "description" : ""
+    }, {
+      "name" : "waitFor",
+      "type" : "object",
+      "title" : "WaitFor",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "testcontainers-start-postgresql",
+    "kind" : "testAction",
+    "title" : "Postgresql",
+    "description" : "",
+    "group" : "testcontainers-start",
+    "properties" : [ {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : ""
+    }, {
+      "name" : "command",
+      "type" : "string",
+      "title" : "Command",
+      "description" : ""
+    }, {
+      "name" : "dataSourceName",
+      "type" : "string",
+      "title" : "DataSourceName",
+      "description" : ""
+    }, {
+      "name" : "database",
+      "type" : "string",
+      "title" : "Database",
+      "description" : ""
+    }, {
+      "name" : "env",
+      "type" : "array",
+      "title" : "Env",
+      "description" : ""
+    }, {
+      "name" : "exposedPorts",
+      "type" : "array",
+      "title" : "ExposedPorts",
+      "description" : ""
+    }, {
+      "name" : "image",
+      "type" : "string",
+      "title" : "Image",
+      "description" : ""
+    }, {
+      "name" : "initScript",
+      "type" : "object",
+      "title" : "InitScript",
+      "description" : ""
+    }, {
+      "name" : "labels",
+      "type" : "array",
+      "title" : "Labels",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password",
+      "description" : ""
+    }, {
+      "name" : "portBindings",
+      "type" : "array",
+      "title" : "PortBindings",
+      "description" : ""
+    }, {
+      "name" : "serviceName",
+      "type" : "string",
+      "title" : "ServiceName",
+      "description" : ""
+    }, {
+      "name" : "startUpTimeout",
+      "type" : "integer",
+      "title" : "StartUpTimeout",
+      "description" : ""
+    }, {
+      "name" : "username",
+      "type" : "string",
+      "title" : "Username",
+      "description" : ""
+    }, {
+      "name" : "version",
+      "type" : "string",
+      "title" : "Version",
+      "description" : ""
+    }, {
+      "name" : "volumeMounts",
+      "type" : "array",
+      "title" : "VolumeMounts",
+      "description" : ""
+    }, {
+      "name" : "waitFor",
+      "type" : "object",
+      "title" : "WaitFor",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "testcontainers-start-redpanda",
+    "kind" : "testAction",
+    "title" : "Redpanda",
+    "description" : "",
+    "group" : "testcontainers-start",
+    "properties" : [ {
+      "name" : "autoRemove",
+      "type" : "boolean",
+      "title" : "AutoRemove",
+      "description" : ""
+    }, {
+      "name" : "command",
+      "type" : "string",
+      "title" : "Command",
+      "description" : ""
+    }, {
+      "name" : "enableAuthorization",
+      "type" : "boolean",
+      "title" : "EnableAuthorization",
+      "description" : "Enables authorization for the Redpanda container."
+    }, {
+      "name" : "enableSasl",
+      "type" : "boolean",
+      "title" : "EnableSasl",
+      "description" : "Enables Sasl for the Redpanda container."
+    }, {
+      "name" : "env",
+      "type" : "array",
+      "title" : "Env",
+      "description" : ""
+    }, {
+      "name" : "exposedPorts",
+      "type" : "array",
+      "title" : "ExposedPorts",
+      "description" : ""
+    }, {
+      "name" : "image",
+      "type" : "string",
+      "title" : "Image",
+      "description" : ""
+    }, {
+      "name" : "labels",
+      "type" : "array",
+      "title" : "Labels",
+      "description" : ""
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    }, {
+      "name" : "portBindings",
+      "type" : "array",
+      "title" : "PortBindings",
+      "description" : ""
+    }, {
+      "name" : "securedSchemaRegistry",
+      "type" : "boolean",
+      "title" : "SecuredSchemaRegistry",
+      "description" : "Enables a secured schema registry for the Redpanda container. Usually through Http basic auth."
+    }, {
+      "name" : "serviceName",
+      "type" : "string",
+      "title" : "ServiceName",
+      "description" : ""
+    }, {
+      "name" : "startUpTimeout",
+      "type" : "integer",
+      "title" : "StartUpTimeout",
+      "description" : ""
+    }, {
+      "name" : "superuser",
+      "type" : "string",
+      "title" : "Superuser",
+      "description" : "Sets a super user for the Redpanda container."
+    }, {
+      "name" : "version",
+      "type" : "string",
+      "title" : "Version",
+      "description" : ""
+    }, {
+      "name" : "volumeMounts",
+      "type" : "array",
+      "title" : "VolumeMounts",
+      "description" : ""
+    }, {
+      "name" : "waitFor",
+      "type" : "object",
+      "title" : "WaitFor",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "testcontainers-stop",
+    "kind" : "testAction",
+    "title" : "Stop",
+    "description" : "",
+    "group" : "testcontainers",
+    "properties" : [ {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name",
+      "description" : ""
+    } ]
+  }, {
+    "name" : "trace",
+    "kind" : "testAction",
+    "title" : "Trace",
+    "description" : "Trace variables test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "variable",
+      "type" : "string",
+      "title" : "Variable",
+      "description" : "Name of the test variable to include."
+    }, {
+      "name" : "variables",
+      "type" : "array",
+      "title" : "Variables",
+      "description" : "Test variable names to include."
+    } ]
+  }, {
+    "name" : "transform",
+    "kind" : "testAction",
+    "title" : "Transform",
+    "description" : "Transform test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "result",
+      "type" : "string",
+      "title" : "Result",
+      "description" : "Set the target variable for the result."
+    }, {
+      "name" : "source",
+      "type" : "object",
+      "title" : "Source",
+      "description" : "The XML document to transform"
+    }, {
+      "name" : "variable",
+      "type" : "string",
+      "title" : "Variable",
+      "description" : "Set the target variable for the result."
+    }, {
+      "name" : "xslt",
+      "type" : "object",
+      "title" : "Xslt",
+      "description" : "The XSLT document performing the transformation."
+    } ]
+  }, {
+    "name" : "waitFor",
+    "kind" : "testAction",
+    "title" : "WaitFor",
+    "description" : "Wait for test action.",
+    "group" : "",
+    "properties" : [ {
+      "name" : "action",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description",
+      "description" : "Test action description printed when the action is executed."
+    }, {
+      "name" : "file",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "http",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "interval",
+      "type" : "string",
+      "title" : "Interval",
+      "description" : "Interval in milliseconds to check for the given wait condition."
+    }, {
+      "name" : "message",
+      "type" : "string",
+      "title" : "",
+      "description" : ""
+    }, {
+      "name" : "timeout",
+      "type" : "string",
+      "title" : "Timeout",
+      "description" : "Time to wait for the condition to become satisfied."
+    } ]
+  } ],
+  "endpoints" : [ {
+    "name" : "kubernetes-client",
+    "kind" : "testEndpoint",
+    "title" : "KubernetesClient",
+    "description" : "",
+    "properties" : [ {
+      "name" : "certFile",
+      "type" : "string",
+      "title" : "CertFile"
+    }, {
+      "name" : "client",
+      "type" : "string",
+      "title" : "Client"
+    }, {
+      "name" : "jsonMapper",
+      "type" : "string",
+      "title" : "JsonMapper"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "namespace",
+      "type" : "string",
+      "title" : "Namespace"
+    }, {
+      "name" : "oAuthToken",
+      "type" : "string",
+      "title" : "OAuthToken"
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password"
+    }, {
+      "name" : "url",
+      "type" : "string",
+      "title" : "Url"
+    }, {
+      "name" : "username",
+      "type" : "string",
+      "title" : "Username"
+    }, {
+      "name" : "version",
+      "type" : "string",
+      "title" : "Version"
+    } ]
+  }, {
+    "name" : "context-messageStore",
+    "kind" : "testEndpoint",
+    "title" : "ContextMessageStore",
+    "description" : "",
+    "properties" : [ {
+      "name" : "messageName",
+      "type" : "string",
+      "title" : "MessageName"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    } ]
+  }, {
+    "name" : "kafka-synchronous",
+    "kind" : "testEndpoint",
+    "title" : "KafkaSynchronous",
+    "description" : "",
+    "properties" : [ {
+      "name" : "autoCommit",
+      "type" : "boolean",
+      "title" : "AutoCommit"
+    }, {
+      "name" : "autoCommitInterval",
+      "type" : "integer",
+      "title" : "AutoCommitInterval"
+    }, {
+      "name" : "bootstrapServers",
+      "type" : "string",
+      "title" : "BootstrapServers"
+    }, {
+      "name" : "clientId",
+      "type" : "string",
+      "title" : "ClientId"
+    }, {
+      "name" : "consumerGroup",
+      "type" : "string",
+      "title" : "ConsumerGroup"
+    }, {
+      "name" : "consumerProperties",
+      "type" : "object",
+      "title" : "ConsumerProperties"
+    }, {
+      "name" : "headerMapper",
+      "type" : "string",
+      "title" : "HeaderMapper"
+    }, {
+      "name" : "keyDeserializer",
+      "type" : "string",
+      "title" : "KeyDeserializer"
+    }, {
+      "name" : "keySerializer",
+      "type" : "string",
+      "title" : "KeySerializer"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "offsetReset",
+      "type" : "string",
+      "title" : "OffsetReset"
+    }, {
+      "name" : "partition",
+      "type" : "integer",
+      "title" : "Partition"
+    }, {
+      "name" : "producerProperties",
+      "type" : "object",
+      "title" : "ProducerProperties"
+    }, {
+      "name" : "server",
+      "type" : "string",
+      "title" : "Server"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "topic",
+      "type" : "string",
+      "title" : "Topic"
+    }, {
+      "name" : "useThreadSafeConsumer",
+      "type" : "boolean",
+      "title" : "UseThreadSafeConsumer"
+    }, {
+      "name" : "valueDeserializer",
+      "type" : "string",
+      "title" : "ValueDeserializer"
+    }, {
+      "name" : "valueSerializer",
+      "type" : "string",
+      "title" : "ValueSerializer"
+    } ]
+  }, {
+    "name" : "jmx-server",
+    "kind" : "testEndpoint",
+    "title" : "JmxServer",
+    "description" : "",
+    "properties" : [ {
+      "name" : "autoReconnect",
+      "type" : "boolean",
+      "title" : "AutoReconnect"
+    }, {
+      "name" : "autoStart",
+      "type" : "boolean",
+      "title" : "AutoStart"
+    }, {
+      "name" : "binding",
+      "type" : "string",
+      "title" : "Binding"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "createRegistry",
+      "type" : "boolean",
+      "title" : "CreateRegistry"
+    }, {
+      "name" : "debugLogging",
+      "type" : "boolean",
+      "title" : "DebugLogging"
+    }, {
+      "name" : "delayOnReconnect",
+      "type" : "integer",
+      "title" : "DelayOnReconnect"
+    }, {
+      "name" : "endpointAdapter",
+      "type" : "string",
+      "title" : "EndpointAdapter"
+    }, {
+      "name" : "environmentProperties",
+      "type" : "object",
+      "title" : "EnvironmentProperties"
+    }, {
+      "name" : "host",
+      "type" : "string",
+      "title" : "Host"
+    }, {
+      "name" : "marshaller",
+      "type" : "string",
+      "title" : "Marshaller"
+    }, {
+      "name" : "mbeans",
+      "type" : "string",
+      "title" : "Mbeans"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "notificationFilter",
+      "type" : "string",
+      "title" : "NotificationFilter"
+    }, {
+      "name" : "notificationHandback",
+      "type" : "string",
+      "title" : "NotificationHandback"
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "protocol",
+      "type" : "string",
+      "title" : "Protocol"
+    }, {
+      "name" : "serverUrl",
+      "type" : "string",
+      "title" : "ServerUrl"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "username",
+      "type" : "string",
+      "title" : "Username"
+    } ]
+  }, {
+    "name" : "scp-server",
+    "kind" : "testEndpoint",
+    "title" : "ScpServer",
+    "description" : "",
+    "properties" : [ {
+      "name" : "allowedKeyPath",
+      "type" : "string",
+      "title" : "AllowedKeyPath"
+    }, {
+      "name" : "autoConnect",
+      "type" : "boolean",
+      "title" : "AutoConnect"
+    }, {
+      "name" : "autoLogin",
+      "type" : "boolean",
+      "title" : "AutoLogin"
+    }, {
+      "name" : "autoStart",
+      "type" : "boolean",
+      "title" : "AutoStart"
+    }, {
+      "name" : "debugLogging",
+      "type" : "boolean",
+      "title" : "DebugLogging"
+    }, {
+      "name" : "endpointAdapter",
+      "type" : "string",
+      "title" : "EndpointAdapter"
+    }, {
+      "name" : "hostKeyPath",
+      "type" : "string",
+      "title" : "HostKeyPath"
+    }, {
+      "name" : "knownHosts",
+      "type" : "string",
+      "title" : "KnownHosts"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "preferredAuthentications",
+      "type" : "string",
+      "title" : "PreferredAuthentications"
+    }, {
+      "name" : "privateKeyPassword",
+      "type" : "string",
+      "title" : "PrivateKeyPassword"
+    }, {
+      "name" : "privateKeyPath",
+      "type" : "string",
+      "title" : "PrivateKeyPath"
+    }, {
+      "name" : "sessionConfigs",
+      "type" : "object",
+      "title" : "SessionConfigs"
+    }, {
+      "name" : "strictHostChecking",
+      "type" : "boolean",
+      "title" : "StrictHostChecking"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "user",
+      "type" : "string",
+      "title" : "User"
+    }, {
+      "name" : "userHomePath",
+      "type" : "string",
+      "title" : "UserHomePath"
+    } ]
+  }, {
+    "name" : "direct-synchronous",
+    "kind" : "testEndpoint",
+    "title" : "DirectSynchronous",
+    "description" : "",
+    "properties" : [ {
+      "name" : "autoCreateQueue",
+      "type" : "boolean",
+      "title" : "AutoCreateQueue"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "queue",
+      "type" : "string",
+      "title" : "Queue"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    } ]
+  }, {
+    "name" : "docker-client",
+    "kind" : "testEndpoint",
+    "title" : "DockerClient",
+    "description" : "",
+    "properties" : [ {
+      "name" : "certPath",
+      "type" : "string",
+      "title" : "CertPath"
+    }, {
+      "name" : "configPath",
+      "type" : "string",
+      "title" : "ConfigPath"
+    }, {
+      "name" : "email",
+      "type" : "string",
+      "title" : "Email"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password"
+    }, {
+      "name" : "registry",
+      "type" : "string",
+      "title" : "Registry"
+    }, {
+      "name" : "url",
+      "type" : "string",
+      "title" : "Url"
+    }, {
+      "name" : "username",
+      "type" : "string",
+      "title" : "Username"
+    }, {
+      "name" : "verifyTls",
+      "type" : "boolean",
+      "title" : "VerifyTls"
+    }, {
+      "name" : "version",
+      "type" : "string",
+      "title" : "Version"
+    } ]
+  }, {
+    "name" : "kafka-asynchronous",
+    "kind" : "testEndpoint",
+    "title" : "KafkaAsynchronous",
+    "description" : "",
+    "properties" : [ {
+      "name" : "autoCommit",
+      "type" : "boolean",
+      "title" : "AutoCommit"
+    }, {
+      "name" : "autoCommitInterval",
+      "type" : "integer",
+      "title" : "AutoCommitInterval"
+    }, {
+      "name" : "bootstrapServers",
+      "type" : "string",
+      "title" : "BootstrapServers"
+    }, {
+      "name" : "clientId",
+      "type" : "string",
+      "title" : "ClientId"
+    }, {
+      "name" : "consumerGroup",
+      "type" : "string",
+      "title" : "ConsumerGroup"
+    }, {
+      "name" : "consumerProperties",
+      "type" : "object",
+      "title" : "ConsumerProperties"
+    }, {
+      "name" : "headerMapper",
+      "type" : "string",
+      "title" : "HeaderMapper"
+    }, {
+      "name" : "keyDeserializer",
+      "type" : "string",
+      "title" : "KeyDeserializer"
+    }, {
+      "name" : "keySerializer",
+      "type" : "string",
+      "title" : "KeySerializer"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "offsetReset",
+      "type" : "string",
+      "title" : "OffsetReset"
+    }, {
+      "name" : "partition",
+      "type" : "integer",
+      "title" : "Partition"
+    }, {
+      "name" : "producerProperties",
+      "type" : "object",
+      "title" : "ProducerProperties"
+    }, {
+      "name" : "server",
+      "type" : "string",
+      "title" : "Server"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "topic",
+      "type" : "string",
+      "title" : "Topic"
+    }, {
+      "name" : "useThreadSafeConsumer",
+      "type" : "boolean",
+      "title" : "UseThreadSafeConsumer"
+    }, {
+      "name" : "valueDeserializer",
+      "type" : "string",
+      "title" : "ValueDeserializer"
+    }, {
+      "name" : "valueSerializer",
+      "type" : "string",
+      "title" : "ValueSerializer"
+    } ]
+  }, {
+    "name" : "jmx-client",
+    "kind" : "testEndpoint",
+    "title" : "JmxClient",
+    "description" : "",
+    "properties" : [ {
+      "name" : "autoReconnect",
+      "type" : "boolean",
+      "title" : "AutoReconnect"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "notificationFilter",
+      "type" : "string",
+      "title" : "NotificationFilter"
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "reconnectDelay",
+      "type" : "integer",
+      "title" : "ReconnectDelay"
+    }, {
+      "name" : "serverUrl",
+      "type" : "string",
+      "title" : "ServerUrl"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "username",
+      "type" : "string",
+      "title" : "Username"
+    } ]
+  }, {
+    "name" : "rmi-client",
+    "kind" : "testEndpoint",
+    "title" : "RmiClient",
+    "description" : "",
+    "properties" : [ {
+      "name" : "binding",
+      "type" : "string",
+      "title" : "Binding"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "host",
+      "type" : "string",
+      "title" : "Host"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "method",
+      "type" : "string",
+      "title" : "Method"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "serverUrl",
+      "type" : "string",
+      "title" : "ServerUrl"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    } ]
+  }, {
+    "name" : "k8s-client",
+    "kind" : "testEndpoint",
+    "title" : "K8sClient",
+    "description" : "",
+    "properties" : [ {
+      "name" : "certFile",
+      "type" : "string",
+      "title" : "CertFile"
+    }, {
+      "name" : "client",
+      "type" : "string",
+      "title" : "Client"
+    }, {
+      "name" : "jsonMapper",
+      "type" : "string",
+      "title" : "JsonMapper"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "namespace",
+      "type" : "string",
+      "title" : "Namespace"
+    }, {
+      "name" : "oAuthToken",
+      "type" : "string",
+      "title" : "OAuthToken"
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password"
+    }, {
+      "name" : "url",
+      "type" : "string",
+      "title" : "Url"
+    }, {
+      "name" : "username",
+      "type" : "string",
+      "title" : "Username"
+    }, {
+      "name" : "version",
+      "type" : "string",
+      "title" : "Version"
+    } ]
+  }, {
+    "name" : "mail-client",
+    "kind" : "testEndpoint",
+    "title" : "MailClient",
+    "description" : "",
+    "properties" : [ {
+      "name" : "host",
+      "type" : "string",
+      "title" : "Host"
+    }, {
+      "name" : "javaMailProperties",
+      "type" : "object",
+      "title" : "JavaMailProperties"
+    }, {
+      "name" : "marshaller",
+      "type" : "string",
+      "title" : "Marshaller"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "protocol",
+      "type" : "string",
+      "title" : "Protocol"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "username",
+      "type" : "string",
+      "title" : "Username"
+    } ]
+  }, {
+    "name" : "ssh-client",
+    "kind" : "testEndpoint",
+    "title" : "SshClient",
+    "description" : "",
+    "properties" : [ {
+      "name" : "commandTimeout",
+      "type" : "integer",
+      "title" : "CommandTimeout"
+    }, {
+      "name" : "connectionTimeout",
+      "type" : "integer",
+      "title" : "ConnectionTimeout"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "host",
+      "type" : "string",
+      "title" : "Host"
+    }, {
+      "name" : "knownHosts",
+      "type" : "string",
+      "title" : "KnownHosts"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "privateKeyPassword",
+      "type" : "string",
+      "title" : "PrivateKeyPassword"
+    }, {
+      "name" : "privateKeyPath",
+      "type" : "string",
+      "title" : "PrivateKeyPath"
+    }, {
+      "name" : "strictHostChecking",
+      "type" : "boolean",
+      "title" : "StrictHostChecking"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "user",
+      "type" : "string",
+      "title" : "User"
+    } ]
+  }, {
+    "name" : "http-client",
+    "kind" : "testEndpoint",
+    "title" : "HttpClient",
+    "description" : "",
+    "properties" : [ {
+      "name" : "authentication",
+      "type" : "string",
+      "title" : "Authentication"
+    }, {
+      "name" : "binaryMediaTypes",
+      "type" : "array",
+      "title" : "BinaryMediaTypes"
+    }, {
+      "name" : "charset",
+      "type" : "string",
+      "title" : "Charset"
+    }, {
+      "name" : "contentType",
+      "type" : "string",
+      "title" : "ContentType"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "defaultAcceptHeader",
+      "type" : "boolean",
+      "title" : "DefaultAcceptHeader"
+    }, {
+      "name" : "disableRedirectHandling",
+      "type" : "boolean",
+      "title" : "DisableRedirectHandling"
+    }, {
+      "name" : "endpointResolver",
+      "type" : "string",
+      "title" : "EndpointResolver"
+    }, {
+      "name" : "errorHandler",
+      "type" : "string",
+      "title" : "ErrorHandler"
+    }, {
+      "name" : "errorHandlingStrategy",
+      "type" : "string",
+      "title" : "ErrorHandlingStrategy"
+    }, {
+      "name" : "handleCookies",
+      "type" : "boolean",
+      "title" : "HandleCookies"
+    }, {
+      "name" : "headerMapper",
+      "type" : "string",
+      "title" : "HeaderMapper"
+    }, {
+      "name" : "interceptor",
+      "type" : "string",
+      "title" : "Interceptor"
+    }, {
+      "name" : "interceptors",
+      "type" : "array",
+      "title" : "Interceptors"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "requestFactory",
+      "type" : "string",
+      "title" : "RequestFactory"
+    }, {
+      "name" : "requestMethod",
+      "type" : "string",
+      "title" : "RequestMethod"
+    }, {
+      "name" : "requestUrl",
+      "type" : "string",
+      "title" : "RequestUrl"
+    }, {
+      "name" : "restTemplate",
+      "type" : "string",
+      "title" : "RestTemplate"
+    }, {
+      "name" : "securedConnection",
+      "type" : "string",
+      "title" : "SecuredConnection"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    } ]
+  }, {
+    "name" : "websocket-client",
+    "kind" : "testEndpoint",
+    "title" : "WebsocketClient",
+    "description" : "",
+    "properties" : [ {
+      "name" : "endpointResolver",
+      "type" : "string",
+      "title" : "EndpointResolver"
+    }, {
+      "name" : "httpHeaders",
+      "type" : "string",
+      "title" : "HttpHeaders"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "requestUrl",
+      "type" : "string",
+      "title" : "RequestUrl"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    } ]
+  }, {
+    "name" : "channel-asynchronous",
+    "kind" : "testEndpoint",
+    "title" : "ChannelAsynchronous",
+    "description" : "",
+    "properties" : [ {
+      "name" : "channel",
+      "type" : "string",
+      "title" : "Channel"
+    }, {
+      "name" : "channelResolver",
+      "type" : "string",
+      "title" : "ChannelResolver"
+    }, {
+      "name" : "filterInternalHeaders",
+      "type" : "boolean",
+      "title" : "FilterInternalHeaders"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "messagingTemplate",
+      "type" : "string",
+      "title" : "MessagingTemplate"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "useObjectMessages",
+      "type" : "boolean",
+      "title" : "UseObjectMessages"
+    } ]
+  }, {
+    "name" : "soap-server",
+    "kind" : "testEndpoint",
+    "title" : "SoapServer",
+    "description" : "",
+    "properties" : [ {
+      "name" : "autoStart",
+      "type" : "boolean",
+      "title" : "AutoStart"
+    }, {
+      "name" : "connector",
+      "type" : "string",
+      "title" : "Connector"
+    }, {
+      "name" : "connectors",
+      "type" : "array",
+      "title" : "Connectors"
+    }, {
+      "name" : "contextConfigLocation",
+      "type" : "string",
+      "title" : "ContextConfigLocation"
+    }, {
+      "name" : "contextPath",
+      "type" : "string",
+      "title" : "ContextPath"
+    }, {
+      "name" : "debugLogging",
+      "type" : "boolean",
+      "title" : "DebugLogging"
+    }, {
+      "name" : "endpointAdapter",
+      "type" : "string",
+      "title" : "EndpointAdapter"
+    }, {
+      "name" : "handleAttributeHeaders",
+      "type" : "boolean",
+      "title" : "HandleAttributeHeaders"
+    }, {
+      "name" : "handleMimeHeaders",
+      "type" : "boolean",
+      "title" : "HandleMimeHeaders"
+    }, {
+      "name" : "interceptor",
+      "type" : "string",
+      "title" : "Interceptor"
+    }, {
+      "name" : "interceptors",
+      "type" : "array",
+      "title" : "Interceptors"
+    }, {
+      "name" : "keepSoapEnvelope",
+      "type" : "boolean",
+      "title" : "KeepSoapEnvelope"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "messageFactory",
+      "type" : "string",
+      "title" : "MessageFactory"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "resourceBase",
+      "type" : "string",
+      "title" : "ResourceBase"
+    }, {
+      "name" : "rootParentContext",
+      "type" : "boolean",
+      "title" : "RootParentContext"
+    }, {
+      "name" : "securityHandler",
+      "type" : "string",
+      "title" : "SecurityHandler"
+    }, {
+      "name" : "servletHandler",
+      "type" : "string",
+      "title" : "ServletHandler"
+    }, {
+      "name" : "servletMappingPath",
+      "type" : "string",
+      "title" : "ServletMappingPath"
+    }, {
+      "name" : "servletName",
+      "type" : "string",
+      "title" : "ServletName"
+    }, {
+      "name" : "soapHeaderNamespace",
+      "type" : "string",
+      "title" : "SoapHeaderNamespace"
+    }, {
+      "name" : "soapHeaderPrefix",
+      "type" : "string",
+      "title" : "SoapHeaderPrefix"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    } ]
+  }, {
+    "name" : "channel-synchronous",
+    "kind" : "testEndpoint",
+    "title" : "ChannelSynchronous",
+    "description" : "",
+    "properties" : [ {
+      "name" : "channel",
+      "type" : "string",
+      "title" : "Channel"
+    }, {
+      "name" : "channelResolver",
+      "type" : "string",
+      "title" : "ChannelResolver"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "filterInternalHeaders",
+      "type" : "boolean",
+      "title" : "FilterInternalHeaders"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "messagingTemplate",
+      "type" : "string",
+      "title" : "MessagingTemplate"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "useObjectMessages",
+      "type" : "boolean",
+      "title" : "UseObjectMessages"
+    } ]
+  }, {
+    "name" : "sftp-server",
+    "kind" : "testEndpoint",
+    "title" : "SftpServer",
+    "description" : "",
+    "properties" : [ {
+      "name" : "allowedKeyPath",
+      "type" : "string",
+      "title" : "AllowedKeyPath"
+    }, {
+      "name" : "autoConnect",
+      "type" : "boolean",
+      "title" : "AutoConnect"
+    }, {
+      "name" : "autoLogin",
+      "type" : "boolean",
+      "title" : "AutoLogin"
+    }, {
+      "name" : "autoStart",
+      "type" : "boolean",
+      "title" : "AutoStart"
+    }, {
+      "name" : "debugLogging",
+      "type" : "boolean",
+      "title" : "DebugLogging"
+    }, {
+      "name" : "endpointAdapter",
+      "type" : "string",
+      "title" : "EndpointAdapter"
+    }, {
+      "name" : "hostKeyPath",
+      "type" : "string",
+      "title" : "HostKeyPath"
+    }, {
+      "name" : "knownHosts",
+      "type" : "string",
+      "title" : "KnownHosts"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "preferredAuthentications",
+      "type" : "string",
+      "title" : "PreferredAuthentications"
+    }, {
+      "name" : "privateKeyPassword",
+      "type" : "string",
+      "title" : "PrivateKeyPassword"
+    }, {
+      "name" : "privateKeyPath",
+      "type" : "string",
+      "title" : "PrivateKeyPath"
+    }, {
+      "name" : "sessionConfigs",
+      "type" : "object",
+      "title" : "SessionConfigs"
+    }, {
+      "name" : "strictHostChecking",
+      "type" : "boolean",
+      "title" : "StrictHostChecking"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "user",
+      "type" : "string",
+      "title" : "User"
+    }, {
+      "name" : "userHomePath",
+      "type" : "string",
+      "title" : "UserHomePath"
+    } ]
+  }, {
+    "name" : "ftp-server",
+    "kind" : "testEndpoint",
+    "title" : "FtpServer",
+    "description" : "",
+    "properties" : [ {
+      "name" : "autoConnect",
+      "type" : "boolean",
+      "title" : "AutoConnect"
+    }, {
+      "name" : "autoHandleCommands",
+      "type" : "string",
+      "title" : "AutoHandleCommands"
+    }, {
+      "name" : "autoLogin",
+      "type" : "boolean",
+      "title" : "AutoLogin"
+    }, {
+      "name" : "autoReadFiles",
+      "type" : "boolean",
+      "title" : "AutoReadFiles"
+    }, {
+      "name" : "autoStart",
+      "type" : "boolean",
+      "title" : "AutoStart"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "debugLogging",
+      "type" : "boolean",
+      "title" : "DebugLogging"
+    }, {
+      "name" : "endpointAdapter",
+      "type" : "string",
+      "title" : "EndpointAdapter"
+    }, {
+      "name" : "errorHandlingStrategy",
+      "type" : "string",
+      "title" : "ErrorHandlingStrategy"
+    }, {
+      "name" : "host",
+      "type" : "string",
+      "title" : "Host"
+    }, {
+      "name" : "listenerFactory",
+      "type" : "string",
+      "title" : "ListenerFactory"
+    }, {
+      "name" : "localPassiveMode",
+      "type" : "boolean",
+      "title" : "LocalPassiveMode"
+    }, {
+      "name" : "marshaller",
+      "type" : "string",
+      "title" : "Marshaller"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "server",
+      "type" : "string",
+      "title" : "Server"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "user",
+      "type" : "string",
+      "title" : "User"
+    }, {
+      "name" : "userManager",
+      "type" : "string",
+      "title" : "UserManager"
+    }, {
+      "name" : "userManagerProperties",
+      "type" : "string",
+      "title" : "UserManagerProperties"
+    } ]
+  }, {
+    "name" : "camel-inOut",
+    "kind" : "testEndpoint",
+    "title" : "CamelInOut",
+    "description" : "",
+    "properties" : [ {
+      "name" : "camelContext",
+      "type" : "string",
+      "title" : "CamelContext"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "endpointUri",
+      "type" : "string",
+      "title" : "EndpointUri"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    } ]
+  }, {
+    "name" : "vertx-asynchronous",
+    "kind" : "testEndpoint",
+    "title" : "VertxAsynchronous",
+    "description" : "",
+    "properties" : [ {
+      "name" : "address",
+      "type" : "string",
+      "title" : "Address"
+    }, {
+      "name" : "host",
+      "type" : "string",
+      "title" : "Host"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "pubSubDomain",
+      "type" : "boolean",
+      "title" : "PubSubDomain"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "vertxFactory",
+      "type" : "string",
+      "title" : "VertxFactory"
+    } ]
+  }, {
+    "name" : "ftp-client",
+    "kind" : "testEndpoint",
+    "title" : "FtpClient",
+    "description" : "",
+    "properties" : [ {
+      "name" : "autoReadFiles",
+      "type" : "boolean",
+      "title" : "AutoReadFiles"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "errorHandlingStrategy",
+      "type" : "string",
+      "title" : "ErrorHandlingStrategy"
+    }, {
+      "name" : "host",
+      "type" : "string",
+      "title" : "Host"
+    }, {
+      "name" : "localPassiveMode",
+      "type" : "boolean",
+      "title" : "LocalPassiveMode"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "username",
+      "type" : "string",
+      "title" : "Username"
+    } ]
+  }, {
+    "name" : "camel-asynchronous",
+    "kind" : "testEndpoint",
+    "title" : "CamelAsynchronous",
+    "description" : "",
+    "properties" : [ {
+      "name" : "camelContext",
+      "type" : "string",
+      "title" : "CamelContext"
+    }, {
+      "name" : "endpointUri",
+      "type" : "string",
+      "title" : "EndpointUri"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    } ]
+  }, {
+    "name" : "rmi-server",
+    "kind" : "testEndpoint",
+    "title" : "RmiServer",
+    "description" : "",
+    "properties" : [ {
+      "name" : "autoStart",
+      "type" : "boolean",
+      "title" : "AutoStart"
+    }, {
+      "name" : "binding",
+      "type" : "string",
+      "title" : "Binding"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "createRegistry",
+      "type" : "boolean",
+      "title" : "CreateRegistry"
+    }, {
+      "name" : "debugLogging",
+      "type" : "boolean",
+      "title" : "DebugLogging"
+    }, {
+      "name" : "endpointAdapter",
+      "type" : "string",
+      "title" : "EndpointAdapter"
+    }, {
+      "name" : "host",
+      "type" : "string",
+      "title" : "Host"
+    }, {
+      "name" : "marshaller",
+      "type" : "string",
+      "title" : "Marshaller"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "method",
+      "type" : "string",
+      "title" : "Method"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "registry",
+      "type" : "string",
+      "title" : "Registry"
+    }, {
+      "name" : "remoteInterfaces",
+      "type" : "array",
+      "title" : "RemoteInterfaces"
+    }, {
+      "name" : "serverUrl",
+      "type" : "string",
+      "title" : "ServerUrl"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    } ]
+  }, {
+    "name" : "scp-client",
+    "kind" : "testEndpoint",
+    "title" : "ScpClient",
+    "description" : "",
+    "properties" : [ {
+      "name" : "autoReadFiles",
+      "type" : "boolean",
+      "title" : "AutoReadFiles"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "errorHandlingStrategy",
+      "type" : "string",
+      "title" : "ErrorHandlingStrategy"
+    }, {
+      "name" : "host",
+      "type" : "string",
+      "title" : "Host"
+    }, {
+      "name" : "knownHosts",
+      "type" : "string",
+      "title" : "KnownHosts"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "portOption",
+      "type" : "string",
+      "title" : "PortOption"
+    }, {
+      "name" : "privateKeyPassword",
+      "type" : "string",
+      "title" : "PrivateKeyPassword"
+    }, {
+      "name" : "privateKeyPath",
+      "type" : "string",
+      "title" : "PrivateKeyPath"
+    }, {
+      "name" : "strictHostChecking",
+      "type" : "boolean",
+      "title" : "StrictHostChecking"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "username",
+      "type" : "string",
+      "title" : "Username"
+    } ]
+  }, {
+    "name" : "vertx-synchronous",
+    "kind" : "testEndpoint",
+    "title" : "VertxSynchronous",
+    "description" : "",
+    "properties" : [ {
+      "name" : "address",
+      "type" : "string",
+      "title" : "Address"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "host",
+      "type" : "string",
+      "title" : "Host"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "pubSubDomain",
+      "type" : "boolean",
+      "title" : "PubSubDomain"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "vertxFactory",
+      "type" : "string",
+      "title" : "VertxFactory"
+    } ]
+  }, {
+    "name" : "jms-synchronous",
+    "kind" : "testEndpoint",
+    "title" : "JmsSynchronous",
+    "description" : "",
+    "properties" : [ {
+      "name" : "connectionFactory",
+      "type" : "string",
+      "title" : "ConnectionFactory"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "destination",
+      "type" : "string",
+      "title" : "Destination"
+    }, {
+      "name" : "destinationNameResolver",
+      "type" : "string",
+      "title" : "DestinationNameResolver"
+    }, {
+      "name" : "destinationResolver",
+      "type" : "string",
+      "title" : "DestinationResolver"
+    }, {
+      "name" : "filterInternalHeaders",
+      "type" : "boolean",
+      "title" : "FilterInternalHeaders"
+    }, {
+      "name" : "jmsTemplate",
+      "type" : "string",
+      "title" : "JmsTemplate"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "pubSubDomain",
+      "type" : "boolean",
+      "title" : "PubSubDomain"
+    }, {
+      "name" : "replyDestination",
+      "type" : "string",
+      "title" : "ReplyDestination"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "useObjectMessages",
+      "type" : "boolean",
+      "title" : "UseObjectMessages"
+    } ]
+  }, {
+    "name" : "camel-inOnly",
+    "kind" : "testEndpoint",
+    "title" : "CamelInOnly",
+    "description" : "",
+    "properties" : [ {
+      "name" : "camelContext",
+      "type" : "string",
+      "title" : "CamelContext"
+    }, {
+      "name" : "endpointUri",
+      "type" : "string",
+      "title" : "EndpointUri"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    } ]
+  }, {
+    "name" : "direct-asynchronous",
+    "kind" : "testEndpoint",
+    "title" : "DirectAsynchronous",
+    "description" : "",
+    "properties" : [ {
+      "name" : "autoCreateQueue",
+      "type" : "boolean",
+      "title" : "AutoCreateQueue"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "queue",
+      "type" : "string",
+      "title" : "Queue"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    } ]
+  }, {
+    "name" : "camel-synchronous",
+    "kind" : "testEndpoint",
+    "title" : "CamelSynchronous",
+    "description" : "",
+    "properties" : [ {
+      "name" : "camelContext",
+      "type" : "string",
+      "title" : "CamelContext"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "endpointUri",
+      "type" : "string",
+      "title" : "EndpointUri"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    } ]
+  }, {
+    "name" : "soap-client",
+    "kind" : "testEndpoint",
+    "title" : "SoapClient",
+    "description" : "",
+    "properties" : [ {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "defaultUri",
+      "type" : "string",
+      "title" : "DefaultUri"
+    }, {
+      "name" : "endpointResolver",
+      "type" : "string",
+      "title" : "EndpointResolver"
+    }, {
+      "name" : "faultStrategy",
+      "type" : "string",
+      "title" : "FaultStrategy"
+    }, {
+      "name" : "interceptor",
+      "type" : "string",
+      "title" : "Interceptor"
+    }, {
+      "name" : "interceptors",
+      "type" : "array",
+      "title" : "Interceptors"
+    }, {
+      "name" : "keepSoapEnvelope",
+      "type" : "boolean",
+      "title" : "KeepSoapEnvelope"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "messageFactory",
+      "type" : "string",
+      "title" : "MessageFactory"
+    }, {
+      "name" : "messageSender",
+      "type" : "string",
+      "title" : "MessageSender"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "webServiceTemplate",
+      "type" : "string",
+      "title" : "WebServiceTemplate"
+    } ]
+  }, {
+    "name" : "jms-asynchronous",
+    "kind" : "testEndpoint",
+    "title" : "JmsAsynchronous",
+    "description" : "",
+    "properties" : [ {
+      "name" : "autoStart",
+      "type" : "boolean",
+      "title" : "AutoStart"
+    }, {
+      "name" : "connectionFactory",
+      "type" : "string",
+      "title" : "ConnectionFactory"
+    }, {
+      "name" : "destination",
+      "type" : "string",
+      "title" : "Destination"
+    }, {
+      "name" : "destinationNameResolver",
+      "type" : "string",
+      "title" : "DestinationNameResolver"
+    }, {
+      "name" : "destinationResolver",
+      "type" : "string",
+      "title" : "DestinationResolver"
+    }, {
+      "name" : "durableSubscriberName",
+      "type" : "string",
+      "title" : "DurableSubscriberName"
+    }, {
+      "name" : "durableSubscription",
+      "type" : "boolean",
+      "title" : "DurableSubscription"
+    }, {
+      "name" : "filterInternalHeaders",
+      "type" : "boolean",
+      "title" : "FilterInternalHeaders"
+    }, {
+      "name" : "jmsTemplate",
+      "type" : "string",
+      "title" : "JmsTemplate"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "pubSubDomain",
+      "type" : "boolean",
+      "title" : "PubSubDomain"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "useObjectMessages",
+      "type" : "boolean",
+      "title" : "UseObjectMessages"
+    } ]
+  }, {
+    "name" : "sftp-client",
+    "kind" : "testEndpoint",
+    "title" : "SftpClient",
+    "description" : "",
+    "properties" : [ {
+      "name" : "autoReadFiles",
+      "type" : "boolean",
+      "title" : "AutoReadFiles"
+    }, {
+      "name" : "correlator",
+      "type" : "string",
+      "title" : "Correlator"
+    }, {
+      "name" : "errorHandlingStrategy",
+      "type" : "string",
+      "title" : "ErrorHandlingStrategy"
+    }, {
+      "name" : "host",
+      "type" : "string",
+      "title" : "Host"
+    }, {
+      "name" : "knownHosts",
+      "type" : "string",
+      "title" : "KnownHosts"
+    }, {
+      "name" : "localPassiveMode",
+      "type" : "boolean",
+      "title" : "LocalPassiveMode"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "preferredAuthentications",
+      "type" : "string",
+      "title" : "PreferredAuthentications"
+    }, {
+      "name" : "privateKeyPassword",
+      "type" : "string",
+      "title" : "PrivateKeyPassword"
+    }, {
+      "name" : "privateKeyPath",
+      "type" : "string",
+      "title" : "PrivateKeyPath"
+    }, {
+      "name" : "sessionConfigs",
+      "type" : "object",
+      "title" : "SessionConfigs"
+    }, {
+      "name" : "strictHostChecking",
+      "type" : "boolean",
+      "title" : "StrictHostChecking"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "username",
+      "type" : "string",
+      "title" : "Username"
+    } ]
+  }, {
+    "name" : "selenium-browser",
+    "kind" : "testEndpoint",
+    "title" : "SeleniumBrowser",
+    "description" : "",
+    "properties" : [ {
+      "name" : "eventListeners",
+      "type" : "array",
+      "title" : "EventListeners"
+    }, {
+      "name" : "javaScript",
+      "type" : "boolean",
+      "title" : "JavaScript"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "profile",
+      "type" : "string",
+      "title" : "Profile"
+    }, {
+      "name" : "remoteServerUrl",
+      "type" : "string",
+      "title" : "RemoteServerUrl"
+    }, {
+      "name" : "startPage",
+      "type" : "string",
+      "title" : "StartPage"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "type",
+      "type" : "string",
+      "title" : "Type"
+    }, {
+      "name" : "version",
+      "type" : "string",
+      "title" : "Version"
+    }, {
+      "name" : "webDriver",
+      "type" : "string",
+      "title" : "WebDriver"
+    } ]
+  }, {
+    "name" : "mail-server",
+    "kind" : "testEndpoint",
+    "title" : "MailServer",
+    "description" : "",
+    "properties" : [ {
+      "name" : "authRequired",
+      "type" : "boolean",
+      "title" : "AuthRequired"
+    }, {
+      "name" : "autoAccept",
+      "type" : "boolean",
+      "title" : "AutoAccept"
+    }, {
+      "name" : "autoStart",
+      "type" : "boolean",
+      "title" : "AutoStart"
+    }, {
+      "name" : "debugLogging",
+      "type" : "boolean",
+      "title" : "DebugLogging"
+    }, {
+      "name" : "endpointAdapter",
+      "type" : "string",
+      "title" : "EndpointAdapter"
+    }, {
+      "name" : "javaMailProperties",
+      "type" : "object",
+      "title" : "JavaMailProperties"
+    }, {
+      "name" : "knownUsers",
+      "type" : "array",
+      "title" : "KnownUsers"
+    }, {
+      "name" : "marshaller",
+      "type" : "string",
+      "title" : "Marshaller"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "smtp",
+      "type" : "string",
+      "title" : "Smtp"
+    }, {
+      "name" : "splitMultipart",
+      "type" : "boolean",
+      "title" : "SplitMultipart"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    } ]
+  }, {
+    "name" : "ssh-server",
+    "kind" : "testEndpoint",
+    "title" : "SshServer",
+    "description" : "",
+    "properties" : [ {
+      "name" : "allowedKeyPath",
+      "type" : "string",
+      "title" : "AllowedKeyPath"
+    }, {
+      "name" : "autoStart",
+      "type" : "boolean",
+      "title" : "AutoStart"
+    }, {
+      "name" : "debugLogging",
+      "type" : "boolean",
+      "title" : "DebugLogging"
+    }, {
+      "name" : "endpointAdapter",
+      "type" : "string",
+      "title" : "EndpointAdapter"
+    }, {
+      "name" : "hostKeyPath",
+      "type" : "string",
+      "title" : "HostKeyPath"
+    }, {
+      "name" : "marshaller",
+      "type" : "string",
+      "title" : "Marshaller"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "password",
+      "type" : "string",
+      "title" : "Password"
+    }, {
+      "name" : "pollingInterval",
+      "type" : "integer",
+      "title" : "PollingInterval"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "user",
+      "type" : "string",
+      "title" : "User"
+    }, {
+      "name" : "userHomePath",
+      "type" : "string",
+      "title" : "UserHomePath"
+    } ]
+  }, {
+    "name" : "http-server",
+    "kind" : "testEndpoint",
+    "title" : "HttpServer",
+    "description" : "",
+    "properties" : [ {
+      "name" : "authentication",
+      "type" : "string",
+      "title" : "Authentication"
+    }, {
+      "name" : "autoStart",
+      "type" : "boolean",
+      "title" : "AutoStart"
+    }, {
+      "name" : "binaryMediaTypes",
+      "type" : "array",
+      "title" : "BinaryMediaTypes"
+    }, {
+      "name" : "connector",
+      "type" : "string",
+      "title" : "Connector"
+    }, {
+      "name" : "connectors",
+      "type" : "array",
+      "title" : "Connectors"
+    }, {
+      "name" : "contextConfigLocation",
+      "type" : "string",
+      "title" : "ContextConfigLocation"
+    }, {
+      "name" : "contextPath",
+      "type" : "string",
+      "title" : "ContextPath"
+    }, {
+      "name" : "debugLogging",
+      "type" : "boolean",
+      "title" : "DebugLogging"
+    }, {
+      "name" : "defaultStatus",
+      "type" : "string",
+      "title" : "DefaultStatus"
+    }, {
+      "name" : "endpointAdapter",
+      "type" : "string",
+      "title" : "EndpointAdapter"
+    }, {
+      "name" : "filterMappings",
+      "type" : "object",
+      "title" : "FilterMappings"
+    }, {
+      "name" : "filters",
+      "type" : "object",
+      "title" : "Filters"
+    }, {
+      "name" : "handleAttributeHeaders",
+      "type" : "boolean",
+      "title" : "HandleAttributeHeaders"
+    }, {
+      "name" : "handleCookies",
+      "type" : "boolean",
+      "title" : "HandleCookies"
+    }, {
+      "name" : "interceptor",
+      "type" : "string",
+      "title" : "Interceptor"
+    }, {
+      "name" : "interceptors",
+      "type" : "array",
+      "title" : "Interceptors"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "removeSemicolonPathContent",
+      "type" : "boolean",
+      "title" : "RemoveSemicolonPathContent"
+    }, {
+      "name" : "resourceBase",
+      "type" : "string",
+      "title" : "ResourceBase"
+    }, {
+      "name" : "responseCacheSize",
+      "type" : "integer",
+      "title" : "ResponseCacheSize"
+    }, {
+      "name" : "rootParentContext",
+      "type" : "boolean",
+      "title" : "RootParentContext"
+    }, {
+      "name" : "securePort",
+      "type" : "integer",
+      "title" : "SecurePort"
+    }, {
+      "name" : "securedConnection",
+      "type" : "string",
+      "title" : "SecuredConnection"
+    }, {
+      "name" : "securityHandler",
+      "type" : "string",
+      "title" : "SecurityHandler"
+    }, {
+      "name" : "servletHandler",
+      "type" : "string",
+      "title" : "ServletHandler"
+    }, {
+      "name" : "servletMappingPath",
+      "type" : "string",
+      "title" : "ServletMappingPath"
+    }, {
+      "name" : "servletName",
+      "type" : "string",
+      "title" : "ServletName"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "useDefaultFilters",
+      "type" : "boolean",
+      "title" : "UseDefaultFilters"
+    } ]
+  }, {
+    "name" : "websocket-server",
+    "kind" : "testEndpoint",
+    "title" : "WebsocketServer",
+    "description" : "",
+    "properties" : [ {
+      "name" : "authentication",
+      "type" : "string",
+      "title" : "Authentication"
+    }, {
+      "name" : "autoStart",
+      "type" : "boolean",
+      "title" : "AutoStart"
+    }, {
+      "name" : "binaryMediaTypes",
+      "type" : "array",
+      "title" : "BinaryMediaTypes"
+    }, {
+      "name" : "connector",
+      "type" : "string",
+      "title" : "Connector"
+    }, {
+      "name" : "connectors",
+      "type" : "array",
+      "title" : "Connectors"
+    }, {
+      "name" : "contextConfigLocation",
+      "type" : "string",
+      "title" : "ContextConfigLocation"
+    }, {
+      "name" : "contextPath",
+      "type" : "string",
+      "title" : "ContextPath"
+    }, {
+      "name" : "debugLogging",
+      "type" : "boolean",
+      "title" : "DebugLogging"
+    }, {
+      "name" : "defaultStatus",
+      "type" : "string",
+      "title" : "DefaultStatus"
+    }, {
+      "name" : "endpointAdapter",
+      "type" : "string",
+      "title" : "EndpointAdapter"
+    }, {
+      "name" : "filterMappings",
+      "type" : "object",
+      "title" : "FilterMappings"
+    }, {
+      "name" : "filters",
+      "type" : "object",
+      "title" : "Filters"
+    }, {
+      "name" : "handleAttributeHeaders",
+      "type" : "boolean",
+      "title" : "HandleAttributeHeaders"
+    }, {
+      "name" : "handleCookies",
+      "type" : "boolean",
+      "title" : "HandleCookies"
+    }, {
+      "name" : "interceptor",
+      "type" : "string",
+      "title" : "Interceptor"
+    }, {
+      "name" : "interceptors",
+      "type" : "array",
+      "title" : "Interceptors"
+    }, {
+      "name" : "messageConverter",
+      "type" : "string",
+      "title" : "MessageConverter"
+    }, {
+      "name" : "name",
+      "type" : "string",
+      "title" : "Name"
+    }, {
+      "name" : "port",
+      "type" : "integer",
+      "title" : "Port"
+    }, {
+      "name" : "removeSemicolonPathContent",
+      "type" : "boolean",
+      "title" : "RemoveSemicolonPathContent"
+    }, {
+      "name" : "resourceBase",
+      "type" : "string",
+      "title" : "ResourceBase"
+    }, {
+      "name" : "responseCacheSize",
+      "type" : "integer",
+      "title" : "ResponseCacheSize"
+    }, {
+      "name" : "rootParentContext",
+      "type" : "boolean",
+      "title" : "RootParentContext"
+    }, {
+      "name" : "securePort",
+      "type" : "integer",
+      "title" : "SecurePort"
+    }, {
+      "name" : "securedConnection",
+      "type" : "string",
+      "title" : "SecuredConnection"
+    }, {
+      "name" : "securityHandler",
+      "type" : "string",
+      "title" : "SecurityHandler"
+    }, {
+      "name" : "servletHandler",
+      "type" : "string",
+      "title" : "ServletHandler"
+    }, {
+      "name" : "servletMappingPath",
+      "type" : "string",
+      "title" : "ServletMappingPath"
+    }, {
+      "name" : "servletName",
+      "type" : "string",
+      "title" : "ServletName"
+    }, {
+      "name" : "timeout",
+      "type" : "integer",
+      "title" : "Timeout"
+    }, {
+      "name" : "useDefaultFilters",
+      "type" : "boolean",
+      "title" : "UseDefaultFilters"
+    }, {
+      "name" : "webSockets",
+      "type" : "array",
+      "title" : "WebSockets"
+    } ]
+  } ],
+  "testcontainers" : [ {
+    "name" : "assert",
+    "kind" : "testContainer",
+    "title" : "Assert",
+    "description" : "Assert exception test action.",
+    "properties" : [ {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description"
+    }, {
+      "name" : "exception",
+      "type" : "string",
+      "title" : "Exception"
+    }, {
+      "name" : "message",
+      "type" : "string",
+      "title" : "Message"
+    }, {
+      "name" : "when",
+      "type" : "array",
+      "title" : "When"
+    } ]
+  }, {
+    "name" : "async",
+    "kind" : "testContainer",
+    "title" : "Async",
+    "description" : "Async test action.",
+    "properties" : [ {
+      "name" : "actions",
+      "type" : "array",
+      "title" : "Actions"
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description"
+    }, {
+      "name" : "error",
+      "type" : "array",
+      "title" : "Error"
+    }, {
+      "name" : "success",
+      "type" : "array",
+      "title" : "Success"
+    } ]
+  }, {
+    "name" : "catch",
+    "kind" : "testContainer",
+    "title" : "Catch",
+    "description" : "Catch exception test action.",
+    "properties" : [ {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description"
+    }, {
+      "name" : "exception",
+      "type" : "string",
+      "title" : "Exception"
+    }, {
+      "name" : "when",
+      "type" : "array",
+      "title" : "When"
+    } ]
+  }, {
+    "name" : "conditional",
+    "kind" : "testContainer",
+    "title" : "Conditional",
+    "description" : "Conditional test action.",
+    "properties" : [ {
+      "name" : "actions",
+      "type" : "array",
+      "title" : "Actions"
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description"
+    }, {
+      "name" : "when",
+      "type" : "string",
+      "title" : "When"
+    } ]
+  }, {
+    "name" : "doFinally",
+    "kind" : "testContainer",
+    "title" : "DoFinally",
+    "description" : "Runs test actions after the test.",
+    "properties" : [ {
+      "name" : "actions",
+      "type" : "array",
+      "title" : "Actions"
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description"
+    } ]
+  }, {
+    "name" : "iterate",
+    "kind" : "testContainer",
+    "title" : "Iterate",
+    "description" : "Iterate test action.",
+    "properties" : [ {
+      "name" : "actions",
+      "type" : "array",
+      "title" : "Actions"
+    }, {
+      "name" : "condition",
+      "type" : "string",
+      "title" : "Condition"
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description"
+    }, {
+      "name" : "index",
+      "type" : "string",
+      "title" : "Index"
+    }, {
+      "name" : "startsWith",
+      "type" : "integer",
+      "title" : "StartsWith"
+    }, {
+      "name" : "step",
+      "type" : "integer",
+      "title" : "Step"
+    }, {
+      "name" : "times",
+      "type" : "integer",
+      "title" : "Times"
+    } ]
+  }, {
+    "name" : "parallel",
+    "kind" : "testContainer",
+    "title" : "Parallel",
+    "description" : "Parallel test action.",
+    "properties" : [ {
+      "name" : "actions",
+      "type" : "array",
+      "title" : "Actions"
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description"
+    } ]
+  }, {
+    "name" : "repeat",
+    "kind" : "testContainer",
+    "title" : "Repeat",
+    "description" : "Repeat test action.",
+    "properties" : [ {
+      "name" : "actions",
+      "type" : "array",
+      "title" : "Actions"
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description"
+    }, {
+      "name" : "index",
+      "type" : "string",
+      "title" : "Index"
+    }, {
+      "name" : "startsWith",
+      "type" : "integer",
+      "title" : "StartsWith"
+    }, {
+      "name" : "times",
+      "type" : "integer",
+      "title" : "Times"
+    }, {
+      "name" : "until",
+      "type" : "string",
+      "title" : "Until"
+    } ]
+  }, {
+    "name" : "repeatOnError",
+    "kind" : "testContainer",
+    "title" : "RepeatOnError",
+    "description" : "Repeat on error test action.",
+    "properties" : [ {
+      "name" : "actions",
+      "type" : "array",
+      "title" : "Actions"
+    }, {
+      "name" : "autoSleep",
+      "type" : "integer",
+      "title" : "AutoSleep"
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description"
+    }, {
+      "name" : "index",
+      "type" : "string",
+      "title" : "Index"
+    }, {
+      "name" : "startsWith",
+      "type" : "integer",
+      "title" : "StartsWith"
+    }, {
+      "name" : "times",
+      "type" : "integer",
+      "title" : "Times"
+    }, {
+      "name" : "until",
+      "type" : "string",
+      "title" : "Until"
+    } ]
+  }, {
+    "name" : "sequential",
+    "kind" : "testContainer",
+    "title" : "Sequential",
+    "description" : "Sequential test action.",
+    "properties" : [ {
+      "name" : "actions",
+      "type" : "array",
+      "title" : "Actions"
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description"
+    } ]
+  }, {
+    "name" : "soap-assertFault",
+    "kind" : "testContainer",
+    "title" : "AssertFault",
+    "description" : "Expects a SOAP fault response as a client.",
+    "properties" : [ {
+      "name" : "faultActor",
+      "type" : "string",
+      "title" : "FaultActor"
+    }, {
+      "name" : "faultCode",
+      "type" : "string",
+      "title" : "FaultCode"
+    }, {
+      "name" : "faultDetails",
+      "type" : "array",
+      "title" : "FaultDetails"
+    }, {
+      "name" : "faultString",
+      "type" : "string",
+      "title" : "FaultString"
+    }, {
+      "name" : "validator",
+      "type" : "string",
+      "title" : "Validator"
+    }, {
+      "name" : "when",
+      "type" : "object",
+      "title" : "When"
+    } ]
+  }, {
+    "name" : "timer",
+    "kind" : "testContainer",
+    "title" : "Timer",
+    "description" : "Timer test action.",
+    "properties" : [ {
+      "name" : "actions",
+      "type" : "array",
+      "title" : "Actions"
+    }, {
+      "name" : "autoStop",
+      "type" : "boolean",
+      "title" : "AutoStop"
+    }, {
+      "name" : "delay",
+      "type" : "integer",
+      "title" : "Delay"
+    }, {
+      "name" : "description",
+      "type" : "string",
+      "title" : "Description"
+    }, {
+      "name" : "fork",
+      "type" : "boolean",
+      "title" : "Fork"
+    }, {
+      "name" : "id",
+      "type" : "string",
+      "title" : "Id"
+    }, {
+      "name" : "interval",
+      "type" : "integer",
+      "title" : "Interval"
+    }, {
+      "name" : "repeatCount",
+      "type" : "integer",
+      "title" : "RepeatCount"
+    } ]
+  } ]
+}

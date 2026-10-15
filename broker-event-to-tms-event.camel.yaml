@@ -1,0 +1,155 @@
+- routeConfiguration:
+    id: broker-event-to-tms-event-errors
+    description: Error handling for delivery of broker events to the TMS
+    onException:
+      - onException:
+          description: Invalid event (e.g. shipmentId not a UUID, unknown event type) -
+            never retried, dead-lettered without an outbound call
+          exception:
+            - java.lang.IllegalArgumentException
+          handled:
+            constant: "true"
+          redeliveryPolicy:
+            maximumRedeliveries: 0
+          steps:
+            - log:
+                loggingLevel: WARN
+                message: "Dead-lettering invalid broker event
+                  ${exchangeProperty.broker-event-id}: ${exception.message}"
+            - marshal:
+                json:
+                  library: Jackson
+            - to:
+                uri: file:{{dlq.directory}}/broker-event-to-tms-event
+                parameters:
+                  fileName: invalid-${exchangeId}.json
+      - onException:
+          description: Delivery failure - retry with backoff, then dead-letter (the
+            sandbox never re-sends a push)
+          exception:
+            - java.lang.Exception
+          handled:
+            constant: "true"
+          redeliveryPolicy:
+            maximumRedeliveries: "{{error.maximum.redeliveries}}"
+            redeliveryDelay: "{{error.redelivery.delay}}"
+            backOffMultiplier: "{{error.backoff.multiplier}}"
+            useExponentialBackOff: true
+          steps:
+            - log:
+                loggingLevel: ERROR
+                message: "Dead-lettering broker event ${exchangeProperty.broker-event-id} for
+                  shipment ${exchangeProperty.shipment-id} after retries:
+                  ${exception.class.name}: ${exception.message}"
+            - choice:
+                when:
+                  - simple: ${body} is 'java.util.Map'
+                    steps:
+                      - marshal:
+                          json:
+                            library: Jackson
+            - to:
+                uri: file:{{dlq.directory}}/broker-event-to-tms-event
+                parameters:
+                  fileName: failed-${exchangeId}.json
+                  allowNullBody: true
+- route:
+    id: broker-event-ingestion
+    description: Authenticate a broker event push by API key and enqueue it for
+      asynchronous delivery
+    from:
+      uri: platform-http:{{inbound.http.path}}
+      parameters:
+        httpMethodRestrict: POST
+        consumes: application/json
+      steps:
+        - choice:
+            when:
+              - groovy:
+                  expression: >
+                    def sha = { String s ->
+                    java.security.MessageDigest.getInstance('SHA-256').digest((s
+                    ?: '').getBytes('UTF-8')) }
+
+                    String expected =
+                    exchange.context.propertiesComponent.resolveProperty('sandbox.inbound.api.key').orElse(null)
+
+                    String supplied = request.getHeader('X-API-KEY', String)
+
+                    expected && supplied &&
+                    java.security.MessageDigest.isEqual(sha(supplied),
+                    sha(expected))
+                steps:
+                  - removeHeader:
+                      name: X-API-KEY
+                  - to:
+                      uri: seda:broker-events
+                      parameters:
+                        waitForTaskToComplete: Never
+                  - log:
+                      message: Authenticated broker event push accepted
+                  - setHeader:
+                      name: CamelHttpResponseCode
+                      constant: "202"
+                  - setBody:
+                      simple:
+                        expression: ${null}
+            otherwise:
+              steps:
+                - removeHeader:
+                    name: X-API-KEY
+                - log:
+                    loggingLevel: WARN
+                    message: "Rejected broker event push: missing or invalid API key"
+                - setHeader:
+                    name: CamelHttpResponseCode
+                    constant: "401"
+                - setBody:
+                    simple:
+                      expression: ${null}
+                - stop: {}
+- route:
+    id: broker-event-delivery
+    description: Map each queued broker event to a TMS shipment event and POST it to the TMS
+    routeConfigurationId: broker-event-to-tms-event-errors
+    from:
+      uri: seda:broker-events
+      steps:
+        - removeHeaders:
+            pattern: "*"
+        - unmarshal:
+            json:
+              library: Jackson
+        - split:
+            groovy:
+              expression: "request.body instanceof List ? request.body : [request.body]"
+            steps:
+              - setProperty:
+                  name: broker-event-id
+                  simple: ${body[id]}
+              - setProperty:
+                  name: shipment-id
+                  method:
+                    beanType: BrokerEventToTmsEventMapper
+                    method: shipmentId
+              - bean:
+                  beanType: BrokerEventToTmsEventMapper
+                  method: map
+              - log:
+                  message: Broker event ${exchangeProperty.broker-event-id} mapped to TMS event
+                    ${body[event_type]} for shipment
+                    ${exchangeProperty.shipment-id}
+              - marshal:
+                  json:
+                    library: Jackson
+              - toD:
+                  uri: "{{sandbox.base.url}}/api/v1/tms/event/${exchangeProperty.shipment-id}?htt\
+                    pMethod=POST&oauth2ClientId=RAW({{sandbox.client.id}})&oaut\
+                    h2ClientSecret=RAW({{sandbox.client.secret}})&oauth2TokenEn\
+                    dpoint={{sandbox.token.endpoint}}&oauth2BodyAuthentication=\
+                    {{sandbox.oauth2.body.authentication}}&oauth2CacheTokens={{\
+                    sandbox.oauth2.cache.tokens}}"
+                  allowedSchemes: http,https
+              - log:
+                  message: TMS event recorded for shipment ${exchangeProperty.shipment-id}, status
+                    ${header.CamelHttpResponseCode}

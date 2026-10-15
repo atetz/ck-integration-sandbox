@@ -1,0 +1,126 @@
+- routeConfiguration:
+    id: tms-shipment-to-broker-order-errors
+    description: Error handling for tender of TMS shipments to the broker
+    onException:
+      - onException:
+          description: Broker rejected the order (422) - not retryable, suppress and dead-letter once
+          exception:
+            - org.apache.camel.http.base.HttpOperationFailedException
+          onWhen:
+            simple: "${exception.statusCode} == 422"
+          handled:
+            constant: "true"
+          redeliveryPolicy:
+            maximumRedeliveries: 0
+          steps:
+            - bean:
+                beanType: RejectedShipments
+                method: "markRejected(${exchangeProperty.shipment-id})"
+            - log:
+                loggingLevel: WARN
+                message: "Shipment ${exchangeProperty.shipment-id} rejected by broker (422), suppressed until restart: ${exception.responseBody}"
+            - to:
+                uri: "file:{{dlq.directory}}/tms-shipment-to-broker-order"
+                parameters:
+                  fileName: "rejected-422-${date:now:yyyyMMddHHmmssSSS}-${exchangeProperty.shipment-id}.json"
+                  allowNullBody: true
+      - onException:
+          description: Transient failure (I/O or 5xx) - retry with backoff, then dead-letter
+          exception:
+            - java.io.IOException
+            - org.apache.camel.http.base.HttpOperationFailedException
+          onWhen:
+            simple: "${exception} is 'java.io.IOException' || ${exception.statusCode} >= 500"
+          handled:
+            constant: "true"
+          redeliveryPolicy:
+            maximumRedeliveries: "{{error.maximum.redeliveries}}"
+            redeliveryDelay: "{{error.redelivery.delay}}"
+            backOffMultiplier: "{{error.backoff.multiplier}}"
+            useExponentialBackOff: true
+          steps:
+            - log:
+                loggingLevel: ERROR
+                message: "Dead-lettering shipment ${exchangeProperty.shipment-id} after retries: ${exception.class.name}: ${exception.message}"
+            - to:
+                uri: "file:{{dlq.directory}}/tms-shipment-to-broker-order"
+                parameters:
+                  fileName: "transient-${date:now:yyyyMMddHHmmssSSS}-${exchangeProperty.shipment-id}.json"
+                  allowNullBody: true
+
+- route:
+    id: shipment-ingestion
+    description: Poll the TMS for new shipments and hand each unrejected shipment to the tender route
+    routeConfigurationId: tms-shipment-to-broker-order-errors
+    from:
+      uri: "timer:shipment-poll"
+      parameters:
+        period: "{{tms.poll.period}}"
+      steps:
+        - to:
+            uri: "{{sandbox.base.url}}/api/v1/tms/shipments/new"
+            parameters:
+              limit: "{{tms.poll.limit}}"
+              httpMethod: GET
+              oauth2ClientId: "RAW({{sandbox.client.id}})"
+              oauth2ClientSecret: "RAW({{sandbox.client.secret}})"
+              oauth2TokenEndpoint: "{{sandbox.token.endpoint}}"
+              oauth2BodyAuthentication: "{{sandbox.oauth2.body.authentication}}"
+              oauth2CacheTokens: "{{sandbox.oauth2.cache.tokens}}"
+        # Drop TMS response headers so they do not leak into the broker POST
+        - removeHeaders:
+            pattern: "*"
+        - convertBodyTo:
+            type: java.lang.String
+        - choice:
+            when:
+              - simple: "${body} == null || ${body.trim()} == '' || ${body.trim()} == 'null'"
+                steps:
+                  - log:
+                      message: "TMS poll returned no shipments"
+            otherwise:
+              steps:
+                - unmarshal:
+                    json:
+                      library: Jackson
+                      useList: true
+                - log:
+                    message: "TMS poll returned ${body.size()} shipment(s)"
+                - split:
+                    simple: "${body}"
+                    steps:
+                      - setProperty:
+                          name: shipment-id
+                          simple: "${body[id]}"
+                      - filter:
+                          method:
+                            beanType: RejectedShipments
+                            method: isNotRejected
+                          steps:
+                            - to:
+                                uri: "direct:shipment-tender"
+
+- route:
+    id: shipment-tender
+    description: Map one TMS shipment to a broker order and POST it to the broker
+    routeConfigurationId: tms-shipment-to-broker-order-errors
+    from:
+      uri: "direct:shipment-tender"
+      steps:
+        - bean:
+            beanType: ShipmentToBrokerOrderMapper
+            method: map
+        - marshal:
+            json:
+              library: Jackson
+        - to:
+            uri: "{{sandbox.base.url}}/api/v1/broker/order"
+            parameters:
+              httpMethod: POST
+              oauth2ClientId: "RAW({{sandbox.client.id}})"
+              oauth2ClientSecret: "RAW({{sandbox.client.secret}})"
+              oauth2TokenEndpoint: "{{sandbox.token.endpoint}}"
+              oauth2BodyAuthentication: "{{sandbox.oauth2.body.authentication}}"
+              oauth2CacheTokens: "{{sandbox.oauth2.cache.tokens}}"
+        - log:
+            message: "Shipment ${exchangeProperty.shipment-id} tendered to broker, status ${header.CamelHttpResponseCode}"

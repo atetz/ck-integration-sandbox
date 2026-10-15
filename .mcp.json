@@ -1,0 +1,40 @@
+{
+  "mcpServers": {
+    "camel": {
+      "command": "jbang",
+      "args": [
+        "--repos", "central=https://repo1.maven.org/maven2/,apache=https://repository.apache.org/content/groups/public/,apache_snap=https://repository.apache.org/content/groups/snapshots/,central_snap=https://central.sonatype.com/repository/maven-snapshots/",
+        "-Dcamel.catalog.repos=https://repo1.maven.org/maven2/,https://repository.apache.org/snapshots",
+        "-Dquarkus.log.level=WARN",
+        "-Dquarkus.http.port=-1",
+        "org.apache.camel:camel-jbang-mcp:4.22.1:runner"
+      ],
+      "description": "Apache Camel MCP Server - Component catalog, validation, and security analysis",
+      "autoApprove": ["camel_catalog_components","camel_catalog_component_doc","camel_catalog_component_maven","camel_catalog_dataformats","camel_catalog_dataformat_doc","camel_catalog_languages","camel_catalog_language_doc","camel_catalog_eips","camel_catalog_eip_doc","camel_catalog_kamelets","camel_catalog_kamelet_doc","camel_catalog_examples","camel_catalog_example_file","camel_validate_route","camel_validate_yaml_dsl","camel_transform_route","camel_route_context","camel_route_harden_context","camel_route_test_scaffold","camel_component_properties","camel_configuration_validate","camel_dependency_check","camel_error_diagnose","camel_properties_translate","camel_version_list","camel_migration_analyze","camel_migration_compatibility","camel_migration_recipes","camel_migration_guide_search","camel_migration_wildfly_karaf","camel_openapi_validate","camel_openapi_scaffold","camel_openapi_mock_guidance"],
+      "alwaysAllow": ["camel_catalog_components","camel_catalog_component_doc","camel_catalog_component_maven","camel_catalog_dataformats","camel_catalog_dataformat_doc","camel_catalog_languages","camel_catalog_language_doc","camel_catalog_eips","camel_catalog_eip_doc","camel_catalog_kamelets","camel_catalog_kamelet_doc","camel_catalog_examples","camel_catalog_example_file","camel_validate_route","camel_validate_yaml_dsl","camel_transform_route","camel_route_context","camel_route_harden_context","camel_route_test_scaffold","camel_component_properties","camel_configuration_validate","camel_dependency_check","camel_error_diagnose","camel_properties_translate","camel_version_list","camel_migration_analyze","camel_migration_compatibility","camel_migration_recipes","camel_migration_guide_search","camel_migration_wildfly_karaf","camel_openapi_validate","camel_openapi_scaffold","camel_openapi_mock_guidance"]
+    },
+    "camel-knowledge": {
+      "command": "jbang",
+      "args": [
+        "--repos", "central=https://repo1.maven.org/maven2/,central_snap=https://central.sonatype.com/repository/maven-snapshots/",
+        "-Dquarkus.log.level=WARN",
+        "io.github.luigidemasi:camel-kit-knowledge-mcp:0.0.2:runner"
+      ],
+      "description": "camel-kit Knowledge Server - documentation search for Apache Camel",
+      "autoApprove": ["camel_docs_component_info","camel_docs_search","camel_docs_cve_search","camel_docs_release_info","camel_docs_jira_lookup"],
+      "alwaysAllow": ["camel_docs_component_info","camel_docs_search","camel_docs_cve_search","camel_docs_release_info","camel_docs_jira_lookup"]
+    },
+    "citrus": {
+      "command": "jbang",
+      "args": [
+        "--repos", "central=https://repo1.maven.org/maven2/",
+        "-Dquarkus.log.level=WARN",
+        "-Dquarkus.http.port=-1",
+        "org.citrusframework:citrus-mcp-server:5.0.1:runner"
+      ],
+      "description": "Citrus MCP Server - test action catalog, endpoint schemas, YAML DSL schema, and test authoring guidance",
+      "autoApprove": ["citrus_catalog_actions","citrus_catalog_action","citrus_catalog_action_schema","citrus_catalog_endpoints","citrus_catalog_endpoint","citrus_catalog_endpoint_schema","citrus_docs_index","citrus_docs_page"],
+      "alwaysAllow": ["citrus_catalog_actions","citrus_catalog_action","citrus_catalog_action_schema","citrus_catalog_endpoints","citrus_catalog_endpoint","citrus_catalog_endpoint_schema","citrus_docs_index","citrus_docs_page"]
+    }
+  }
+}

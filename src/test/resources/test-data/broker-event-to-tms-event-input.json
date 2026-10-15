@@ -1,0 +1,21 @@
+{
+  "id": "0b7e3c9a-5d21-4f6e-9a8b-3c2d1e0f4a5b",
+  "shipmentId": "5b0c2f9e-7d41-4c8a-9e3b-2a6f1d8c4e70",
+  "dateTransmission": "2026-10-05T07:15:00.000Z",
+  "owner": "Van der Berg Logistics",
+  "order": {
+    "reference": "5b0c2f9e-7d41-4c8a-9e3b-2a6f1d8c4e70",
+    "eta": "2026-10-05T08:30:00.000Z"
+  },
+  "situation": {
+    "event": "DRIVING_TO_LOAD",
+    "registrationDate": "2026-10-05T07:14:30.000Z",
+    "actualDate": "2026-10-05T07:10:00.000Z",
+    "position": {
+      "locationReference": "LOC-1001",
+      "latitude": 51.8886,
+      "longitude": 4.4337
+    }
+  },
+  "carrier": "Rijnmond Transport BV"
+}

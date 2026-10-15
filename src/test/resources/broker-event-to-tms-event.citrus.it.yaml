@@ -1,0 +1,577 @@
+# ============================================
+# Citrus Integration Test: broker-event-to-tms-event
+# Scenario A drives the route with a Citrus mock of the TMS so the exact CreateTmsShipmentEvent,
+# the API-key rejection and the invalid-shipmentId handling can be asserted request by request.
+# Scenario B runs the whole application against the live sandbox (localhost:8000): a shipment
+# is tendered by Flow 1, then the sandbox pushes every broker event type to this route.
+#
+# Run from the project root: camel test run src/test/resources/broker-event-to-tms-event.citrus.it.yaml
+# Sandbox credentials are loaded from ../.env (override with -Dsandbox.env.file=...).
+# The sandbox runs in Docker, so it reaches the route via host.docker.internal
+# (override with -Dsandbox.callback.host=...).
+# ============================================
+
+name: broker-event-to-tms-event-integration-test
+author: Camel Kit
+description: Integration test for the broker-event-ingestion and broker-event-delivery routes
+
+variables:
+  - name: "sandbox.url"
+    value: "http://localhost:8000"
+  - name: "credentials.file"
+    value: "citrus:systemProperty('sandbox.env.file', 'file:../.env')"
+  - name: "callback.host"
+    value: "citrus:systemProperty('sandbox.callback.host', 'host.docker.internal')"
+  - name: "mock.url"
+    value: "http://localhost:18001"
+  - name: "mock.route.url"
+    value: "http://localhost:18090/events"
+  - name: "live.port"
+    value: "8080"
+  - name: "live.path"
+    value: "/events"
+  - name: "event.file"
+    value: "src/test/resources/test-data/broker-event-to-tms-event-input.json"
+  - name: "expected.file"
+    value: "src/test/resources/test-data/broker-event-to-tms-event-expected.json"
+  - name: "tms.input.file"
+    value: "src/test/resources/test-data/tms-shipment-to-broker-order-input.json"
+  - name: "mock.shipment.id"
+    value: "5b0c2f9e-7d41-4c8a-9e3b-2a6f1d8c4e70"
+  - name: "mock.api.key"
+    value: "mock-api-key"
+
+endpoints:
+  - http:
+      server:
+        name: "tmsMock"
+        port: 18001
+        autoStart: true
+        timeout: 30000
+
+actions:
+  - load:
+      properties:
+        file: "${credentials.file}"
+
+  # ------------------------------------------------------------------
+  # Scenario A: mocked TMS - authentication, invalid shipmentId, exact mapping, payload shapes
+  # ------------------------------------------------------------------
+  - echo:
+      message: "Scenario A: API key, invalid shipmentId and mapping contract against a mocked TMS"
+
+  - camel:
+      cli:
+        run:
+          integration:
+            name: "flow2-mock"
+            file: "broker-event-to-tms-event.camel.yaml"
+            environment:
+              variables:
+                - name: "SANDBOX_CLIENT_ID"
+                  value: "mock-client"
+                - name: "SANDBOX_CLIENT_SECRET"
+                  value: "mock-secret"
+                - name: "SANDBOX_INBOUND_API_KEY"
+                  value: "${mock.api.key}"
+          resources:
+            - "BrokerEventToTmsEventMapper.groovy"
+          args:
+            - "--camel-version=4.22.1"
+            - "--properties=application.properties,src/test/resources/application-test.properties"
+            - "--prop=sandbox.base.url=${mock.url}"
+            - "--prop=sandbox.token.endpoint=${mock.url}/token"
+            - "--prop=dlq.directory=target/it/mock-dlq"
+            - "--prop=inbound.http.port=18090"
+
+  # AC 5: wrong key -> 401, nothing enqueued
+  - http:
+      client: "${mock.route.url}"
+      sendRequest:
+        POST:
+          contentType: "application/json"
+          headers:
+            - name: "X-API-KEY"
+              value: "not-the-key"
+          body:
+            data: "citrus:readFile('${event.file}')"
+  - http:
+      client: "${mock.route.url}"
+      receiveResponse:
+        response:
+          status: "401"
+
+  # AC 5: missing key -> 401, nothing enqueued
+  - http:
+      client: "${mock.route.url}"
+      sendRequest:
+        POST:
+          contentType: "application/json"
+          body:
+            data: "citrus:readFile('${event.file}')"
+  - http:
+      client: "${mock.route.url}"
+      receiveResponse:
+        response:
+          status: "401"
+
+  # AC 9: shipmentId that is not a UUID -> accepted (202), dead-lettered, no outbound call
+  - http:
+      client: "${mock.route.url}"
+      sendRequest:
+        POST:
+          contentType: "application/json"
+          headers:
+            - name: "X-API-KEY"
+              value: "${mock.api.key}"
+          body:
+            data: '{"id":"evt-injection","shipmentId":"../../../api/v1/nuke","dateTransmission":"2026-10-05T07:15:00.000Z","owner":"x","carrier":"x","order":{"reference":"x","eta":null},"situation":{"event":"ORDER_CREATED","registrationDate":"2026-10-05T07:14:30.000Z","actualDate":"2026-10-05T07:10:00.000Z"}}'
+  - http:
+      client: "${mock.route.url}"
+      receiveResponse:
+        response:
+          status: "202"
+  - camel:
+      cli:
+        verify:
+          integration: "flow2-mock"
+          logMessage: "Dead-lettering invalid broker event evt-injection"
+
+  # AC 4 (mapping): a single JSON object with a valid key -> 202, then exactly one TMS call.
+  # The mock receiving nothing before this proves the 401s and the invalid event made no outbound call.
+  - http:
+      client: "${mock.route.url}"
+      sendRequest:
+        POST:
+          contentType: "application/json"
+          headers:
+            - name: "X-API-KEY"
+              value: "${mock.api.key}"
+          body:
+            data: "citrus:readFile('${event.file}')"
+  - http:
+      client: "${mock.route.url}"
+      receiveResponse:
+        response:
+          status: "202"
+
+  - http:
+      server: "tmsMock"
+      receiveRequest:
+        POST:
+          path: "/token"
+  - http:
+      server: "tmsMock"
+      sendResponse:
+        response:
+          status: "200"
+          contentType: "application/json"
+          body:
+            data: '{"access_token":"mock-token","token_type":"bearer"}'
+  - http:
+      server: "tmsMock"
+      receiveRequest:
+        POST:
+          path: "/api/v1/tms/event/${mock.shipment.id}"
+          headers:
+            - name: "Authorization"
+              value: "Bearer mock-token"
+          body:
+            data: "citrus:readFile('${expected.file}')"
+  - http:
+      server: "tmsMock"
+      sendResponse:
+        response:
+          status: "202"
+
+  # Payload shape (design OQ-1): a JSON array is split into one TMS call per event.
+  # Events without a position must produce no `location` at all.
+  - http:
+      client: "${mock.route.url}"
+      sendRequest:
+        POST:
+          contentType: "application/json"
+          headers:
+            - name: "X-API-KEY"
+              value: "${mock.api.key}"
+          body:
+            data: '[{"id":"evt-created","shipmentId":"${mock.shipment.id}","dateTransmission":"2026-10-04T16:00:00.000Z","owner":"x","carrier":"x","order":{"reference":"${mock.shipment.id}","eta":null},"situation":{"event":"ORDER_CREATED","registrationDate":"2026-10-04T16:00:00.000Z","actualDate":"2026-10-04T15:59:00.000Z"}},{"id":"evt-cancel","shipmentId":"${mock.shipment.id}","dateTransmission":"2026-10-04T17:00:00.000Z","owner":"x","carrier":"x","order":{"reference":"${mock.shipment.id}","eta":null},"situation":{"event":"CANCEL_ORDER","registrationDate":"2026-10-04T17:00:00.000Z","actualDate":"2026-10-04T16:58:00.000Z"}}]'
+  - http:
+      client: "${mock.route.url}"
+      receiveResponse:
+        response:
+          status: "202"
+  - http:
+      server: "tmsMock"
+      receiveRequest:
+        POST:
+          path: "/api/v1/tms/event/${mock.shipment.id}"
+          body:
+            data: '{"created_at":"2026-10-04T16:00:00.000Z","occured_at":"2026-10-04T15:59:00.000Z","event_type":"BOOKED","external_order_reference":"${mock.shipment.id}","source":"broker"}'
+  - http:
+      server: "tmsMock"
+      sendResponse:
+        response:
+          status: "202"
+  - http:
+      server: "tmsMock"
+      receiveRequest:
+        POST:
+          path: "/api/v1/tms/event/${mock.shipment.id}"
+          body:
+            data: '{"created_at":"2026-10-04T17:00:00.000Z","occured_at":"2026-10-04T16:58:00.000Z","event_type":"CANCELLED","external_order_reference":"${mock.shipment.id}","source":"broker"}'
+  - http:
+      server: "tmsMock"
+      sendResponse:
+        response:
+          status: "202"
+
+  - camel:
+      cli:
+        verify:
+          integration: "flow2-mock"
+          logMessage: "Rejected broker event push: missing or invalid API key"
+  - camel:
+      cli:
+        stop:
+          integration: "flow2-mock"
+
+  # ------------------------------------------------------------------
+  # Scenario B: live sandbox - tendered shipment receives all six event types (AC 4, AC 6)
+  # ------------------------------------------------------------------
+  - echo:
+      message: "Scenario B: sandbox pushes every broker event type for a tendered shipment"
+
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        POST:
+          path: "/token"
+          contentType: "application/x-www-form-urlencoded"
+          body:
+            data: "grant_type=client_credentials&client_id=${SANDBOX_CLIENT_ID}&client_secret=${SANDBOX_CLIENT_SECRET}"
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "200"
+        extract:
+          body:
+            - path: "$.access_token"
+              variable: "access.token"
+
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        DELETE:
+          path: "/api/v1/nuke"
+          headers:
+            - name: "Authorization"
+              value: "Bearer ${access.token}"
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "204"
+
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        POST:
+          path: "/api/v1/tms/shipments"
+          contentType: "application/json"
+          headers:
+            - name: "Authorization"
+              value: "Bearer ${access.token}"
+          body:
+            data: "citrus:readFile('${tms.input.file}')"
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "201"
+        extract:
+          body:
+            - path: "$.id"
+              variable: "shipment.id"
+
+  # The whole application: Flow 1 tenders the shipment, Flow 2 receives the pushes
+  - camel:
+      cli:
+        run:
+          integration:
+            name: "app-live"
+            file: "broker-event-to-tms-event.camel.yaml"
+            environment:
+              variables:
+                - name: "SANDBOX_CLIENT_ID"
+                  value: "${SANDBOX_CLIENT_ID}"
+                - name: "SANDBOX_CLIENT_SECRET"
+                  value: "${SANDBOX_CLIENT_SECRET}"
+                - name: "SANDBOX_INBOUND_API_KEY"
+                  value: "${SANDBOX_INBOUND_API_KEY}"
+          resources:
+            - "tms-shipment-to-broker-order.camel.yaml"
+            - "ShipmentToBrokerOrderMapper.groovy"
+            - "RejectedShipments.groovy"
+            - "BrokerEventToTmsEventMapper.groovy"
+          args:
+            - "--camel-version=4.22.1"
+            - "--properties=application.properties,src/test/resources/application-test.properties"
+            - "--prop=inbound.http.port=${live.port}"
+
+  - camel:
+      cli:
+        verify:
+          integration: "app-live"
+          logMessage: "Shipment ${shipment.id} tendered to broker, status 202"
+          maxAttempts: 30
+          delayBetweenAttempts: 1000
+
+  # AC 6: ORDER_CREATED for the tendered shipment -> BOOKED, with no location
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        POST:
+          path: "/api/v1/trigger/events"
+          contentType: "application/json"
+          headers:
+            - name: "Authorization"
+              value: "Bearer ${access.token}"
+          body:
+            data: '{"target_url":"http://${callback.host}:${live.port}${live.path}","event":"ORDER_CREATED","shipment_ids":["${shipment.id}"]}'
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "201"
+        validate:
+          - jsonPath:
+              - expression: "$.target_url_response_status"
+                value: "202"
+  - camel:
+      cli:
+        verify:
+          integration: "app-live"
+          logMessage: "mapped to TMS event BOOKED for shipment ${shipment.id}"
+          maxAttempts: 15
+          delayBetweenAttempts: 1000
+
+  # AC 4: the remaining five event types, each accepted with 202
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        POST:
+          path: "/api/v1/trigger/events"
+          contentType: "application/json"
+          headers:
+            - name: "Authorization"
+              value: "Bearer ${access.token}"
+          body:
+            data: '{"target_url":"http://${callback.host}:${live.port}${live.path}","event":"DRIVING_TO_LOAD","shipment_ids":["${shipment.id}"]}'
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "201"
+        validate:
+          - jsonPath:
+              - expression: "$.target_url_response_status"
+                value: "202"
+  - camel:
+      cli:
+        verify:
+          integration: "app-live"
+          logMessage: "mapped to TMS event DISPATCHED for shipment ${shipment.id}"
+          maxAttempts: 15
+          delayBetweenAttempts: 1000
+
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        POST:
+          path: "/api/v1/trigger/events"
+          contentType: "application/json"
+          headers:
+            - name: "Authorization"
+              value: "Bearer ${access.token}"
+          body:
+            data: '{"target_url":"http://${callback.host}:${live.port}${live.path}","event":"ORDER_LOADED","shipment_ids":["${shipment.id}"]}'
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "201"
+        validate:
+          - jsonPath:
+              - expression: "$.target_url_response_status"
+                value: "202"
+  - camel:
+      cli:
+        verify:
+          integration: "app-live"
+          logMessage: "mapped to TMS event PICKED_UP for shipment ${shipment.id}"
+          maxAttempts: 15
+          delayBetweenAttempts: 1000
+
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        POST:
+          path: "/api/v1/trigger/events"
+          contentType: "application/json"
+          headers:
+            - name: "Authorization"
+              value: "Bearer ${access.token}"
+          body:
+            data: '{"target_url":"http://${callback.host}:${live.port}${live.path}","event":"ETA_EVENT","shipment_ids":["${shipment.id}"]}'
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "201"
+        validate:
+          - jsonPath:
+              - expression: "$.target_url_response_status"
+                value: "202"
+  - camel:
+      cli:
+        verify:
+          integration: "app-live"
+          logMessage: "mapped to TMS event ETA_CHANGED for shipment ${shipment.id}"
+          maxAttempts: 15
+          delayBetweenAttempts: 1000
+
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        POST:
+          path: "/api/v1/trigger/events"
+          contentType: "application/json"
+          headers:
+            - name: "Authorization"
+              value: "Bearer ${access.token}"
+          body:
+            data: '{"target_url":"http://${callback.host}:${live.port}${live.path}","event":"ORDER_DELIVERED","shipment_ids":["${shipment.id}"]}'
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "201"
+        validate:
+          - jsonPath:
+              - expression: "$.target_url_response_status"
+                value: "202"
+  - camel:
+      cli:
+        verify:
+          integration: "app-live"
+          logMessage: "mapped to TMS event DELIVERED for shipment ${shipment.id}"
+          maxAttempts: 15
+          delayBetweenAttempts: 1000
+
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        POST:
+          path: "/api/v1/trigger/events"
+          contentType: "application/json"
+          headers:
+            - name: "Authorization"
+              value: "Bearer ${access.token}"
+          body:
+            data: '{"target_url":"http://${callback.host}:${live.port}${live.path}","event":"CANCEL_ORDER","shipment_ids":["${shipment.id}"]}'
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "201"
+        validate:
+          - jsonPath:
+              - expression: "$.target_url_response_status"
+                value: "202"
+  - camel:
+      cli:
+        verify:
+          integration: "app-live"
+          logMessage: "mapped to TMS event CANCELLED for shipment ${shipment.id}"
+          maxAttempts: 15
+          delayBetweenAttempts: 1000
+
+  # All six events recorded in the TMS, in push order; location only for the four location-based types
+  - repeatOnError:
+      until: "i = 10"
+      index: "i"
+      autoSleep: 1000
+      actions:
+        - http:
+            client: "${sandbox.url}"
+            sendRequest:
+              GET:
+                path: "/api/v1/tms/shipments"
+                parameters:
+                  - name: "id"
+                    value: "${shipment.id}"
+                headers:
+                  - name: "Authorization"
+                    value: "Bearer ${access.token}"
+        - http:
+            client: "${sandbox.url}"
+            receiveResponse:
+              response:
+                status: "200"
+              validate:
+                - jsonPath:
+                    - expression: "$[0].timeline_events.length()"
+                      value: "6"
+                    - expression: "$[0].timeline_events[0].event_type"
+                      value: "BOOKED"
+                    - expression: "$[0].timeline_events[0].location"
+                      value: "@null()@"
+                    - expression: "$[0].timeline_events[0].source"
+                      value: "broker"
+                    # The sandbox broker assigns its own ORD-... order reference, carried from order.reference
+                    - expression: "$[0].timeline_events[0].external_order_reference"
+                      value: "@startsWith('ORD-')@"
+                    - expression: "$[0].timeline_events[1].event_type"
+                      value: "DISPATCHED"
+                    - expression: "$[0].timeline_events[1].location.code"
+                      value: "@notEmpty()@"
+                    - expression: "$[0].timeline_events[2].event_type"
+                      value: "PICKED_UP"
+                    - expression: "$[0].timeline_events[2].location.code"
+                      value: "@notEmpty()@"
+                    - expression: "$[0].timeline_events[3].event_type"
+                      value: "ETA_CHANGED"
+                    - expression: "$[0].timeline_events[3].location.code"
+                      value: "@notEmpty()@"
+                    - expression: "$[0].timeline_events[4].event_type"
+                      value: "DELIVERED"
+                    - expression: "$[0].timeline_events[4].location.code"
+                      value: "@notEmpty()@"
+                    - expression: "$[0].timeline_events[5].event_type"
+                      value: "CANCELLED"
+                    - expression: "$[0].timeline_events[5].location"
+                      value: "@null()@"
+
+  - camel:
+      cli:
+        stop:
+          integration: "app-live"
+
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        DELETE:
+          path: "/api/v1/nuke"
+          headers:
+            - name: "Authorization"
+              value: "Bearer ${access.token}"
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "204"
+
+  - echo:
+      message: "All scenarios passed for broker-event-to-tms-event"

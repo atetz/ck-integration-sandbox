@@ -1,0 +1,385 @@
+# ============================================
+# Citrus Integration Test: tms-shipment-to-broker-order
+# Scenario A drives the route against a Citrus mock of the sandbox so the exact
+# CreateBrokerOrderMessage, the empty-poll handling and the 422 suppression can be
+# asserted. Scenario B runs the route against the live sandbox (localhost:8000).
+#
+# Run from the project root: camel test run src/test/resources/tms-shipment-to-broker-order.citrus.it.yaml
+# Sandbox credentials are loaded from ../.env (override with -Dsandbox.env.file=...).
+# ============================================
+
+name: tms-shipment-to-broker-order-integration-test
+author: Camel Kit
+description: Integration test for the shipment-ingestion and shipment-tender routes
+
+variables:
+  - name: "sandbox.url"
+    value: "http://localhost:8000"
+  - name: "credentials.file"
+    value: "citrus:systemProperty('sandbox.env.file', 'file:../.env')"
+  - name: "mock.url"
+    value: "http://localhost:18000"
+  - name: "broker.sender.id"
+    value: "CHANGEME"
+  - name: "input.file"
+    value: "src/test/resources/test-data/tms-shipment-to-broker-order-input.json"
+  - name: "expected.file"
+    value: "src/test/resources/test-data/tms-shipment-to-broker-order-expected.json"
+  # The mocked broker rejects a second tender of the fixture shipment (same id)
+  - name: "poison.id"
+    value: "5b0c2f9e-7d41-4c8a-9e3b-2a6f1d8c4e70"
+
+endpoints:
+  - http:
+      server:
+        name: "sandboxMock"
+        port: 18000
+        autoStart: true
+        timeout: 30000
+
+actions:
+  - load:
+      properties:
+        file: "${credentials.file}"
+
+  # ------------------------------------------------------------------
+  # Scenario A: mapping contract, empty poll and 422 suppression (mocked sandbox)
+  # ------------------------------------------------------------------
+  - echo:
+      message: "Scenario A: mapping contract, empty poll, 422 suppression against a mocked sandbox"
+
+  - camel:
+      cli:
+        run:
+          integration:
+            name: "flow1-mock"
+            file: "tms-shipment-to-broker-order.camel.yaml"
+            environment:
+              variables:
+                - name: "SANDBOX_CLIENT_ID"
+                  value: "mock-client"
+                - name: "SANDBOX_CLIENT_SECRET"
+                  value: "mock-secret"
+                - name: "SANDBOX_INBOUND_API_KEY"
+                  value: "mock-api-key"
+          resources:
+            - "ShipmentToBrokerOrderMapper.groovy"
+            - "RejectedShipments.groovy"
+          args:
+            - "--camel-version=4.22.1"
+            - "--properties=application.properties,src/test/resources/application-test.properties"
+            - "--prop=sandbox.base.url=${mock.url}"
+            - "--prop=sandbox.token.endpoint=${mock.url}/token"
+            - "--prop=dlq.directory=target/it/mock-dlq"
+            - "--prop=broker.sender.id=${broker.sender.id}"
+            # Keep 8080 free for the live scenario that follows
+            - "--prop=inbound.http.port=18089"
+
+  # Poll 1: client-credentials token, then one shipment
+  - http:
+      server: "sandboxMock"
+      receiveRequest:
+        POST:
+          path: "/token"
+          body:
+            data: "@contains('grant_type=client_credentials')@"
+  - http:
+      server: "sandboxMock"
+      sendResponse:
+        response:
+          status: "200"
+          contentType: "application/json"
+          body:
+            data: '{"access_token":"mock-token","token_type":"bearer"}'
+  - http:
+      server: "sandboxMock"
+      receiveRequest:
+        GET:
+          path: "/api/v1/tms/shipments/new"
+          parameters:
+            - name: "limit"
+              value: "50"
+          headers:
+            - name: "Authorization"
+              value: "Bearer mock-token"
+  - http:
+      server: "sandboxMock"
+      sendResponse:
+        response:
+          status: "200"
+          contentType: "application/json"
+          body:
+            data: "[citrus:readFile('${input.file}')]"
+
+  # The tender endpoint caches its own token, so it fetches one on first use
+  - http:
+      server: "sandboxMock"
+      receiveRequest:
+        POST:
+          path: "/token"
+  - http:
+      server: "sandboxMock"
+      sendResponse:
+        response:
+          status: "200"
+          contentType: "application/json"
+          body:
+            data: '{"access_token":"mock-token","token_type":"bearer"}'
+
+  # AC 2: the tendered order matches the expected fixture exactly
+  # (8 handling units, quantity.grossWeight 33286.01)
+  - http:
+      server: "sandboxMock"
+      receiveRequest:
+        POST:
+          path: "/api/v1/broker/order"
+          headers:
+            - name: "Content-Type"
+              value: "@startsWith('application/json')@"
+            - name: "Authorization"
+              value: "Bearer mock-token"
+          body:
+            data: "citrus:readFile('${expected.file}')"
+  - http:
+      server: "sandboxMock"
+      sendResponse:
+        response:
+          status: "202"
+
+  # Poll 2: empty body is an empty poll, not an error. The cached token is reused (no /token call).
+  - http:
+      server: "sandboxMock"
+      receiveRequest:
+        GET:
+          path: "/api/v1/tms/shipments/new"
+  - http:
+      server: "sandboxMock"
+      sendResponse:
+        response:
+          status: "200"
+          contentType: "application/json"
+          body:
+            data: ""
+
+  # Poll 3: a JSON null body is also an empty poll
+  - http:
+      server: "sandboxMock"
+      receiveRequest:
+        GET:
+          path: "/api/v1/tms/shipments/new"
+  - http:
+      server: "sandboxMock"
+      sendResponse:
+        response:
+          status: "200"
+          contentType: "application/json"
+          body:
+            data: "null"
+
+  # Poll 4: the broker now rejects the shipment with 422 (AC 7)
+  - http:
+      server: "sandboxMock"
+      receiveRequest:
+        GET:
+          path: "/api/v1/tms/shipments/new"
+  - http:
+      server: "sandboxMock"
+      sendResponse:
+        response:
+          status: "200"
+          contentType: "application/json"
+          body:
+            data: "[citrus:readFile('${input.file}')]"
+  - http:
+      server: "sandboxMock"
+      receiveRequest:
+        POST:
+          path: "/api/v1/broker/order"
+          body:
+            data: "citrus:readFile('${expected.file}')"
+  - http:
+      server: "sandboxMock"
+      sendResponse:
+        response:
+          status: "422"
+          contentType: "application/json"
+          body:
+            data: '{"detail":[{"msg":"rejected by test"}]}'
+
+  # Poll 5: the same shipment is still `new`, but it must not be tendered again.
+  # If the route re-tendered it, the next request would be a POST, not the GET expected in poll 6.
+  - http:
+      server: "sandboxMock"
+      receiveRequest:
+        GET:
+          path: "/api/v1/tms/shipments/new"
+  - http:
+      server: "sandboxMock"
+      sendResponse:
+        response:
+          status: "200"
+          contentType: "application/json"
+          body:
+            data: "[citrus:readFile('${input.file}')]"
+
+  # Poll 6
+  - http:
+      server: "sandboxMock"
+      receiveRequest:
+        GET:
+          path: "/api/v1/tms/shipments/new"
+  - http:
+      server: "sandboxMock"
+      sendResponse:
+        response:
+          status: "200"
+          contentType: "application/json"
+          body:
+            data: "[]"
+
+  - camel:
+      cli:
+        verify:
+          integration: "flow1-mock"
+          logMessage: "TMS poll returned no shipments"
+  - camel:
+      cli:
+        verify:
+          integration: "flow1-mock"
+          logMessage: "Shipment ${poison.id} rejected by broker (422), suppressed until restart"
+  - camel:
+      cli:
+        stop:
+          integration: "flow1-mock"
+
+  # ------------------------------------------------------------------
+  # Scenario B: live sandbox - tender within one poll (AC 1) and cleared from /new (AC 3)
+  # ------------------------------------------------------------------
+  - echo:
+      message: "Scenario B: tender a shipment against the live sandbox"
+
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        POST:
+          path: "/token"
+          contentType: "application/x-www-form-urlencoded"
+          body:
+            data: "grant_type=client_credentials&client_id=${SANDBOX_CLIENT_ID}&client_secret=${SANDBOX_CLIENT_SECRET}"
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "200"
+        extract:
+          body:
+            - path: "$.access_token"
+              variable: "access.token"
+
+  # Independent run: reset sandbox state
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        DELETE:
+          path: "/api/v1/nuke"
+          headers:
+            - name: "Authorization"
+              value: "Bearer ${access.token}"
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "204"
+
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        POST:
+          path: "/api/v1/tms/shipments"
+          contentType: "application/json"
+          headers:
+            - name: "Authorization"
+              value: "Bearer ${access.token}"
+          body:
+            data: "citrus:readFile('${input.file}')"
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "201"
+        extract:
+          body:
+            - path: "$.id"
+              variable: "shipment.id"
+
+  - camel:
+      cli:
+        run:
+          integration:
+            name: "flow1-live"
+            file: "tms-shipment-to-broker-order.camel.yaml"
+            environment:
+              variables:
+                - name: "SANDBOX_CLIENT_ID"
+                  value: "${SANDBOX_CLIENT_ID}"
+                - name: "SANDBOX_CLIENT_SECRET"
+                  value: "${SANDBOX_CLIENT_SECRET}"
+                - name: "SANDBOX_INBOUND_API_KEY"
+                  value: "${SANDBOX_INBOUND_API_KEY}"
+          resources:
+            - "ShipmentToBrokerOrderMapper.groovy"
+            - "RejectedShipments.groovy"
+          args:
+            - "--camel-version=4.22.1"
+            - "--properties=application.properties,src/test/resources/application-test.properties"
+
+  # AC 1: tendered within one poll cycle, broker answered 202
+  - camel:
+      cli:
+        verify:
+          integration: "flow1-live"
+          logMessage: "Shipment ${shipment.id} tendered to broker, status 202"
+          maxAttempts: 30
+          delayBetweenAttempts: 1000
+
+  # AC 3: the shipment no longer appears in /new
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        GET:
+          path: "/api/v1/tms/shipments/new"
+          parameters:
+            - name: "id"
+              value: "${shipment.id}"
+          headers:
+            - name: "Authorization"
+              value: "Bearer ${access.token}"
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "200"
+          body:
+            data: "null"
+
+  - camel:
+      cli:
+        stop:
+          integration: "flow1-live"
+
+  - http:
+      client: "${sandbox.url}"
+      sendRequest:
+        DELETE:
+          path: "/api/v1/nuke"
+          headers:
+            - name: "Authorization"
+              value: "Bearer ${access.token}"
+  - http:
+      client: "${sandbox.url}"
+      receiveResponse:
+        response:
+          status: "204"
+
+  - echo:
+      message: "All scenarios passed for tms-shipment-to-broker-order"

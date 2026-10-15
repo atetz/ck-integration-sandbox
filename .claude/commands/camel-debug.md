@@ -1,0 +1,1 @@
+Read .claude/skills/camel-debug/SKILL.md and follow those instructions. Requested input: $ARGUMENTS
