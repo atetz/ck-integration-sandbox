@@ -1,0 +1,75 @@
+# ============================================
+# Apache Camel / Java / Groovy / Citrus
+# ============================================
+
+# --- Maven ---
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# Keep the wrapper jar out; mvnw downloads it on demand
+.mvn/wrapper/maven-wrapper.jar
+
+# --- Gradle (in case it is ever used) ---
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# --- Java / Groovy compiled output ---
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+out/
+bin/
+
+# --- Camel JBang runtime / export ---
+.camel-jbang/
+.camel-jbang-run*
+camel-runner.jar
+# Local dead-letter / file-component output written at runtime
+data/dlq/
+
+# --- Citrus / test reports ---
+citrus-reports/
+test-output/
+logs/
+*.log
+
+# --- Secrets / local config ---
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.jks
+application-local.properties
+
+# --- Claude Code (local, per-user settings) ---
+.claude/settings.local.json
+
+# --- IDEs ---
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.project
+.classpath
+.settings/
+.factorypath
+.groovy/
+.nb-gradle/
+nbproject/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
